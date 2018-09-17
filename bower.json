@@ -1,0 +1,38 @@
+{
+  "name": "newvote",
+  "description": "new vote",
+  "homepage": "http://meanjs.org/",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "1.7.2",
+    "angular-resource": "~1.3",
+    "angular-animate": "~1.3",
+    "angular-mocks": "~1.3",
+    "angular-sanitize": "1.6.10",
+    "angular-ui-utils": "bower",
+    "angular-ui-router": "~0.2",
+    "angular-file-upload": "1.1.5",
+    "angular-messages": "~1.3.17",
+    "owasp-password-strength-test": "~1.3.0",
+    "angular-material": "^1.1.4",
+    "lodash": "^4.17.4",
+    "ngQuill": "ng-quill#^3.3.0",
+    "quill": "https://github.com/quilljs/quill/releases/download/v1.1.5/quill.tar.gz",
+    "ng-file-upload": "^12.2.13",
+    "angular-update-meta": "~2.0.1",
+    "angular-chart.js": "^1.1.1",
+    "chart.js": "^2.7.1",
+    "angular-material-icons": "^0.7.1",
+    "ngstorage": "^0.3.11",
+    "angular-ui-carousel": "^0.1.10",
+    "angular-recaptcha": "^4.1.3",
+    "ang-accordion": "*",
+    "v-accordion": "^1.6.0"
+  },
+  "resolutions": {
+    "angular": "~1.6.4",
+    "angular-animate": "^1.4.8",
+    "angular-messages": "^1.4.8",
+    "quill": "e-tag:41d86eee0"
+  }
+}

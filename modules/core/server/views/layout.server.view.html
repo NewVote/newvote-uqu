@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+  <base href="/">
+  <title>{{title}}</title>
+  <meta name="description" content="{{description}}">
+  <meta name="fragment" content="!">
+
+  <!-- Apple META -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <!-- Facebook META -->
+  <meta property="fb:app_id" content="{{facebookAppId}}">
+  <meta property="og:site_name" content="{{title}}">
+  <meta property="og:title" content="{{title}}">
+  <meta property="og:description" content="{{description}}">
+  <meta property="og:url" content="{{url}}">
+  <meta property="og:image" content="{{logo}}">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter META -->
+  <meta name="twitter:title" content="{{title}}">
+  <meta name="twitter:description" content="{{description}}">
+  <meta name="twitter:url" content="{{url}}">
+  <meta name="twitter:image" content="{{logo}}">
+
+  <!-- Fav Icon -->
+  <link href="{{favicon}}" rel="shortcut icon" type="image/x-icon">
+
+  <!-- Application CSS Files -->
+  {% for cssFile in cssFiles %}<link rel="stylesheet" href="{{cssFile}}">{% endfor %}
+</head>
+
+<body class="ng-cloak" layout="column" flex>
+
+  <div ng-controller="HomeController" flex layout="column" ng-cloak>
+
+      <div id="prerender" class="prerender" ng-if="{{isPrerender}}">
+      </div>
+
+    <section layout="row" flex>
+      <md-sidenav class="md-sidenav-left"
+        md-component-id="left"
+        md-is-open="shouldLeftBeOpen"
+        md-disable-backdrop="true"
+        md-whiteframe="4">
+        <md-content>
+          <div flex ng-include="'modules/core/client/views/sidebar.client.view.html'"></div>
+        </md-content>
+      </md-sidenav>
+      <md-content flex layout-fill layout="column">
+        <div ng-include="'modules/core/client/views/header.client.view.html'"></div>
+        <md-progress-linear md-mode="query" class="md-primary" ng-if="requestsPending"></md-progress-linear>
+        <md-content flex>
+          {% block content %}{% endblock %}
+        </md-content>
+      </md-content>
+    </section>
+
+  </div>
+
+  <!--Embedding The User Object-->
+  <script type="text/javascript">
+    var user = {{ user | json | safe }};
+  </script>
+
+  <!--Embedding The User Object-->
+  <script type="text/javascript">
+    var config = {{ config | json | safe }};
+  </script>
+
+  <!--Embedding The Prerender Flag-->
+  <script type="text/javascript">
+    window.isPrerender = {{ isPrerender | json | safe }};
+  </script>
+
+  <!--Load The Socket.io File-->
+  <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+  <!-- <div class='polis' data-conversation_id='6vdjkikpra'></div>
+  <script async='true' src='https://pol.is/embed.js'></script> -->
+  <script async="true" src="https://pol.is/embed.js"></script>
+
+  <!--Application JavaScript Files-->
+  {% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
+  <script>window.prerenderReady = true;</script>
+
+  {% if livereload %}
+  <!--Livereload script rendered -->
+  <script type="text/javascript" src="{{host}}:35729/livereload.js"></script>
+  {% endif %}
+
+  <!-- <script src="lib/chart.js/dist/Chart.min.js"></script>
+  <script src="lib/angular-chart.js/dist/angular-chart.min.js"></script> -->
+  <!-- <script src="lib/angular-material-icons/angular-material-icons.min.js"></script> -->
+</body>
+
+</html>

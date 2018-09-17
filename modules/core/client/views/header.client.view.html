@@ -1,0 +1,98 @@
+<md-toolbar class="md-primary md-hue-2 app-header">
+	<div class="md-toolbar-tools" flex-offset-lg="5" flex-lg="90" flex-offset-xl="15" flex-xl="70">
+		<md-button ng-click="toggleLeft()" class="md-icon-button">
+			<md-icon>menu</md-icon>
+		</md-button>
+		<md-truncate flex class="home-title">{{headerTitle}}
+			<md-tooltip>{{headerTitle}}</md-tooltip>
+		</md-truncate>
+
+		<div flex="auto" layout="column" hide>
+			<md-input-container md-no-float class="md-block search-input simple" md-no-asterisk ng-if="!$state.includes('home')">
+				<md-autocomplete md-no-cache="true" md-clear-button="false" placeholder="Search" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in results" md-search-text-change="searchAll(searchText)" md-item-text="getItemTitle(item)" md-delay="300"
+				    md-min-length="1">
+
+					<md-item-template>
+						<a class="search-item" href="{{getHyperLink(item)}}">
+                  			<span><strong>{{item.model}}: </strong></span>
+                  			<span md-highlight-text="searchText" md-highlight-flags="gi">{{getItemTitle(item)}}</span>
+                		</a>
+					</md-item-template>
+					<md-not-found>
+						No matches found.
+					</md-not-found>
+
+				</md-autocomplete>
+			</md-input-container>
+		</div>
+
+		<!-- <span flex></span> -->
+
+		<md-button aria-label="Show search" class="md-icon-button" ng-click="openSearch()">
+			<md-icon>search</md-icon>
+		</md-button>
+
+		<md-button ng-show="!authentication.user" aria-label="Sign In" class="md-raised" ui-sref="authentication.signin" md-colors="{color: 'grey-A200', 'background': 'default-warn'}" class="md-accent md-hue-1">
+			Sign In
+		</md-button>
+
+		<md-menu ng-show="authentication.user">
+			<md-button aria-label="Open phone intersolutions menu" class="md-icon-button" ng-click="openMenu($mdMenu, $event)">
+				<md-icon>person</md-icon>
+				<md-tooltip md-direction="left">Signed in as {{::authentication.user.displayName}}</md-tooltip>
+			</md-button>
+			<md-menu-content width="4">
+
+				<md-menu-item>
+					<md-button ui-sref="settings.profile">
+						My Profile
+					</md-button>
+				</md-menu-item>
+
+				<md-menu-item ng-if="authentication.user.roles.indexOf('admin') != -1">
+					<md-button ui-sref="admin.users">
+						Manage Users
+					</md-button>
+				</md-menu-item>
+
+				<md-menu-item>
+					<md-button href="/api/auth/signout" target="_self">
+						Sign Out
+					</md-button>
+				</md-menu-item>
+			</md-menu-content>
+		</md-menu>
+	</div>
+</md-toolbar>
+
+<md-toolbar class="md-primary" layout-padding ng-if="searchOpen">
+	<md-input-container flex="auto" md-no-float class="md-block search-input simple" md-no-asterisk>
+		<md-autocomplete md-no-cache="true" md-clear-button="false" placeholder="Search" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in results" md-search-text-change="searchAll(searchText)" md-item-text="getItemTitle(item)" md-delay="300"
+		    md-min-length="1">
+
+			<md-item-template>
+				<a class="search-item" ng-click="redirectTo(item)">
+			          <span><strong>{{item.model}}: </strong></span>
+			          <span md-highlight-text="searchText" md-highlight-flags="gi">{{getItemTitle(item)}}</span>
+			        </a>
+			</md-item-template>
+			<md-not-found>
+				No matches found.
+			</md-not-found>
+
+		</md-autocomplete>
+	</md-input-container>
+</md-toolbar>
+
+<md-content md-colors="{color: 'grey-A200', 'background': 'default-warn'}" class="md-accent md-hue-1">
+
+	<div ng-if="authentication.user && !authentication.user.verified" class="footer" layout-padding layout="row" layout-align="center center" flex>
+		<span>Your account isn't verified yet. Please Verify your account below.</span>
+	</div>
+	<div  ng-if="message" class="footer" layout-padding layout="row" layout-align="center center" flex>
+		<span>This is a prototype. We have a long way to go. Please give us <a target="_blank" href="https://goo.gl/forms/HhdYafKjPtn7Kchu2">your feedback here.</a></span>
+		<md-button  ng-click="toggleMessage()" class="md-icon-button" aria-label="More">
+			<md-icon>close</md-icon>
+		</md-button>
+	</div>
+</md-content>

@@ -1,0 +1,90 @@
+<!-- <md-button class="md-primary" href="asdaskldj">HOME PAGE</md-button> -->
+<!-- <div><img style="width:100%" src="modules/core/client/img/home.png"></div> -->
+<!-- Meta tags -->
+<!-- Basic meta tags -->
+<update-title title="{{ title }}"></update-title>
+<update-meta name="description" content="{{ desc }}"></update-meta>
+
+<!-- Facebook META -->
+<update-meta property="og:title" content="{{ title }}"></update-meta>
+<update-meta property="og:description" content="{{ desc }}"></update-meta>
+<update-meta property="og:url" use-abs-url="true"></update-meta>
+
+<!-- Twitter META -->
+<update-meta name="twitter:title" content="{{ title }}"></update-meta>
+<update-meta name="twitter:description" content="{{ desc }}"></update-meta>
+<update-meta name="twitter:url" use-abs-url="true"></update-meta>
+
+<div class="home-container">
+	<div class="home-search-banner" layout="column" layout-align="center center">
+
+		<h1 class="title-text">
+            Thanks for your suggestion!
+        </h1>
+
+        <div layout="column" layout-align="center center" md-colors="{color:'grey-A100'}">
+            <p>
+    			Our team of curators are busy going through all of the great suggestions from our community,
+                and will get to yours as soon as they can!
+    		</p>
+
+    		<p>
+    			In the mean time, why not take a look around?
+    		</p>
+        </div>
+
+		<md-input-container md-no-float class="md-block search-input home-search simple " md-no-asterisk>
+			<md-autocomplete md-no-cache="true" md-clear-button="false" placeholder="Search" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in results" md-search-text-change="searchAll(searchText)" md-item-text="getItemTitle(item)" md-delay="300"
+			    md-min-length="1">
+
+				<md-item-template>
+					<a class="search-item" href="{{getHyperLink(item)}}">
+                        <span><strong>{{item.model}}: </strong></span>
+                        <span md-highlight-text="searchText" md-highlight-flags="gi">{{getItemTitle(item)}}</span>
+                    </a>
+				</md-item-template>
+				<md-not-found>
+					No matches found.
+				</md-not-found>
+			</md-autocomplete>
+
+		</md-input-container>
+
+	</div>
+	<div class="img-link-container" layout-gt-xs="row" layout="column" layout-gt-xs="row" layout-align="center center">
+		<a ui-sref="issues.list">
+        <img src="modules/core/client/img/homelink.png">
+      </a>
+
+		<a ui-sref="authentication.signup">
+        <img src="modules/core/client/img/join.png">
+      </a>
+
+	</div>
+
+	<div class="footer-banner" layout="column" layout-align="">
+		<div class="footer-text-containter" flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
+			<h3> What is NewVote? </h3>
+			<p>
+				NewVote is a digital democracy app. Our mission is to provide balanced information on current political issues, goals and solutions in Australia.
+			</p>
+			<p>
+				NewVote is a dedicated platform for you to browse, search, learn, discuss, suggest and vote on issues, goals and solutions.
+			</p>
+			<p>We are a nonpartisan nonprofit organisation with one purpose - to enhance democracy and bring it to the 21st century.
+				<h3> Connect with us:</h3>
+				<a  href="http://facebook.com/newvoteaustralia/" target="_blank">
+					<md-icon class="social-link" md-svg-src="modules/core/client/img/glyphicons-social-31-facebook.svg"></md-icon>
+				</a>
+				<a class="social-link" href="http://twitter.com/newvoteaus" target="_blank">
+					<md-icon class="social-link" md-svg-src="modules/core/client/img/glyphicons-social-32-twitter.svg"></md-icon>
+                    <!-- <img src="modules/core/client/img/glyphicons-social-32-twitter.svg"> -->
+                </a>
+				<a class="social-link" href="https://www.instagram.com/newvoteaustralia/" target="_blank">
+					<md-icon class="social-link" md-svg-src="modules/core/client/img/glyphicons-social-33-instagram.svg"></md-icon>
+					<!-- <img src="modules/core/client/img/glyphicons-social-32-twitter.svg"> -->
+				</a>
+			</p>
+		</div>
+	</div>
+</div>
