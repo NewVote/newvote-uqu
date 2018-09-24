@@ -45,6 +45,13 @@ angular.module('users').config(['$stateProvider',
 				url: '/signin?err',
 				templateUrl: 'modules/users/client/views/authentication/signin.client.view.html'
 			})
+			.state('verify', {
+				url: '/verify/:code',
+				templateUrl: 'modules/users/client/views/authentication/setup.client.view.html',
+				data: {
+					title: 'Account Verified'
+				}
+			})
 			.state('setup', {
 				url: '/setup/:previous',
 				templateUrl: 'modules/users/client/views/authentication/setup.client.view.html',

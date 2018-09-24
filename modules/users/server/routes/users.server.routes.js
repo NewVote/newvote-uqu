@@ -5,7 +5,7 @@ module.exports = function (app) {
   var users = require('../controllers/users.server.controller');
 
   //sms verification
-  app.route('/api/users/sms').post(users.sendVerificationCode);
+  app.route('/api/users/email').post(users.sendVerificationCode);
   app.route('/api/users/verify').post(users.verify);
 
   // Setting up the users profile api

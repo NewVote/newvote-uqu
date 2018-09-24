@@ -38,10 +38,13 @@ angular.module(ApplicationConfiguration.applicationModuleName).run(function ($ro
 	$rootScope.title = window.title;
 	// Check authentication before changing state
 	$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-        if(Authentication.user && !Authentication.user.terms && toState.name !== 'setup' && toState.name !== 'privacy'){
-            // console.log(Authentication.user);
+        if(
+			Authentication.user && //if there is a user
+			(!Authentication.user.terms || !Authentication.user.verified) && //and they have not accepted the terms OR verified
+			(toState.name !== 'setup' && toState.name !== 'verify' && toState.name !== 'privacy') //and the route is not setup, verify, or privacy
+		){
+			//redirect them to the setup page
             event.preventDefault();
-            // console.log('user has not accepted terms');
             $state.go('setup');
         }
 

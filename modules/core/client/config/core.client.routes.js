@@ -54,6 +54,86 @@ angular.module('core')
 					}
 				})
 
+				.state('topics', {
+					url: '/topics',
+					abstract: true,
+					template: '<ui-view/>'
+
+				})
+				.state('topics.list', {
+					url: '/',
+					templateUrl: 'modules/core/client/views/topic.client.view.html',
+					controller: 'TopicsController',
+					controllerAs: 'vm',
+					data: {
+						title: 'Topics'
+					},
+					resolve: {
+						topics: ['TopicService', function (TopicService) {
+							return TopicService.list();
+						}],
+						issues: ['IssueService', '$stateParams', function (IssueService, $stateParams) {
+							return IssueService.list({
+								topicId: $stateParams.topicId
+							});
+						}]
+					}
+				})
+				.state('topics.create', {
+					url: '/create',
+					templateUrl: 'modules/core/client/views/edit-topic.client.view.html',
+					controller: 'TopicController',
+					controllerAs: 'vm',
+					data: {
+						roles: ['admin'],
+						title: 'Create Topic'
+					},
+					resolve: {
+						topic: function () {
+							return {
+								tags: []
+							};
+						},
+						issues: function () {
+							return {};
+						}
+					}
+				})
+				.state('topics.edit', {
+					url: '/:topicId/edit',
+					templateUrl: 'modules/core/client/views/edit-topic.client.view.html',
+					controller: 'TopicController',
+					controllerAs: 'vm',
+					data: {
+						roles: ['admin'],
+						title: 'Edit Topic'
+					},
+					resolve: {
+						topic: ['TopicService', '$stateParams', function (TopicService, $stateParams) {
+							return TopicService.get($stateParams.topicId);
+						}],
+						issues: function () {
+							return {};
+						}
+					}
+				})
+				.state('topics.view', {
+					url: '/:topicId',
+					controller: 'TopicController',
+					controllerAs: 'vm',
+					templateUrl: 'modules/core/client/views/topic.client.view.html',
+					resolve: {
+						topic: ['TopicService', '$stateParams', function (TopicService, $stateParams) {
+							return TopicService.get($stateParams.topicId);
+						}],
+						issues: ['IssueService', '$stateParams', function (IssueService, $stateParams) {
+							return IssueService.list({
+								topicId: $stateParams.topicId
+							});
+						}]
+					}
+				})
+
 				.state('issues', {
 					url: '/issues',
 					abstract: true,

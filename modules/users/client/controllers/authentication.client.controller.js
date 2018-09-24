@@ -3,11 +3,12 @@
 angular.module('users')
 	.controller('AuthenticationController', ['$scope', '$rootScope', '$state', '$stateParams', '$http', '$location', '$window', 'Authentication', 'PasswordValidator', 'Users', 'CountryService', 'vcRecaptchaService', 'VerificationService',
 		function ($scope, $rootScope, $state, $stateParams, $http, $location, $window, Authentication, PasswordValidator, Users, CountryService, vcRecaptchaService, VerificationService) {
+			// debugger;
 			$scope.vm = this;
 			var vm = $scope.vm;
 			$scope.authentication = Authentication;
 			$scope.popoverMsg = PasswordValidator.getPopoverMsg();
-			if ($scope.authentication.user && $scope.authentication.user.data) {
+			if($scope.authentication.user && $scope.authentication.user.data) {
 				$scope.user = $scope.authentication.user.data;
 			} else {
 				$scope.user = $scope.authentication.user;
@@ -20,12 +21,14 @@ angular.module('users')
 			};
 			// Update Title
 			var titleText = '';
-			if ($state.is('authentication.signin')) {
+			if($state.is('authentication.signin')) {
 				titleText = 'Sign In';
-			} else if ($state.is('authentication.signup')) {
+			} else if($state.is('authentication.signup')) {
 				titleText = 'Join';
-			} else if ($state.is('setup')) {
+			} else if($state.is('setup')) {
 				titleText = 'Setup Profile';
+			} else if($state.is('verify')) {
+				titleText = 'Verifying Account';
 			}
 			$scope.title = $rootScope.titlePrefix + titleText + $rootScope.titleSuffix;
 			$rootScope.headerTitle = titleText;
@@ -35,12 +38,12 @@ angular.module('users')
 				.err;
 
 			// If user is signed in then redirect back home
-			if ($scope.authentication.user && $scope.authentication.user.terms) {
+			if($scope.authentication.user && $scope.authentication.user.terms) {
 				$location.path('/');
 			}
 
 			//set up required variables for tabs
-			if (!$scope.data) $scope.data = {};
+			if(!$scope.data) $scope.data = {};
 			$scope.data.selectedIndex = 0;
 			$scope.data.setupLocked = false;
 			$scope.data.profileLocked = true;
@@ -48,7 +51,7 @@ angular.module('users')
 			$scope.birthYears = [];
 			var year = (new Date())
 				.getFullYear();
-			for (var i = 100; i--;) {
+			for(var i = 100; i--;) {
 				$scope.birthYears.unshift(year - i);
 			}
 
@@ -63,47 +66,13 @@ angular.module('users')
 			$scope.recaptchaResponse = null;
 			$scope.recaptchaWidgetId = null;
 
-			$scope.setWidgetId = function(id) {
-				console.log('set widget id to: ', id);
-				$scope.recaptchaWidgetId = id;
-			};
-
-			$scope.setResponse = function(response) {
-				console.log('set response to: ', response);
-				$scope.credentials.recaptchaResponse = response;
-			};
-
-			$scope.cbExpiration = function() {
-				console.log('callback expired');
-				$scope.credentials.recaptchaResponse = null;
-			};
-
-			$scope.sendSMS = function () {
-				console.log('attempting to send verification sms');
-				$scope.verificationStatus.status = 'sending';
-				return VerificationService.sendSMS({
-						params: $scope.user.mobileNumber
-					})
-					.then(function (message) {
-						console.log('success: ', message);
-						$scope.verificationStatus.status = 'sent';
-						$scope.verificationStatus.success = true;
-						$scope.verificationStatus.error = false;
-						$scope.verificationStatus.message = 'We have sent an SMS to your mobile number, you should receive it shortly.';
-					})
-					.catch(function (err) {
-						console.log('critical error: ', err);
-						$scope.verificationStatus.status = 'error';
-						$scope.verificationStatus.success = false;
-						$scope.verificationStatus.error = true;
-						$scope.verificationStatus.message = 'Error: ' + err.data.message;
-					});
-			};
-
-			$scope.verify = function () {
+			//verify the email code if it is present
+			if($stateParams.code) {
 				console.log('attempting to verify code');
-				return VerificationService.verify({
-						params: $scope.user.verificationCode
+				$scope.verificationStatus.status = 'sending';
+				$scope.verificationStatus.message = 'We are currently checking your verification code.';
+				VerificationService.verify({
+						params: $stateParams.code
 					})
 					.then(function (message) {
 						console.log('success: ', message);
@@ -121,19 +90,54 @@ angular.module('users')
 						$scope.verificationStatus.error = true;
 						$scope.verificationStatus.message = 'Error: ' + err.data.message;
 					});
+			}
+
+			$scope.setWidgetId = function (id) {
+				console.log('set widget id to: ', id);
+				$scope.recaptchaWidgetId = id;
+			};
+
+			$scope.setResponse = function (response) {
+				console.log('set response to: ', response);
+				$scope.credentials.recaptchaResponse = response;
+			};
+
+			$scope.cbExpiration = function () {
+				console.log('callback expired');
+				$scope.credentials.recaptchaResponse = null;
+			};
+
+			$scope.sendEmail = function () {
+				console.log('attempting to send verification Email');
+				$scope.verificationStatus.status = 'sending';
+				return VerificationService.sendEmail()
+					.then(function (message) {
+						console.log('success: ', message);
+						$scope.verificationStatus.status = 'sent';
+						$scope.verificationStatus.success = true;
+						$scope.verificationStatus.error = false;
+						$scope.verificationStatus.message = 'We have sent an e-mail to your address, you should receive it shortly.';
+					})
+					.catch(function (err) {
+						console.log('critical error: ', err);
+						$scope.verificationStatus.status = 'error';
+						$scope.verificationStatus.success = false;
+						$scope.verificationStatus.error = true;
+						$scope.verificationStatus.message = 'Error: ' + err.data.message;
+					});
 			};
 
 			$scope.signup = function (isValid) {
 				$scope.error = null;
 
-				if (!isValid) {
+				if(!isValid) {
 					$scope.$broadcast('show-errors-check-validity', 'userForm');
 
 					return false;
 				}
 
 				var test = PasswordValidator.getResult($scope.credentials.password);
-				if(test.requiredTestErrors.length){
+				if(test.requiredTestErrors.length) {
 					$scope.error = test.errors;
 					$scope.$broadcast('show-errors-check-validity', 'userForm');
 
@@ -149,7 +153,7 @@ angular.module('users')
 							// console.log('signup success, post data: ', response);
 
 							// And redirect to the previous or home page
-							if ($scope.authentication.user.terms) {
+							if($scope.authentication.user.terms) {
 								$state.go($state.previous.state.name || 'home', $state.previous.params);
 							} else {
 								console.log('trying to go to setup state');
@@ -169,7 +173,7 @@ angular.module('users')
 			$scope.signin = function (isValid) {
 				$scope.error = null;
 
-				if (!isValid) {
+				if(!isValid) {
 					$scope.$broadcast('show-errors-check-validity', 'userForm');
 
 					return false;
@@ -182,7 +186,7 @@ angular.module('users')
 							$window.user = response.data;
 
 							// And redirect to the previous or home page
-							if ($scope.authentication.user.terms) {
+							if($scope.authentication.user.terms) {
 								$state.go($state.previous.state.name || 'home', $state.previous.params);
 							} else {
 								$state.go('setup', {
@@ -200,7 +204,7 @@ angular.module('users')
 			$scope.update = function (isValid) {
 				$scope.success = $scope.error = null;
 
-				if (!isValid) {
+				if(!isValid) {
 					$scope.$broadcast('show-errors-check-validity', 'userForm');
 
 					return false;
@@ -211,7 +215,7 @@ angular.module('users')
 				user.$update(function (response) {
 					$scope.$broadcast('show-errors-reset', 'userForm');
 
-					if (response.profileImageURL !== $scope.authentication.user.profileImageURL) {
+					if(response.profileImageURL !== $scope.authentication.user.profileImageURL) {
 						response.profileImageURL = $scope.authentication.user.profileImageURL;
 					}
 
@@ -219,7 +223,7 @@ angular.module('users')
 					$scope.authentication.user = response;
 					$window.user = response;
 
-					if ($stateParams.previous) {
+					if($stateParams.previous) {
 						$state.go($stateParams.previous, $state.previous.params);
 					} else {
 						$state.go('home', $state.previous.params);
@@ -233,7 +237,7 @@ angular.module('users')
 			$scope.setup = function (isValid) {
 				$scope.success = $scope.error = null;
 
-				if (!isValid) {
+				if(!isValid) {
 					$scope.$broadcast('show-errors-check-validity', 'userForm');
 
 					return false;
@@ -258,7 +262,7 @@ angular.module('users')
 			};
 
 			$scope.skip = function () {
-				if ($stateParams.previous) {
+				if($stateParams.previous) {
 					$state.go($stateParams.previous, $state.previous.params);
 				} else {
 					$state.go('home', $state.previous.params);
@@ -268,7 +272,7 @@ angular.module('users')
 			// OAuth provider request
 			$scope.callOauthProvider = function (url) {
 				console.log('oauth url:', url);
-				if ($state.previous && $state.previous.href) {
+				if($state.previous && $state.previous.href) {
 					url += '?redirect_to=' + encodeURIComponent($state.previous.href);
 				}
 

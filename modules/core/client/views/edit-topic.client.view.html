@@ -1,0 +1,48 @@
+<!-- Meta tags -->
+<!-- Basic meta tags -->
+<update-title title="{{ vm.title }}"></update-title>
+<update-meta name="description" content="{{ vm.desc }}"></update-meta>
+
+<!-- Facebook META -->
+<update-meta property="og:title" content="{{ vm.title }}"></update-meta>
+<update-meta property="og:description" content="{{ vm.desc }}"></update-meta>
+<update-meta property="og:url" use-abs-url="true"></update-meta>
+<update-meta property="og:image" content="{{ vm.image }}"></update-meta>
+
+<!-- Twitter META -->
+<update-meta name="twitter:title" content="{{ vm.title }}"></update-meta>
+<update-meta name="twitter:description" content="{{ vm.desc }}"></update-meta>
+<update-meta name="twitter:url" use-abs-url="true"></update-meta>
+<update-meta name="twitter:image" content="{{ vm.image }}"></update-meta>
+
+<div layout-padding layout="column" layout-align="top center" flex>
+
+	<md-input-container>
+		<label>Topic Title</label>
+		<input ng-model="vm.topic.name" autofocus>
+	</md-input-container>
+
+	<md-button class="md-primary md-raised" ngf-select ng-model="vm.imageFile" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB">Select Image</md-button>
+	<img ngf-thumbnail="vm.imageFile || vm.topic.imageUrl">
+	<label>Topic Description</label>
+	<ng-quill-editor ng-model="vm.topic.description"></ng-quill-editor>
+
+	<form name="tagsForm">
+		<md-chips ng-model="vm.topic.tags" md-separator-keys="vm.customKeys" name="tagsName" md-removable="true" md-max-chips="5" placeholder="Enter a tag...">
+		</md-chips>
+
+		<div class="errors" ng-messages="tagsForm.tagsName.$error">
+			<div ng-message="md-max-chips">Maximum number of tags reached.</div>
+		</div>
+	</form>
+
+	<div layout="row">
+		<md-button class="md-raised md-primary" ng-click="vm.createOrUpdate()">
+			<span ng-if="vm.topic._id">Update</span>
+			<span ng-if="!vm.topic._id">Create</span>
+		</md-button>
+		<md-button class="md-raised md-warn" ng-if="vm.topic._id" ng-click="vm.delete()">
+			Delete
+		</md-button>
+	</div>
+</div>
