@@ -17,10 +17,11 @@ exports.create = function (req, res) {
 	var goal = new Goal(req.body);
 	goal.user = req.user;
 	goal.save(function (err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
+		if(err) {
+			return res.status(400)
+				.send({
+					message: errorHandler.getErrorMessage(err)
+				});
 		} else {
 			res.json(goal);
 		}
@@ -44,10 +45,11 @@ exports.update = function (req, res) {
 	// goal.content = req.body.content;
 
 	goal.save(function (err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
+		if(err) {
+			return res.status(400)
+				.send({
+					message: errorHandler.getErrorMessage(err)
+				});
 		} else {
 			res.json(goal);
 		}
@@ -61,10 +63,11 @@ exports.delete = function (req, res) {
 	var goal = req.goal;
 
 	goal.remove(function (err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
+		if(err) {
+			return res.status(400)
+				.send({
+					message: errorHandler.getErrorMessage(err)
+				});
 		} else {
 			res.json(goal);
 		}
@@ -78,11 +81,11 @@ exports.list = function (req, res) {
 	var issueId = req.query.issueId;
 	var searchParams = req.query.search;
 	var query;
-	if (issueId) {
+	if(issueId) {
 		query = {
 			issues: issueId
 		};
-	} else if (searchParams) {
+	} else if(searchParams) {
 		query = {
 			$or: [{
 					title: {
@@ -105,22 +108,30 @@ exports.list = function (req, res) {
 		query = null;
 	}
 
-	Goal.find(query).sort('-created').populate('user', 'displayName').exec(function (err, goals) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			votes.attachVotes(goals, req.user, req.query.regions).then(function (goals) {
-				res.json(goals);
-			}).catch(function (err) {
-				// console.log(err);
-				res.status(500).send({
-					message: errorHandler.getErrorMessage(err)
-				});
-			});
-		}
-	});
+	Goal.find(query)
+		.sort('-created')
+		.populate('user', 'displayName')
+		.populate('issues')
+		.exec(function (err, goals) {
+			if(err) {
+				return res.status(400)
+					.send({
+						message: errorHandler.getErrorMessage(err)
+					});
+			} else {
+				votes.attachVotes(goals, req.user, req.query.regions)
+					.then(function (goals) {
+						res.json(goals);
+					})
+					.catch(function (err) {
+						// console.log(err);
+						res.status(500)
+							.send({
+								message: errorHandler.getErrorMessage(err)
+							});
+					});
+			}
+		});
 };
 
 /**
@@ -128,25 +139,30 @@ exports.list = function (req, res) {
  */
 exports.goalByID = function (req, res, next, id) {
 
-	if (!mongoose.Types.ObjectId.isValid(id)) {
-		return res.status(400).send({
-			message: 'Goal is invalid'
-		});
+	if(!mongoose.Types.ObjectId.isValid(id)) {
+		return res.status(400)
+			.send({
+				message: 'Goal is invalid'
+			});
 	}
 
 	Goal.findById(id)
 		.populate('user', 'displayName')
-		.populate('issues').exec(function (err, goal) {
-			if (err) {
+		.populate('issues')
+		.exec(function (err, goal) {
+			if(err) {
 				return next(err);
-			} else if (!goal) {
-				return res.status(404).send({
-					message: 'No goal with that identifier has been found'
-				});
+			} else if(!goal) {
+				return res.status(404)
+					.send({
+						message: 'No goal with that identifier has been found'
+					});
 			}
-			votes.attachVotes([goal], req.user, req.query.regions).then(function (goalArr) {
-				req.goal = goalArr[0];
-				next();
-			}).catch(next);
+			votes.attachVotes([goal], req.user, req.query.regions)
+				.then(function (goalArr) {
+					req.goal = goalArr[0];
+					next();
+				})
+				.catch(next);
 		});
 };

@@ -34,15 +34,7 @@
 
 	<md-contact-chips ng-model="vm.goal.issues" md-contacts="vm.searchIssues($query)" md-contact-name="name" md-require-match="true" md-highlight-flags="i" md-delay="400" placeholder="Issues Addressed" secondary-placeholder="Add another issue">
 	</md-contact-chips>
-
-	<form name="tagsForm">
-		<md-chips ng-model="vm.goal.tags" md-separator-keys="vm.customKeys" name="tagsName" md-removable="true" md-max-chips="5" placeholder="Enter a tag...">
-		</md-chips>
-
-		<div class="errors" ng-messages="tagsForm.tagsName.$error">
-			<div ng-message="md-max-chips">Maximum number of tags reached.</div>
-		</div>
-	</form>
+	
 	<div layout="row">
 		<md-button class="md-raised md-primary" ng-click="vm.createOrUpdate()">
 			<span ng-if="vm.goal._id">Update</span>

@@ -1,8 +1,10 @@
 'use strict';
 
 angular.module('core')
-	.controller('HomeController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', 'SearchService', '$mdMedia', 'IssueService', 'GoalService', 'SolutionService', '$timeout', 'Carousel',
-		function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, SearchService, $mdMedia, IssueService, GoalService, SolutionService, $timeout, Carousel) {
+	.controller('HomeController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', '$q', 'SearchService', 'IssueService', 'TopicService', '$mdMedia', '$timeout', 'Carousel', 'topics',
+		function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, $q, SearchService, IssueService, TopicService, $mdMedia, $timeout, Carousel, topics) {
+			var vm = this;
+			vm.topics = topics;
 			// This provides Authentication context.
 			$scope.authentication = Authentication;
 			$scope.$state = $state;
@@ -16,7 +18,7 @@ angular.module('core')
 			$scope.$watch(function () {
 				return $scope.$mdMedia('gt-md');
 			}, function (gtMd) {
-				if (gtMd) {
+				if(gtMd) {
 					//screen is greater than medium (gt-md)
 					$scope.slidesToShow = 3;
 					Carousel.setOptions({
@@ -39,15 +41,6 @@ angular.module('core')
 				}
 			});
 
-			$rootScope.removeHtmlElements = function (text) {
-				if (text != null) {
-					//ignore this lint warning we need to test for undefined as well
-					return text.replace(/<.*?> ?/g, '');
-				} else {
-					return '';
-				}
-			};
-
 			$scope.message = true;
 
 			// Page title config
@@ -66,13 +59,6 @@ angular.module('core')
 
 			$scope.toggleMessage = function () {
 				$scope.message = !$scope.message;
-			};
-
-			$scope.shouldLeftBeOpen = $mdMedia('gt-sm');
-
-			$scope.toggleLeft = function () {
-				$mdSidenav('left')
-					.toggle();
 			};
 
 			$scope.openMenu = function ($mdMenu, ev) {
@@ -98,42 +84,5 @@ angular.module('core')
 			$scope.openSearch = function () {
 				$scope.searchOpen = !$scope.searchOpen;
 			};
-
-			var vm = this;
-			vm.issues = [];
-			vm.goals = [];
-			vm.solutions = [];
-
-			getIssues();
-
-			function getIssues() {
-				return IssueService.list()
-					.then(function (issues) {
-						vm.issues = issues;
-						return vm.issues;
-					});
-			}
-
-			getGoals();
-
-			function getGoals() {
-				return GoalService.list()
-					.then(function (goals) {
-						vm.goals = goals;
-						return vm.goals;
-					});
-			}
-
-			getSolutions();
-
-			function getSolutions() {
-				return SolutionService.list()
-					.then(function (solutions) {
-
-						vm.solutions = solutions;
-						return vm.solutions;
-					});
-			}
-
 		}
 	]);

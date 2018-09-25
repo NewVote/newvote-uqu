@@ -1,30 +1,30 @@
 'use strict';
 
-angular.module('core').service('TagService', ['$resource', '$stateParams', '$q', '_',
+angular.module('core').service('TopicService', ['$resource', '$stateParams', '$q', '_',
   function ($resource, $stateParams, $q, _) {
-    var Tag = $resource('api/tags/:tagId', { tagId: '@_id' }, { update: { method: 'PUT' } });
+    var Topic = $resource('api/topics/:topicId', { topicId: '@_id' }, { update: { method: 'PUT' } });
 
     var svc = this;
 
-    svc.get = function(tagId) {
-      return Tag.get({ tagId: tagId }).$promise;
+    svc.get = function(topicId) {
+      return Topic.get({ topicId: topicId }).$promise;
     };
 
     svc.list = function(params) {
-      return Tag.query(params).$promise;
+      return Topic.query(params).$promise;
     };
 
-    svc.delete = function(tagId) {
-      var tag = new Tag({ _id: tagId });
-      return tag.$remove();
+    svc.delete = function(topicId) {
+      var topic = new Topic({ _id: topicId });
+      return topic.$remove();
     };
 
-    svc.createOrUpdate = function(tagObj) {
-      var tag = new Tag(tagObj);
-      return tag._id ? tag.$update() : tag.$save();
+    svc.createOrUpdate = function(topicObj) {
+      var topic = new Topic(topicObj);
+      return topic._id ? topic.$update() : topic.$save();
     };
 
-    svc.searchTags = function(query) {
+    svc.searchTopics = function(query) {
       return svc.list({ search: query });
     };
   }

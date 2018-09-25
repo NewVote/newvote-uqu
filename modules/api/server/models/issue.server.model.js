@@ -43,9 +43,9 @@ var IssueSchema = new Schema({
 		totalTrendingScore: Number,
 		lastCreated: Date
 	},
-	tags: [{
+	topics: [{
 		type: Schema.ObjectId,
-		ref: 'Tag'
+		ref: 'Topic'
 	}]
 });
 

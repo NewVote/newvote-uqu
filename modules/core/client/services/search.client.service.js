@@ -2,17 +2,23 @@
 
 angular.module('core').service('SearchService', ['$resource', '$stateParams', '$q', '_', '$location', '$window',
     function ($resource, $stateParams, $q, _, $location, $window) {
+		var Topic = $resource('api/topics/');
         var Issue = $resource('api/issues/');
         var Goal = $resource('api/goals/');
         var Solution = $resource('api/solutions/');
 
         var modelEnum = {
-            issue: 0,
-            goal: 1,
-            solution: 2
+			topic: 0,
+            issue: 1,
+            goal: 2,
+            solution: 3
         };
 
         var svc = this;
+
+		svc.searchTopics = function(text) {
+            return Topic.query({ search: text }).$promise;
+        };
 
         svc.searchIssues = function(text) {
             return Issue.query({ search: text }).$promise;
@@ -27,11 +33,12 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
         };
 
         svc.searchAll = function(text) {
+			var topics = svc.searchTopics(text);
             var issues = svc.searchIssues(text);
             var goals = svc.searchGoals(text);
             var solutions = svc.searchSolutions(text);
 
-            return Promise.all([issues, goals, solutions]).then(function(data) {
+            return Promise.all([topics, issues, goals, solutions]).then(function(data) {
                 var results = [];
                 for (var model in data) {
                     for (var item in data[model]) {
@@ -40,6 +47,9 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
                         if (!isNaN(item)) {
 
                             switch (parseInt(model)) {
+								case modelEnum.topic:
+									data[model][item].model = 'Topic';
+									break;
 
                                 case modelEnum.issue:
                                     data[model][item].model = 'Issue';
@@ -75,6 +85,8 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
 
         svc.getHyperLink = function(item) {
             switch (item.model) {
+				case 'Topic':
+					return getTopicLink(item);
 
                 case 'Issue':
                     return getIssueLink(item);
@@ -87,6 +99,11 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
 
             }
         };
+
+		function getTopicLink(item) {
+			var url = '/topics/' + item._id;
+			return getOriginURL() + url;
+		}
 
         function getIssueLink(item) {
             var url = '/issues/' + item._id;

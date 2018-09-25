@@ -6,6 +6,7 @@ angular.module('core').controller('TopicsController', ['$scope', 'Authentication
 		var vm = this;
 		vm.topics = topics;
 		vm.sortSvc = SortService;
+		$scope.authentication = Authentication;
 
 		// Title
 		vm.title = $rootScope.titlePrefix + 'Topics' + $rootScope.titleSuffix;

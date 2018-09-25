@@ -113,6 +113,7 @@ exports.list = function (req, res) {
 	Issue.find(query)
 		.sort('-created')
 		.populate('user', 'displayName')
+		.populate('topics', 'name')
 		.exec(function (err, issues) {
 			if(err) {
 				return res.status(400)
@@ -148,6 +149,7 @@ exports.issueByID = function (req, res, next, id) {
 
 	Issue.findById(id)
 		.populate('user', 'displayName')
+		.populate('topics', 'name')
 		.exec(function (err, issue) {
 			if(err) {
 				return next(err);

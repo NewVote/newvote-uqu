@@ -22,6 +22,11 @@ angular.module('core')
 					controllerAs: 'vm',
 					data: {
 						title: 'NewVote'
+					},
+					resolve: {
+						topics: ['TopicService', function (TopicService) {
+							return TopicService.list();
+						}]
 					}
 				})
 
@@ -62,7 +67,7 @@ angular.module('core')
 				})
 				.state('topics.list', {
 					url: '/',
-					templateUrl: 'modules/core/client/views/topic.client.view.html',
+					templateUrl: 'modules/core/client/views/topics.client.view.html',
 					controller: 'TopicsController',
 					controllerAs: 'vm',
 					data: {
@@ -71,11 +76,6 @@ angular.module('core')
 					resolve: {
 						topics: ['TopicService', function (TopicService) {
 							return TopicService.list();
-						}],
-						issues: ['IssueService', '$stateParams', function (IssueService, $stateParams) {
-							return IssueService.list({
-								topicId: $stateParams.topicId
-							});
 						}]
 					}
 				})

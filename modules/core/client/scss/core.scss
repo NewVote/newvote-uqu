@@ -11,6 +11,10 @@ md-toolbar {
 	}
 }
 
+.md-sidenav-left {
+	height: 100%;
+}
+
 .about-container.ng-scope {
 	display: flex;
 	height: 100%;
@@ -130,12 +134,14 @@ md-sidenav {
 }
 
 .goals,
-.issues {
+.issues,
+.topics {
 	margin: 16px;
 }
 
 .goal,
-.issue {
+.issue,
+.topic {
 	cursor: pointer;
 
 	figcaption {

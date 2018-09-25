@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('core')
-	.controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', '$location', '$anchorScroll', 'IssueService', '$mdDialog', 'issue', 'VoteService', 'goals', 'solutions', 'endorsement', 'media', 'UploadService', '$q', 'SortService', '$mdConstant',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, $location, $anchorScroll, IssueService, $mdDialog, issue, VoteService, goals, solutions, endorsement, media, UploadService, $q, SortService, $mdConstant) {
+	.controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', '$location', '$anchorScroll', 'IssueService', 'TopicService', '$mdDialog', 'issue', 'VoteService', 'goals', 'solutions', 'endorsement', 'media', 'UploadService', '$q', 'SortService', '$mdConstant',
+	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, $location, $anchorScroll, IssueService, TopicService, $mdDialog, issue, VoteService, goals, solutions, endorsement, media, UploadService, $q, SortService, $mdConstant) {
 			// This provides Authentication context.
 			var vm = this;
 			vm.issue = issue;
@@ -82,6 +82,12 @@ angular.module('core')
 			vm.vote = function (goal, voteType, $event) {
 				$event.stopPropagation();
 				VoteService.vote(goal, 'Goal', voteType);
+			};
+
+			vm.searchTopics = function (query) {
+				return TopicService.list({
+					search: query
+				});
 			};
 
 			angular.element(document)

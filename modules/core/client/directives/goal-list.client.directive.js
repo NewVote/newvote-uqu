@@ -10,12 +10,13 @@ angular.module('core').directive('goalList', ['$timeout', function ($timeout) {
 		templateUrl: 'modules/core/client/views/goals-list.client.view.html',
 		bindToController: true,
 		controllerAs: 'vm',
-		controller: ['$scope', '$window', 'VoteService', 'SortService', 'Authentication', 'SocialshareService', 'RegionService', 'GoalService',
-			function ($scope, $window, VoteService, SortService, Authentication, SocialshareService, RegionService, GoalService) {
+		controller: ['$scope', '$window', '$state', 'VoteService', 'SortService', 'Authentication', 'SocialshareService', 'RegionService', 'GoalService',
+			function ($scope, $window, $state, VoteService, SortService, Authentication, SocialshareService, RegionService, GoalService) {
 				var vm = this;
 				vm.sortSvc = SortService;
 				vm.regions = [];
 				$scope.authentication = Authentication;
+				$scope.$state = $state;
 
 				vm.vote = function (goal, voteType, $event) {
 					$event.stopPropagation();
