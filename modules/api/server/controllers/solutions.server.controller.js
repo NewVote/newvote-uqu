@@ -103,31 +103,11 @@ exports.list = function (req, res) {
         }
     });};
 
-    // //build thhe query
-    // if (goalId) {
-    //     query = {
-    //         $or: [{ goals: goalId }, { goal: goalId }, { solutions: goalId }, { solution: goalId }]
-    //     };
-    // } else if (issueId) {
-    //     //get the goals for an issue
-    //     //create query to find any solutions with matching goalId's
-    //     Issue.find({issueId: issueId}).then(function (issue) {
-    //
-    //     })
-    // } else if (searchParams) {
-    //     query = {
-    //         title: {
-    //             $regex: searchParams,
-    //             $options: 'i'
-    //         }
-    //     };
-    // } else {
-    //     query = null;
-    // }
   getQuery().then(function(query) {
       // console.log('query from promise is: ', query);
       Solution.find(query).sort('-created')
-      .populate('user', 'displayName').populate('goals', 'title')
+      .populate('user', 'displayName')
+	  .populate('goals', 'title')
       .exec(function (err, solutions) {
         if (err) {
           return res.status(400).send({

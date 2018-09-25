@@ -37,17 +37,15 @@
 
 <body class="ng-cloak" layout="column" flex>
 
-  <div ng-controller="HomeController" flex layout="column" ng-cloak>
+  <div flex layout="column" ng-cloak>
 
       <div id="prerender" class="prerender" ng-if="{{isPrerender}}">
       </div>
 
-    <section layout="row" flex>
+    <section layout="row" flex ng-controller="SidenavController as vm">
       <md-sidenav class="md-sidenav-left"
         md-component-id="left"
-        md-is-open="shouldLeftBeOpen"
-        md-disable-backdrop="true"
-        md-whiteframe="4">
+        md-is-locked-open="vm.lockLeft && $mdMedia('gt-md')">
         <md-content>
           <div flex ng-include="'modules/core/client/views/sidebar.client.view.html'"></div>
         </md-content>

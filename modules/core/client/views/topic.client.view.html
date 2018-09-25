@@ -25,10 +25,10 @@
     content="{{ vm.image }}"></update-meta>
 
 <md-toolbar class="md-primary">
-	<div ng-if="vm.issue.imageUrl"
+	<div ng-if="vm.topic.imageUrl"
 	    class="header-image-container"
-	    ng-style="{'background-image':'url({{::vm.issue.imageUrl}})'}">
-		<!-- <img ng-src="{{::vm.issue.imageUrl}}" alt="Issue Image"> -->
+	    ng-style="{'background-image':'url({{::vm.topic.imageUrl}})'}">
+		<!-- <img ng-src="{{::vm.topic.imageUrl}}" alt="Topic Image"> -->
 	</div>
 	<div flex-offset-lg="15"
 	    flex-lg="70"
@@ -42,7 +42,7 @@
 		    layout-align-gt-sm="center center">
 
 			<h1 class="md-display-1"
-			    flex-gt-sm="65">{{vm.issue.name}}</h1>
+			    flex-gt-sm="65">{{vm.topic.name}}</h1>
 
 			<div flex></div>
 
@@ -50,33 +50,33 @@
 			    layout-align="center center">
 				<md-button class="md-icon-button"
 				    ng-click="vm.delete()"
-				    ng-if="authentication.user.roles.indexOf('admin')>-1 || (authentication.user.roles != null && authentication.user._id===vm.issue.user._id)">
-					<md-tooltip>Delete Issue</md-tooltip>
+				    ng-if="authentication.user.roles.indexOf('admin')>-1 || (authentication.user.roles != null && authentication.user._id===vm.topic.user._id)">
+					<md-tooltip>Delete Topic</md-tooltip>
 					<md-icon>delete</md-icon>
 				</md-button>
 				<md-button ng-if="authentication.user.roles.indexOf('admin')>-1"
 				    class="md-icon-button"
-				    ui-sref="issues.edit({issueId: vm.issue._id})">
-					<md-tooltip>Edit Issue</md-tooltip>
+				    ui-sref="topics.edit({topicId: vm.topic._id})">
+					<md-tooltip>Edit Topic</md-tooltip>
 					<md-icon>edit</md-icon>
 				</md-button>
 				<md-button ng-if="authentication.user.roles.indexOf('admin')==-1"
 				    class="md-icon-button"
-				    ui-sref="suggestions({objectId: vm.issue._id, objectType: 'issue', suggestionType: 'edit'})">
+				    ui-sref="suggestions({objectId: vm.topic._id, objectType: 'topic', suggestionType: 'edit'})">
 					<md-tooltip>Suggest an edit</md-tooltip>
 					<md-icon>edit</md-icon>
 				</md-button>
 
 				<md-button ng-if="authentication.user.roles.indexOf('admin')>-1"
 				    class="md-accent md-hue-1 md-raised create-btn"
-				    ui-sref="goals.create({ issueId: vm.issue._id })">
+				    ui-sref="goals.create({ topicId: vm.topic._id })">
 					<md-icon>add</md-icon><span hide
 					    show-gt-sm>New</span>
 					<md-tooltip>Create a new goal</md-tooltip>
 				</md-button>
 				<md-button ng-if="authentication.user.roles.indexOf('admin')==-1"
 				    class="md-accent md-hue-1 md-raised create-btn"
-				    ui-sref="suggestions({objectId: vm.issue._id, objectType: 'issue', suggestionType: 'new'})">
+				    ui-sref="suggestions({objectId: vm.topic._id, objectType: 'topic', suggestionType: 'new'})">
 					<md-icon>add</md-icon><span hide
 					    show-gt-sm>New</span>
 					<md-tooltip>Suggest a new goal</md-tooltip>
@@ -86,21 +86,13 @@
 
 		<div class="header-description"
 		    ng-class="{full: vm.showFullDesc}"
-		    ng-bind-html="vm.issue.description"></div>
+		    ng-bind-html="vm.topic.description"></div>
 
 		<div layout="row"
 		    layout-align="start start">
-			<div layout="column"
-			    ng-if="vm.issue.topics.length > 0">
-				<md-chips class="descriptionChips"
-				    ng-model="vm.issue.topics"
-				    readonly="true"
-				    md-removable="false">
-					<md-chip-template ui-sref="topics.view({ topicId: $chip._id })">
-						<strong>{{$chip.name}}</strong>
-					</md-chip-template>
-				</md-chips>
-			</div>
+			<share-buttons object="vm.topic"
+			    object-type="'topic'"
+			    vertical-resize="false"></share-buttons>
 
 			<div flex></div>
 
@@ -110,9 +102,6 @@
 			</md-button>
 		</div>
 
-		<share-buttons object="vm.issue"
-		    object-type="'issue'"
-		    vertical-resize="false"></share-buttons>
 	</div>
 </md-toolbar>
 
@@ -123,37 +112,15 @@
     layout-padding
     layout="column">
 
-	<ang-accordion>
-		<collapsible-item item-title="Vote on Goals">
-			<goal-list goals="vm.goals"
-			    issue-id="vm.issueId"></goal-list>
-		</collapsible-item>
-		<collapsible-item item-title="Vote on Solutions">
-			<solution-list solutions="vm.solutions"
-			    issue-id="vm.issueId"></solution-list>
-		</collapsible-item>
-		<collapsible-item item-title="Where do I stand?">
-			<span class="md-subhead">In order to use this section of the App you may need to login again with Pol.is.<br>
-				 Please be aware that your image (showing where you stand) may be visible to other users</span>
-			<div class="polis"
-			    data-topic="What do you think?"
-			    data-page_id="{{vm.issue._id}}"
-			    data-site_id="polis_site_id_7YYdpN4NRpUvCKC7ZU">
-			</div>
-		</collapsible-item>
-		<collapsible-item item-title="Endorsements">
-			<endorsement-list endorsement="vm.endorsement"
-			    object-id="vm.issue._id"
-			    object-type="'issue'"></endorsement-list>
-		</collapsible-item>
-		<collapsible-item item-title="Meetups">
-			<span class="md-headline">In the future this section will contain details of real world events related to this Goal.</span>
-		</collapsible-item>
-		<collapsible-item item-title="Media">
-			<media-list media="vm.media"
-			    object-id="vm.issue._id"
-			    object-type="'issue'"></media-list>
-		</collapsible-item>
-	</ang-accordion>
+	<md-grid-list class="issues" md-cols-xs="3" md-cols-sm="9" md-cols-md="9" md-cols-gt-md="12" md-row-height="2:2" md-gutter="16px">
+
+		<md-grid-tile ng-repeat="issue in vm.issues | orderBy: vm.sortSvc.expression : vm.sortSvc.reverse" ui-sref="issues.view({ issueId: issue._id })" md-rowspan-gt-xs="3" md-colspan="3" md-rowspan="1" class="issue" md-whiteframe="3">
+			<img ng-src="{{issue.imageUrl}}" alt="Issue Image">
+			<md-grid-tile-footer>
+				<h3 ng-bind="issue.name"></h3>
+			</md-grid-tile-footer>
+		</md-grid-tile>
+
+	</md-grid-list>
 
 </div>

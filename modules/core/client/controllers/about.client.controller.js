@@ -28,11 +28,6 @@ angular.module('core')
 				$scope.message = !$scope.message;
 			};
 
-			$scope.toggleLeft = function () {
-				$mdSidenav('left')
-					.toggle();
-			};
-
 			$scope.openMenu = function ($mdMenu, ev) {
 				$mdMenu.open(ev);
 			};

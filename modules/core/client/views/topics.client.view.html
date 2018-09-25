@@ -1,0 +1,55 @@
+<!-- Meta tags -->
+<!-- Basic meta tags -->
+<update-title title="{{ vm.title }}"></update-title>
+<update-meta name="description" content="{{ vm.desc }}"></update-meta>
+
+<!-- Facebook META -->
+<update-meta property="og:title" content="{{ vm.title }}"></update-meta>
+<update-meta property="og:description" content="{{ vm.desc }}"></update-meta>
+<update-meta property="og:url" use-abs-url="true"></update-meta>
+<update-meta property="og:image" content="{{ vm.image }}"></update-meta>
+
+<!-- Twitter META -->
+<update-meta name="twitter:title" content="{{ vm.title }}"></update-meta>
+<update-meta name="twitter:description" content="{{ vm.desc }}"></update-meta>
+<update-meta name="twitter:url" use-abs-url="true"></update-meta>
+<update-meta name="twitter:image" content="{{ vm.image }}"></update-meta>
+
+<md-toolbar class="md-primary">
+	<div layout-padding class="md-toolbar-tools" flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
+		<p>
+			Select an topic to learn more about it
+		</p>
+		<div flex>
+
+		</div>
+		<div>
+			<md-button ng-if="authentication.user.roles.indexOf('admin')>-1" class="md-accent md-hue-1 md-raised create-btn" ui-sref="topics.create">
+				<md-icon>add</md-icon><span hide show-gt-sm>New</span>
+				<md-tooltip>Create a new topic</md-tooltip>
+			</md-button>
+			<md-button ng-hide="authentication.user.roles.indexOf('admin')==1" class="md-accent md-hue-1 md-raised create-btn" ui-sref="suggestions">
+				<md-icon>add</md-icon><span hide show-gt-sm>New</span>
+				<md-tooltip>Suggest a new topic</md-tooltip>
+			</md-button>
+		</div>
+	</div>
+</md-toolbar>
+
+<div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
+	<div layout="row" layout-padding layout-wrap>
+
+	</div>
+
+
+	<md-grid-list class="topics" md-cols-xs="3" md-cols-sm="9" md-cols-md="9" md-cols-gt-md="12" md-row-height="2:2" md-gutter="16px">
+
+		<md-grid-tile ng-repeat="topic in vm.topics | orderBy: vm.sortSvc.expression : vm.sortSvc.reverse" ui-sref="topics.view({ topicId: topic._id })" md-rowspan-gt-xs="3" md-colspan="3" md-rowspan="1" class="topic" md-whiteframe="3">
+			<img ng-src="{{topic.imageUrl}}" alt="Topic Image">
+			<md-grid-tile-footer>
+				<h3 ng-bind="topic.name"></h3>
+			</md-grid-tile-footer>
+		</md-grid-tile>
+
+	</md-grid-list>
+</div>

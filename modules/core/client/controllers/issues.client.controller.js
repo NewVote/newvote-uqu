@@ -6,6 +6,7 @@ angular.module('core').controller('IssuesController', ['$scope', 'Authentication
 		var vm = this;
 		vm.issues = issues;
 		vm.sortSvc = SortService;
+		$scope.authentication = Authentication;
 
 		// Title
 		vm.title = $rootScope.titlePrefix + 'Issues' + $rootScope.titleSuffix;

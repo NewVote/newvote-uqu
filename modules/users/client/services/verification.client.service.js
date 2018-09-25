@@ -4,7 +4,7 @@ angular.module('users')
 	.service('VerificationService', ['$resource', '$stateParams', '$q', '_',
 		function ($resource, $stateParams, $q, _) {
 
-            var SendSMS = $resource('api/users/sms', {}, {
+            var SendEmail = $resource('api/users/email', {}, {
                 send: {
                     method: 'POST'
                 }
@@ -18,8 +18,8 @@ angular.module('users')
 
             var svc = this;
 
-			svc.sendSMS = function (params) {
-				return SendSMS.send(params)
+			svc.sendEmail = function (params) {
+				return SendEmail.send(params)
 					.$promise;
 			};
 

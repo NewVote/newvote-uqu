@@ -4,30 +4,6 @@
 		<!-- Basic meta tags -->
 		<update-title title="{{ title }}"></update-title>
 
-		<!-- <div class="page-header">
-            <h1>Settings</h1>
-        </div>
-        <div class="row">
-            <nav class="col-sm-3 col-md-3">
-                <ul class="nav nav-pills nav-stacked">
-                    <li ui-sref-active="active">
-                        <a ui-sref="settings.profile">Edit Profile</a>
-                    </li>
-                    <li ui-sref-active="active">
-                        <a ui-sref="settings.picture">Change Profile Picture</a>
-                    </li>
-                    <li ui-sref-active="active" ng-show="user.provider === 'local'">
-                        <a ui-sref="settings.password">Change Password</a>
-                    </li>
-                    <li ui-sref-active="active">
-                        <a ui-sref="settings.accounts">Manage Social Accounts</a>
-                    </li>
-                </ul>
-            </nav>
-            <div class="col-sm-9 col-md-8 settings-view">
-                <div ui-view></div>
-            </div>
-        </div> -->
 		<md-content flex layout-padding class="user-verification" ng-controller="EditProfileController">
 
 			<h2 class="md-headline">Account Settings</h2>
@@ -69,16 +45,7 @@
 								</div>
 							</md-input-container>
 						</div>
-						<!-- <div class="" layout="row">
-							<md-input-container class="md-block" flex-gt-sm>
-								<label>Mobile Number</label>
-								<input ng-model="user.mobileNumber" name="mobileNumber">
-								<div ng-messages="userForm.mobileNumber.$error" role="alert">
-								</div>
-							</md-input-container>
-							<div flex-gt-sm></div>
-						</div> -->
-						<md-content layout="row" flex-gt-sm="50">
+						<!-- <md-content layout="row" flex-gt-sm="50">
 							<div layout="column">
 								<div ng-if="verificationStatus.success" md-colors="{color: 'primary'}">{{verificationStatus.message}}</div>
 								<div ng-if="verificationStatus.error" md-colors="{color: 'accent'}">{{verificationStatus.message}}</div>
@@ -103,7 +70,7 @@
 									<md-button type="button" class="md-raised md-primary" ng-click="verify();" >VERIFY</md-button>
 								</div>
 							</div>
-						</md-content>
+						</md-content> -->
 					</div>
 
 					<div layout="column">

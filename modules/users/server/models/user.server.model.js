@@ -80,12 +80,7 @@ var UserSchema = new Schema({
 		trim: true
 	},
     mobileNumber: {
-        type: String,
-				required: function () {
-		      if(this.isNew){
-		        return false;
-		      }
-		    }
+        type: String
     },
     verified : {
         type: Boolean,

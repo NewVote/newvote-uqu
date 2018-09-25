@@ -4,6 +4,7 @@
  * Module dependencies.
  */
 var policy = require('../policies/generic.server.policy'),
+	topics = require('../controllers/topics.server.controller'),
 	issues = require('../controllers/issues.server.controller'),
 	goals = require('../controllers/goals.server.controller'),
 	solutions = require('../controllers/solutions.server.controller'),
@@ -18,6 +19,10 @@ var policy = require('../policies/generic.server.policy'),
 
 module.exports = function (app) {
 	// Articles collection routes
+	app.route('/api/topics').all(policy.isAllowed)
+		.get(topics.list)
+		.post(topics.create);
+
 	app.route('/api/issues').all(policy.isAllowed)
 		.get(issues.list)
 		.post(issues.create);
@@ -61,6 +66,11 @@ module.exports = function (app) {
 		.get(media.getMeta);
 
 	// Single article routes
+	app.route('/api/topics/:topicId').all(policy.isAllowed)
+		.get(topics.read)
+		.put(topics.update)
+		.delete(topics.delete);
+
 	app.route('/api/issues/:issueId').all(policy.isAllowed)
 		.get(issues.read)
 		.put(issues.update)
@@ -114,6 +124,7 @@ module.exports = function (app) {
 	// 	.get(data.all)
 
 	// Finish by binding the article middleware
+	app.param('topicId', topics.topicByID);
 	app.param('issueId', issues.issueByID);
 	app.param('goalId', goals.goalByID);
 	app.param('solutionId', solutions.solutionByID);
