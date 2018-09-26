@@ -26,7 +26,20 @@ angular.module('core')
 					resolve: {
 						topics: ['TopicService', function (TopicService) {
 							return TopicService.list();
+						}],
+						issues: ['IssueService', function (IssueService) {
+							return IssueService.list();
 						}]
+					}
+				})
+
+				.state('parties', {
+					url: '/parties',
+					templateUrl: 'modules/core/client/views/parties.client.view.html',
+					controller: 'PartiesController',
+					controllerAs: 'vm',
+					data: {
+						title: 'Party Profiles'
 					}
 				})
 

@@ -95,7 +95,7 @@ body {
 }
 
 .logo {
-	height: 250px;
+	height: 200px;
 }
 
 md-sidenav {
@@ -329,7 +329,7 @@ md-input-container {
 }
 
 .banner-logo-wrapper {
-	background-color: rgba(255, 255, 255, 0.6);
+	background-color: rgba(255, 255, 255, 0.8);
 	border-radius: 10px;
 	text-align: center;
 
@@ -500,6 +500,17 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
 	justify-content: center;
 	text-align: center;
 	font-size: 14px;
+}
+
+.party-grid {
+	margin-top: 50px;
+}
+
+.party-card {
+	.card-media img{
+		width: 100px;
+		height: auto;
+	}
 }
 
 .vote-details {

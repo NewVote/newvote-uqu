@@ -69,9 +69,9 @@ module.exports = {
 	mailer: {
 		from: process.env.MAILER_FROM || 'MAILER_FROM',
 		options: {
-			service: process.env.MAILER_SERVICE_PROVIDER || 'MAILER_PROVIDER',
+			service: process.env.MAILER_SERVICE_PROVIDER || 'mailjet',
 			auth: {
-				user: process.env.MAILER_EMAIL_ID || 'MAILER_EMAIL',
+				user: process.env.MAILER_USERNAME || 'MAILER_USERNAME',
 				pass: process.env.MAILER_PASSWORD || 'MAILER_PASSWORD'
 			}
 		}

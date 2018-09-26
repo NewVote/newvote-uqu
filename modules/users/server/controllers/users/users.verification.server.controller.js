@@ -11,7 +11,7 @@ var _ = require('lodash'),
 	config = require(path.resolve('./config/config')),
 	querystring = require('querystring'),
 	nodemailer = require('nodemailer'),
-	transporter = nodemailer.createTransport(),
+	transporter = nodemailer.createTransport(config.mailer.options),
 	request = require('request');
 
 /**

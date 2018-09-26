@@ -1,10 +1,11 @@
 'use strict';
 
 angular.module('core')
-	.controller('HomeController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', '$q', 'SearchService', 'IssueService', 'TopicService', '$mdMedia', '$timeout', 'Carousel', 'topics',
-		function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, $q, SearchService, IssueService, TopicService, $mdMedia, $timeout, Carousel, topics) {
+	.controller('HomeController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', '$q', 'SearchService', 'IssueService', 'TopicService', '$mdMedia', '$timeout', 'Carousel', 'topics', 'issues',
+		function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, $q, SearchService, IssueService, TopicService, $mdMedia, $timeout, Carousel, topics, issues) {
 			var vm = this;
 			vm.topics = topics;
+			vm.issues = issues;
 			// This provides Authentication context.
 			$scope.authentication = Authentication;
 			$scope.$state = $state;

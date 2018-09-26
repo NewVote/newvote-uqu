@@ -23,7 +23,7 @@ module.exports = {
         directoryPath: process.cwd(),
         fileName: 'access.log',
         rotatingLogs: { // for more info on rotating logs - https://github.com/holidayextras/file-stream-rotator#usage
-          active: false, // activate to use rotating logs 
+          active: false, // activate to use rotating logs
           fileName: 'access-%DATE%.log', // if rotating logs are active, this fileName setting will be used
           frequency: 'daily',
           verbose: false
@@ -69,7 +69,7 @@ module.exports = {
   mailer: {
     from: process.env.MAILER_FROM || 'MAILER_FROM',
     options: {
-      service: process.env.MAILER_SERVICE_PROVIDER || 'MAILER_SERVICE_PROVIDER',
+      service: process.env.MAILER_SERVICE_PROVIDER || 'mailer',
       auth: {
         user: process.env.MAILER_EMAIL_ID || 'MAILER_EMAIL_ID',
         pass: process.env.MAILER_PASSWORD || 'MAILER_PASSWORD'

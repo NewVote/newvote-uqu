@@ -10,7 +10,7 @@ var path = require('path'),
 	passport = require('passport'),
 	User = mongoose.model('User'),
 	nodemailer = require('nodemailer'),
-	transporter = nodemailer.createTransport(),
+	transporter = nodemailer.createTransport(config.mailer.options),
 	Recaptcha = require('recaptcha-verify');
 
 // URLs for which user can't be redirected on signin

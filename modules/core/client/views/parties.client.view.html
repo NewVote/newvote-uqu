@@ -1,0 +1,69 @@
+<!-- <md-button class="md-primary" href="asdaskldj">HOME PAGE</md-button> -->
+<!-- <div><img style="width:100%" src="modules/core/client/img/home.png"></div> -->
+<!-- Meta tags -->
+<!-- Basic meta tags -->
+<update-title title="{{ title }}"></update-title>
+<update-meta name="description"
+    content="{{ desc }}"></update-meta>
+
+<!-- Facebook META -->
+<update-meta property="og:title"
+    content="{{ title }}"></update-meta>
+<update-meta property="og:description"
+    content="{{ desc }}"></update-meta>
+<update-meta property="og:url"
+    use-abs-url="true"></update-meta>
+
+<!-- Twitter META -->
+<update-meta name="twitter:title"
+    content="{{ title }}"></update-meta>
+<update-meta name="twitter:description"
+    content="{{ desc }}"></update-meta>
+<update-meta name="twitter:url"
+    use-abs-url="true"></update-meta>
+
+<div class="home-container">
+
+	<div
+	    layout="row">
+
+		<md-grid-list class="party-grid"
+		    flex-offset-lg="15"
+		    flex-lg="70"
+		    flex-offset-xl="25"
+		    flex-xl="50"
+			flex="100"
+		    md-cols="1"
+		    md-cols-sm="2"
+		    md-cols-md="3"
+		    md-cols-gt-md="3"
+		    md-row-height-gt-md="10:11"
+		    md-row-height="1:1"
+			md-row-height-xs="10:7"
+		    md-gutter="8px"
+		    md-gutter-gt-sm="4px">
+
+			<md-grid-tile ng-repeat="tile in vm.tiles"
+			    md-colspan-sm="1"
+			    md-colspan-xs="1">
+				<md-card class="party-card">
+					<md-card-title>
+						<md-card-title-text>
+							<span class="md-headline">{{tile.name}}</span>
+						</md-card-title-text>
+						<div class="md-media-lg card-media">
+							<img ng-src="{{tile.imageUrl}}"
+							    class="md-card-image"
+							    alt="{{tile.name}}">
+						</div>
+					</md-card-title>
+					<md-card-content>
+						<p>
+							{{tile.description}}
+						</p>
+					</md-card-content>
+				</md-card>
+			</md-grid-tile>
+		</md-grid-list>
+	</div>
+</div>
