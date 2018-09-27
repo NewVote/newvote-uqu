@@ -13,9 +13,17 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$locatio
 ]);
 
 var app = angular.module(ApplicationConfiguration.applicationModuleName);
+
 app.config(['ngQuillConfigProvider', function (ngQuillConfigProvider) {
 	ngQuillConfigProvider.set();
 }]);
+// debugger;
+app.config(['TourConfigProvider', function(TourConfigProvider) {
+	TourConfigProvider.enableNavigationInterceptors();
+	TourConfigProvider.set('backdrop', true);
+	TourConfigProvider.set('useUiRouter', true);
+}])
+
 app.config(['$mdThemingProvider', function ($mdThemingProvider) {
 	$mdThemingProvider.theme('default')
 		.primaryPalette('cyan', {

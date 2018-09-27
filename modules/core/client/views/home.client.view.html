@@ -22,7 +22,9 @@
 
 <!-- <md-button class="md-primary" href="asdaskldj">HOME PAGE</md-button> -->
 <!-- <div><img style="width:100%" src="modules/core/client/img/home.png"></div> -->
-<div class="home-container">
+<div class="home-container"
+    ui-tour
+    ui-tour-on-ready="onTourReady(tour)">
 	<div class="home-search-banner"
 	    layout="column"
 	    layout-align="center center">
@@ -31,7 +33,11 @@
 				<img src="modules/core/client/img/brand/logo.png" height="300px" alt="UQ Votes" />
 	    	</h1>
 			<h2 class="title-text">Sign up and be heard</h2>
-			<div>
+			<div tour-step
+			    tour-step-title="Main Menu"
+			    tour-step-content="Navigate the site using this menu."
+			    tour-step-order="0"
+			    tour-step-placement="right">
 				<a layout-padding
 				    class=""
 				    ng-if="!authentication.user"
@@ -166,16 +172,15 @@
 		    flex-offset="5">
 			<h2 class="md-display-1">When do I vote at the UQ Union Election?</h2>
 			<p class="md-body-1">
-				During the week starting Tuesday 2 October 2018, the parties and candidates who have nominated to run for positions at UQ Union will campaign throughout the UQ campuses. <br />
-				The polls open on Monday 8 October 2018 and close on Friday 12 October 2018.<br />
+				During the week starting Tuesday 2 October 2018, the parties and candidates who have nominated to run for positions at UQ Union will campaign throughout the UQ campuses. <br /> The polls open on Monday 8 October 2018 and close on Friday 12 October 2018.<br />
 			</p>
 		</div>
 	</md-content>
 
 	<md-content>
 		<div class="md-toolbar transparent"
-			flex="90"
-			flex-offset="5">
+		    flex="90"
+		    flex-offset="5">
 			<h2 class="md-display-1">Why should I vote at the UQ Union Election?</h2>
 			<p class="md-body-1">
 				Voting is optional but it is the one formal chance you have in the year to decide who you want representing you - you also happen to get a $5 voucher for use at the UQ Union refectories. <br />
@@ -185,8 +190,8 @@
 
 	<md-content>
 		<div class="md-toolbar transparent"
-			flex="90"
-			flex-offset="5">
+		    flex="90"
+		    flex-offset="5">
 			<h2 class="md-display-1">Who should I vote for at the UQ Union Election?</h2>
 			<p class="md-body-1">
 				We can't tell you that, but UQ Votes is here to help you decide how you could vote by providing you with information on the issues and the parties... So, what issues matter to you?<br />

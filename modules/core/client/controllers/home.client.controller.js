@@ -2,7 +2,7 @@
 
 angular.module('core')
 	.controller('HomeController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', '$q', 'SearchService', 'IssueService', 'TopicService', '$mdMedia', '$timeout', 'Carousel', 'topics', 'issues',
-		function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, $q, SearchService, IssueService, TopicService, $mdMedia, $timeout, Carousel, topics, issues) {
+		function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, $q, SearchService, IssueService, TopicService , $mdMedia, $timeout, Carousel, topics, issues) {
 			var vm = this;
 			vm.topics = topics;
 			vm.issues = issues;
@@ -57,6 +57,11 @@ angular.module('core')
 				' also allows people to vote on the solutions, making people\'s opinion ' +
 				'available to the decision makers.';
 			$rootScope.headerTitle = 'Home';
+
+			$scope.onTourReady = function(tour) {
+				// debugger;
+				tour.start();
+			}
 
 			$scope.toggleMessage = function () {
 				$scope.message = !$scope.message;
