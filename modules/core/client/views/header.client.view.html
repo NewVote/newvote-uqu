@@ -1,20 +1,20 @@
 <md-toolbar class="md-primary md-hue-2 app-header">
-	<div class="md-toolbar-tools"
-	    flex-offset-lg="5"
-	    flex-lg="90"
-	    flex-offset-xl="15"
-	    flex-xl="70">
-		<md-button ng-click="vm.toggleSidenav()"
-		    class="md-icon-button">
-			<md-icon>menu</md-icon>
-		</md-button>
-		<md-truncate flex
-		    class="home-title">{{headerTitle}}
-			<md-tooltip>{{headerTitle}}</md-tooltip>
-		</md-truncate>
+	<div class="md-toolbar-tools">
+		<div flex="25"
+		    flex-xl="25">
+			<md-button ng-click="vm.toggleSidenav()"
+			    class="md-icon-button">
+				<md-icon>menu</md-icon>
+			</md-button>
+			<md-truncate class="home-title">{{headerTitle}}
+				<md-tooltip>{{headerTitle}}</md-tooltip>
+			</md-truncate>
+		</div>
 
-		<div flex="auto"
-		    layout="column" ng-if="vm.mdMedia('gt-sm')">
+		<div flex="50"
+		    flex-xl="50"
+		    layout="column"
+		    ng-if="vm.mdMedia('gt-sm')">
 			<md-input-container md-no-float
 			    class="md-block search-input simple"
 			    md-no-asterisk>
@@ -44,9 +44,10 @@
 			</md-input-container>
 		</div>
 
-		<!-- <span flex></span> -->
+		<span flex></span>
 
-		<md-button aria-label="Show search" ng-if="!vm.mdMedia('gt-sm')"
+		<md-button aria-label="Show search"
+		    ng-if="!vm.mdMedia('gt-sm')"
 		    class="md-icon-button"
 		    ng-click="vm.openSearch()">
 			<md-icon>search</md-icon>
@@ -76,7 +77,7 @@
 					</md-button>
 				</md-menu-item>
 
-				<md-menu-item ng-if="authentication.user.roles.indexOf('admin') != -1">
+				<md-menu-item ng-if="vm.authentication.user.roles.indexOf('admin') != -1">
 					<md-button ui-sref="admin.users">
 						Manage Users
 					</md-button>

@@ -1,13 +1,16 @@
 <div>
 	<div layout="row" layout-align="center">
-		<a ui-sref="home">
-            <img class="logo" src="modules/core/client/img/brand/logo-gif.gif">
+		<a ui-sref="home" layout-padding>
+            <img class="logo" src="modules/core/client/img/brand/logo.png">
         </a>
 	</div>
 	<md-list class="left-menu" ng-cloak ng-click="vm.tapSidenav()">
 
 		<md-list-item ui-sref="home" ui-sref-active="active">
 			<p class="item-content">Home</p>
+		</md-list-item>
+		<md-list-item ui-sref="parties" ui-sref-active="active">
+			<p class="item-content">Party Profiles</p>
 		</md-list-item>
 		<div layout-padding></div>
 		<!-- <md-divider></md-divider> -->

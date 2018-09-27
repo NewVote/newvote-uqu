@@ -12,7 +12,7 @@ var path = require('path'),
   async = require('async'),
   crypto = require('crypto');
 
-var smtpTransport = nodemailer.createTransport(config.mailer.options);
+	var smtpTransport = nodemailer.createTransport(config.mailer.options);
 
 /**
  * Forgot for reset password (forgot POST)
