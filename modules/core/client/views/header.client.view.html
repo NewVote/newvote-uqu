@@ -1,10 +1,14 @@
 <md-toolbar class="md-primary md-hue-2 app-header">
 	<div class="md-toolbar-tools">
-		<div flex="25"
-		    flex-xl="25">
-			<md-button ng-click="vm.toggleSidenav()"
+		<div flex="50"
+		    flex-gt-sm="25">
+			<md-button ng-if="!showBackButton" ng-click="vm.toggleSidenav()"
 			    class="md-icon-button">
 				<md-icon>menu</md-icon>
+			</md-button>
+			<md-button ng-if="showBackButton" ng-click="vm.navigateBack()"
+				class="md-icon-button">
+				<md-icon>arrow_back_ios</md-icon>
 			</md-button>
 			<md-truncate class="home-title">{{headerTitle}}
 				<md-tooltip>{{headerTitle}}</md-tooltip>

@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('core')
-	.controller('HomeController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', '$q', 'SearchService', 'IssueService', 'TopicService', '$mdMedia', '$timeout', 'Carousel', 'topics', 'issues',
-		function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, $q, SearchService, IssueService, TopicService , $mdMedia, $timeout, Carousel, topics, issues) {
+	.controller('HomeController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', '$q', '$localStorage', 'SearchService', 'IssueService', 'TopicService', 'uiTourService', '$mdMedia', '$timeout', 'Carousel', 'topics', 'issues',
+		function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, $q, $localStorage, SearchService, IssueService, TopicService, uiTourService, $mdMedia, $timeout, Carousel, topics, issues) {
 			var vm = this;
 			vm.topics = topics;
 			vm.issues = issues;
@@ -14,6 +14,41 @@ angular.module('core')
 			//number of slides to show on the carousel
 			$scope.slidesToShow = 3;
 			$scope.showCarousel = true;
+
+			$scope.searchOpen = false;
+			$scope.message = true;
+
+			// Page title config
+			$rootScope.titlePrefix = '';
+			$rootScope.titleSuffix = ' | NewVote';
+
+			// Update title and description
+			$scope.title = $rootScope.titlePrefix + 'Home' + $rootScope.titleSuffix;
+			$scope.desc = 'NewVote is a dedicated online platform aimed at providing' +
+			' balanced, unbiased information on the current federal political issues' +
+			' and solutions in Australia. This information is maintained by an in de' +
+			'pendent panel and is presented in a simplified and organised manner. It' +
+			' also allows people to vote on the solutions, making people\'s opinion ' +
+			'available to the decision makers.';
+			$rootScope.headerTitle = 'Home';
+
+			var homeTour = uiTourService.getTourByName('homeTour')
+			console.log(homeTour.getStatus())
+			console.log(homeTour.Status.WAITING)
+			console.log(homeTour.getStatus() == homeTour.Status.WAITING)
+
+			if(Authentication.user &&
+				(homeTour.getStatus() != homeTour.Status.ON && homeTour.getStatus() != homeTour.Status.WAITING) &&
+				(!$localStorage.hasEndedTour)
+			){
+				console.log('starting tour')
+				homeTour.start();
+				homeTour.waitFor('home.step.0');
+				homeTour.on('ended', function() {
+					console.log('home tour ended')
+					$localStorage.hasEndedTour = true;
+				})
+			}
 
 			//watch for changes in screen width and catch when screen is gt-md
 			$scope.$watch(function () {
@@ -42,25 +77,12 @@ angular.module('core')
 				}
 			});
 
-			$scope.message = true;
-
-			// Page title config
-			$rootScope.titlePrefix = '';
-			$rootScope.titleSuffix = ' | NewVote';
-
-			// Update title and description
-			$scope.title = $rootScope.titlePrefix + 'Home' + $rootScope.titleSuffix;
-			$scope.desc = 'NewVote is a dedicated online platform aimed at providing' +
-				' balanced, unbiased information on the current federal political issues' +
-				' and solutions in Australia. This information is maintained by an in de' +
-				'pendent panel and is presented in a simplified and organised manner. It' +
-				' also allows people to vote on the solutions, making people\'s opinion ' +
-				'available to the decision makers.';
-			$rootScope.headerTitle = 'Home';
-
 			$scope.onTourReady = function(tour) {
-				// debugger;
-				tour.start();
+				//starting the detached home tour
+				if(Authentication.user){
+					var homeTour = uiTourService.getTourByName('homeTour')
+					homeTour.start();
+				}
 			}
 
 			$scope.toggleMessage = function () {
@@ -85,7 +107,6 @@ angular.module('core')
 				return SearchService.getItemTitle(item);
 			};
 
-			$scope.searchOpen = false;
 
 			$scope.openSearch = function () {
 				$scope.searchOpen = !$scope.searchOpen;
