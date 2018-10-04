@@ -2,17 +2,32 @@
 	<div class="md-toolbar-tools">
 		<div flex="50"
 		    flex-gt-sm="25">
-			<md-button ng-if="!showBackButton" ng-click="vm.toggleSidenav()"
-			    class="md-icon-button">
+			<md-button ng-if="!vm.isBackState"
+			    ng-click="vm.toggleSidenav()"
+			    class="md-icon-button"
+			    tour-step="home.step.openMenu"
+			    tour-step-belongs-to="homeTour"
+			    tour-step-title="Main Menu"
+			    tour-step-content="Navigate the site using the main menu."
+			    tour-step-order="10"
+			    tour-step-placement="right">
 				<md-icon>menu</md-icon>
 			</md-button>
-			<md-button ng-if="showBackButton" ng-click="vm.navigateBack()"
-				class="md-icon-button">
+			<md-button ng-if="vm.isBackState"
+			    ng-click="vm.navigateBack()"
+			    class="md-icon-button">
 				<md-icon>arrow_back_ios</md-icon>
 			</md-button>
 			<md-truncate class="home-title">{{headerTitle}}
 				<md-tooltip>{{headerTitle}}</md-tooltip>
 			</md-truncate>
+			<div tour-step="home.step.0"
+			    tour-step-belongs-to="homeTour"
+			    tour-step-title="Welcome to UQ Votes"
+			    tour-step-content="UQ Votes is a democracy app: building a bridge between you and your student representatives. We are not radical, and we are not undermining representative democracy at UQ. In fact, the opposite is true - we want to make representative democracy more representative."
+			    tour-step-order="0"
+			    tour-step-placement="bottom-left">
+			</div>
 		</div>
 
 		<div flex="50"
@@ -41,7 +56,7 @@
                 		</a>
 					</md-item-template>
 					<md-not-found>
-						No matches found.
+						Nothing found. <a href="suggestions">Make a suggestion?</a>
 					</md-not-found>
 
 				</md-autocomplete>

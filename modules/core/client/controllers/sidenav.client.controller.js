@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('core')
-	.controller('SidenavController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$mdMedia', '$state', 'SearchService',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $mdMedia, $state, SearchService) {
+	.controller('SidenavController', ['$scope', 'Authentication', '$location', '$localStorage', '$window', '$mdSidenav', '$rootScope', '$mdMenu', '$mdMedia', '$state', 'uiTourService', 'SearchService',
+	function ($scope, Authentication, $location, $localStorage, $window, $mdSidenav, $rootScope, $mdMenu, $mdMedia, $state, uiTourService, SearchService) {
 			// This provides Authentication context.
 			var vm = this;
 			vm.authentication = Authentication;
@@ -12,8 +12,31 @@ angular.module('core')
 			vm.results = [];
 			vm.mdMedia = $mdMedia;
 			vm.searchOpen = false;
+			vm.$state = $state;
 
-			$rootScope.showBackButton = true;
+			vm.backStates = {
+				'topics.view': 'topics.list',
+				'topics.create': 'topics.list',
+				'topics.edit': 'topics.list',
+				'issues.view': 'issues.list',
+				'issues.create': 'issues.list',
+				'issues.edit': 'issues.list',
+				'goals.view': 'goals.list',
+				'goals.create': 'goals.list',
+				'goals.edit': 'goals.list',
+				'solutions.view': 'solutions.list',
+				'solutions.create': 'solutions.list',
+				'solutions.edit': 'solutions.list',
+				'endorsements.create': 'home',
+				'endorsements.edit': 'home',
+				'media.create': 'home',
+				'media.edit': 'home',
+				'suggestions': 'home',
+			}
+
+			vm.isBackState = checkBackState($state.current.name);
+			var previousState, previousParams;
+			var navStack = [];
 
 			// Page title config
 			$rootScope.titlePrefix = '';
@@ -22,11 +45,11 @@ angular.module('core')
 			// Update title and description
 			$scope.title = $rootScope.titlePrefix + '' + $rootScope.titleSuffix;
 			$scope.desc = 'NewVote is a dedicated online platform aimed at providing' +
-			' balanced, unbiased information on the current federal political issues' +
-			' and solutions in Australia. This information is maintained by an in de' +
-			'pendent panel and is presented in a simplified and organised manner. It' +
-			' also allows people to vote on the solutions, making people\'s opinion ' +
-			'available to the decision makers.';
+				' balanced, unbiased information on the current federal political issues' +
+				' and solutions in Australia. This information is maintained by an in de' +
+				'pendent panel and is presented in a simplified and organised manner. It' +
+				' also allows people to vote on the solutions, making people\'s opinion ' +
+				'available to the decision makers.';
 
 			$rootScope.removeHtmlElements = function (text) {
 				if(text != null) {
@@ -36,6 +59,76 @@ angular.module('core')
 					return '';
 				}
 			};
+
+			//set isBackState and handle the navStack for backwards navigation
+			$scope.$on('$stateChangeSuccess', function (evt, toState, toParams, fromState, fromParams) {
+				previousState = fromState;
+				previousParams = fromParams;
+				if(toParams.back) {
+					navStack.pop();
+				} else {
+					navStack.push({ fromState, fromParams });
+				}
+
+				vm.isBackState = checkBackState(toState.name);
+			})
+
+			function checkBackState(state) {
+				if(vm.backStates[state]) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+
+			var handleTourStepShow = function () {
+				return new Promise((resolve, reject) => {
+					debugger;
+					let tour = uiTourService.getTourByName('homeTour')
+					let step = tour.getCurrentStep();
+					if(step.stepId == 'home.step.menu' && !$mdMedia('gt-md')) {
+						return vm.toggleSidenav().then(() => {
+							// tour.reposition();
+							return resolve();
+						})
+					}else {
+						return resolve();
+					}
+				})
+			}
+			// $localStorage.hasEndedTour = false;
+			uiTourService.createDetachedTour('homeTour', {
+				'backdropZIndex': '10000',
+				'onShow': handleTourStepShow
+			})
+
+			// set up the main tour
+			var homeTour = uiTourService.getTourByName('homeTour')
+
+			if(Authentication.user &&
+				(homeTour.getStatus() != homeTour.Status.ON && homeTour.getStatus() != homeTour.Status.WAITING)
+				// && (!$localStorage.hasEndedTour)
+			) {
+				$scope.$on('$viewContentLoaded', function () {
+					//Here your view content is fully loaded !!
+					vm.onTourReady();
+				});
+			}
+
+			vm.onTourReady = function (tour) {
+				if($state.current.name == 'home'){
+					homeTour.start();
+					homeTour.waitFor('home.step.0');
+					homeTour.on('ended', function () {
+						console.log('home tour ended')
+						$localStorage.hasEndedTour = true;
+					})
+
+					homeTour.on('started', function () {
+						console.log('home tour started')
+					})
+				}
+			}
 
 			vm.toggleMessage = function () {
 				$scope.message = !$scope.message;
@@ -65,14 +158,22 @@ angular.module('core')
 				vm.isOpen = !vm.isOpen;
 				if($mdMedia('gt-md')) {
 					vm.lockLeft = !vm.lockLeft
+					return Promise.resolve();
 				} else {
-					$mdSidenav('left')
+					return $mdSidenav('left')
 						.toggle();
 				}
 			}
 
-			vm.navigateBack = function() {
-
+			vm.navigateBack = function () {
+				// find a safe route to navigate backwards too if there is nothing in the nav stack
+				var safeBackState = this.backStates[$state.current.name] ? this.backStates[$state.current.name] : '/';
+				//determine whether to use the safestate or a previous state
+				var backTo = navStack[navStack.length - 1].fromState.name ? navStack[navStack.length - 1].fromState.name : safeBackState;
+				//find any stateparams like id's
+				var stateParams = navStack[navStack.length - 1] ? navStack[navStack.length - 1].fromParams : null
+				stateParams.back = true;
+				$state.go(backTo, stateParams);
 			}
 
 			vm.tapSidenav = function () {

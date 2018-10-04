@@ -7,24 +7,11 @@
         </a>
 	</div>
 	<md-list class="left-menu"
-	    ng-cloak
-	    ng-click="vm.tapSidenav()"
-		tour-step="home.step.1"
-		tour-step-belongs-to="homeTour"
-		tour-step-title="Main Menu"
-		tour-step-content="Navigate the site using this menu."
-		tour-step-order="1"
-		tour-step-placement="right">
+	    ng-click="vm.tapSidenav()">
 
 		<md-list-item ui-sref="home"
 		    ui-sref-active="active">
-			<p class="item-content"
-			tour-step="home.step.2"
-			tour-step-belongs-to="homeTour"
-			tour-step-title="Main Menu"
-			tour-step-content="Navigate the site using this menu."
-			tour-step-order="2"
-			tour-step-placement="right">Home</p>
+			<p class="item-content">Home</p>
 		</md-list-item>
 		<md-list-item ui-sref="parties"
 		    ui-sref-active="active">
@@ -33,27 +20,35 @@
 		<div layout-padding></div>
 		<!-- <md-divider></md-divider> -->
 		<div layout-padding></div>
-		<md-list-item ui-sref="topics.list"
-		    ui-sref-active="active">
-			<p class="item-content">Topics</p>
-		</md-list-item>
+		<div tour-step="home.step.menu"
+		    tour-step-belongs-to="homeTour"
+		    tour-step-title="Topics, Issues, Goals and Solutions"
+		    tour-step-content="Vote on the topics, issues, goals and solutions that matter to you the most."
+		    tour-step-order="20"
+		    tour-step-placement="bottom"
+			tour-step-scroll-into-view="true">
+			<md-list-item ui-sref="topics.list"
+			    ui-sref-active="active">
+				<p class="item-content">Topics</p>
+			</md-list-item>
 
-		<md-list-item ui-sref="issues.list"
-		    ui-sref-active="active">
-			<p class="item-content">Issues</p>
-		</md-list-item>
+			<md-list-item ui-sref="issues.list"
+			    ui-sref-active="active">
+				<p class="item-content">Issues</p>
+			</md-list-item>
 
-		<md-list-item class=""
-		    ui-sref="goals.list"
-		    ui-sref-active="active">
-			<p class="item-content">Goals</p>
-		</md-list-item>
+			<md-list-item class=""
+			    ui-sref="goals.list"
+			    ui-sref-active="active">
+				<p class="item-content">Goals</p>
+			</md-list-item>
 
-		<md-list-item class=""
-		    ui-sref="solutions.list"
-		    ui-sref-active="active">
-			<p class="item-content">Solutions</p>
-		</md-list-item>
+			<md-list-item class=""
+			    ui-sref="solutions.list"
+			    ui-sref-active="active">
+				<p class="item-content">Solutions</p>
+			</md-list-item>
+		</div>
 
 		<div layout-padding></div>
 

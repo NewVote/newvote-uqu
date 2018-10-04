@@ -18,11 +18,21 @@ var validateLocalStrategyProperty = function (property) {
 };
 
 /**
+ * A Validation function for checking UQ emails
+ */
+var validateUQEmail = function(email) {
+	debugger;
+	var regex = /^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(uqconnect|uq)\.(edu|net)\.au$/;
+	var pass = (email.match(regex) != null) ;
+	return pass;
+}
+/**
  * A Validation function for local strategy email
  */
 var validateLocalStrategyEmail = function (email) {
-	return ((this.provider !== 'local' && !this.updated) || validator.isEmail(email));
+	return ((this.provider !== 'local' && !this.updated) || (validator.isEmail(email) && validateUQEmail(email)));
 };
+
 
 /**
  * User Schema
@@ -50,7 +60,7 @@ var UserSchema = new Schema({
 		lowercase: true,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyEmail, 'Please fill a valid email address']
+		validate: [validateLocalStrategyEmail, 'Please USE a valid UQ email address']
 	},
 	postalCode: {
 		type: String,

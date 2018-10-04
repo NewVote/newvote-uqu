@@ -124,6 +124,28 @@
     layout="column">
 
 	<ang-accordion>
+		<collapsible-item item-title="Media">
+			<media-list media="vm.media"
+			object-id="vm.issue._id"
+			object-type="'issue'"></media-list>
+		</collapsible-item>
+		<collapsible-item item-title="What are the majority opinions?">
+			<span class="md-subhead">In order to use this section of the App you may need to login again with Pol.is.<br>
+				Please be aware that your image (showing where you stand) may be visible to other users</span>
+				<div class="polis"
+				data-topic="What do you think?"
+				data-page_id="{{vm.issue._id}}"
+				data-site_id="polis_site_id_7YYdpN4NRpUvCKC7ZU">
+			</div>
+		</collapsible-item>
+		<collapsible-item item-title="Meetups">
+			<span class="md-headline">In the future this section will contain details of real world events related to this Goal.</span>
+		</collapsible-item>
+		<collapsible-item item-title="Endorsements">
+			<endorsement-list endorsement="vm.endorsement"
+			object-id="vm.issue._id"
+			object-type="'issue'"></endorsement-list>
+		</collapsible-item>
 		<collapsible-item item-title="Vote on Goals">
 			<goal-list goals="vm.goals"
 			    issue-id="vm.issueId"></goal-list>
@@ -131,28 +153,6 @@
 		<collapsible-item item-title="Vote on Solutions">
 			<solution-list solutions="vm.solutions"
 			    issue-id="vm.issueId"></solution-list>
-		</collapsible-item>
-		<collapsible-item item-title="Where do I stand?">
-			<span class="md-subhead">In order to use this section of the App you may need to login again with Pol.is.<br>
-				 Please be aware that your image (showing where you stand) may be visible to other users</span>
-			<div class="polis"
-			    data-topic="What do you think?"
-			    data-page_id="{{vm.issue._id}}"
-			    data-site_id="polis_site_id_7YYdpN4NRpUvCKC7ZU">
-			</div>
-		</collapsible-item>
-		<collapsible-item item-title="Endorsements">
-			<endorsement-list endorsement="vm.endorsement"
-			    object-id="vm.issue._id"
-			    object-type="'issue'"></endorsement-list>
-		</collapsible-item>
-		<collapsible-item item-title="Meetups">
-			<span class="md-headline">In the future this section will contain details of real world events related to this Goal.</span>
-		</collapsible-item>
-		<collapsible-item item-title="Media">
-			<media-list media="vm.media"
-			    object-id="vm.issue._id"
-			    object-type="'issue'"></media-list>
 		</collapsible-item>
 	</ang-accordion>
 

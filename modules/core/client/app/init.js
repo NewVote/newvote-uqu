@@ -118,13 +118,6 @@ angular.module(ApplicationConfiguration.applicationModuleName)
 			delete $localStorage.pendingVotes;
 		}
 	})
-	.run(function (uiTourService) {
-
-		// $localStorage.hasEndedTour = false;
-		uiTourService.createDetachedTour('homeTour', {
-			'backdropZIndex': '10000'
-		})
-	})
 	.filter('htmlToPlaintext', function () {
 		return function (text) {
 			return text ? String(text)

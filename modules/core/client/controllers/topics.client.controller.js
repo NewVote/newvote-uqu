@@ -8,6 +8,8 @@ angular.module('core').controller('TopicsController', ['$scope', 'Authentication
 		vm.sortSvc = SortService;
 		$scope.authentication = Authentication;
 
+		$rootScope.showBackButton = false;
+
 		// Title
 		vm.title = $rootScope.titlePrefix + 'Topics' + $rootScope.titleSuffix;
 		$rootScope.headerTitle = 'Topics';

@@ -20,6 +20,9 @@ angular.module('core')
 					templateUrl: 'modules/core/client/views/home.client.view.html',
 					controller: 'HomeController',
 					controllerAs: 'vm',
+					params: {
+						'back': false
+					},
 					data: {
 						title: 'NewVote'
 					},
@@ -38,6 +41,9 @@ angular.module('core')
 					templateUrl: 'modules/core/client/views/parties.client.view.html',
 					controller: 'PartiesController',
 					controllerAs: 'vm',
+					params: {
+						'back': false
+					},
 					data: {
 						title: 'Party Profiles'
 					}
@@ -47,6 +53,9 @@ angular.module('core')
 					url: '/thanks',
 					templateUrl: 'modules/core/client/views/thanks.client.view.html',
 					controller: 'ThanksController',
+					params: {
+						'back': false
+					},
 					data: {
 						title: 'Thank You'
 					}
@@ -57,6 +66,9 @@ angular.module('core')
 					templateUrl: 'modules/core/client/views/about.client.view.html',
 					controller: 'AboutController',
 					controllerAs: 'vm',
+					params: {
+						'back': false
+					},
 					data: {
 						title: 'NewVote'
 					}
@@ -67,6 +79,9 @@ angular.module('core')
 					templateUrl: 'modules/core/client/views/help.client.view.html',
 					controller: 'HelpController',
 					controllerAs: 'vm',
+					params: {
+						'back': false
+					},
 					data: {
 						title: 'NewVote'
 					}
@@ -83,6 +98,9 @@ angular.module('core')
 					templateUrl: 'modules/core/client/views/topics.client.view.html',
 					controller: 'TopicsController',
 					controllerAs: 'vm',
+					params: {
+						'back': false
+					},
 					data: {
 						title: 'Topics'
 					},
@@ -97,6 +115,9 @@ angular.module('core')
 					templateUrl: 'modules/core/client/views/edit-topic.client.view.html',
 					controller: 'TopicController',
 					controllerAs: 'vm',
+					params: {
+						'back': false
+					},
 					data: {
 						roles: ['admin'],
 						title: 'Create Topic'
@@ -117,6 +138,9 @@ angular.module('core')
 					templateUrl: 'modules/core/client/views/edit-topic.client.view.html',
 					controller: 'TopicController',
 					controllerAs: 'vm',
+					params: {
+						'back': false
+					},
 					data: {
 						roles: ['admin'],
 						title: 'Edit Topic'
@@ -135,6 +159,9 @@ angular.module('core')
 					controller: 'TopicController',
 					controllerAs: 'vm',
 					templateUrl: 'modules/core/client/views/topic.client.view.html',
+					params: {
+						'back': false
+					},
 					resolve: {
 						topic: ['TopicService', '$stateParams', function (TopicService, $stateParams) {
 							return TopicService.get($stateParams.topicId);
@@ -158,6 +185,9 @@ angular.module('core')
 					templateUrl: 'modules/core/client/views/issues.client.view.html',
 					controller: 'IssuesController',
 					controllerAs: 'vm',
+					params: {
+						'back': false
+					},
 					data: {
 						title: 'Issues'
 					},
@@ -172,6 +202,9 @@ angular.module('core')
 					templateUrl: 'modules/core/client/views/edit-issue.client.view.html',
 					controller: 'IssueController',
 					controllerAs: 'vm',
+					params: {
+						'back': false
+					},
 					data: {
 						roles: ['admin'],
 						title: 'Create Issue'
@@ -201,6 +234,9 @@ angular.module('core')
 					templateUrl: 'modules/core/client/views/edit-issue.client.view.html',
 					controller: 'IssueController',
 					controllerAs: 'vm',
+					params: {
+						'back': false
+					},
 					data: {
 						roles: ['admin'],
 						title: 'Edit Issue'
@@ -228,6 +264,9 @@ angular.module('core')
 					controller: 'IssueController',
 					controllerAs: 'vm',
 					templateUrl: 'modules/core/client/views/issue.client.view.html',
+					params: {
+						'back': false
+					},
 					resolve: {
 						issue: ['IssueService', '$stateParams', function (IssueService, $stateParams) {
 							return IssueService.get($stateParams.issueId);
@@ -263,6 +302,9 @@ angular.module('core')
 				.state('goals.list', {
 					url: '/',
 					templateUrl: 'modules/core/client/views/goals.client.view.html',
+					params: {
+						'back': false
+					},
 					data: {
 						title: 'NewVote | Goals'
 					},
@@ -279,6 +321,9 @@ angular.module('core')
 					templateUrl: 'modules/core/client/views/edit-goal.client.view.html',
 					controller: 'GoalController',
 					controllerAs: 'vm',
+					params: {
+						'back': false
+					},
 					data: {
 						roles: ['admin'],
 						title: 'Create Goal'
@@ -309,6 +354,9 @@ angular.module('core')
 					templateUrl: 'modules/core/client/views/edit-goal.client.view.html',
 					controller: 'GoalController',
 					controllerAs: 'vm',
+					params: {
+						'back': false
+					},
 					data: {
 						roles: ['admin'],
 						title: 'Edit Goal'
@@ -336,6 +384,9 @@ angular.module('core')
 					templateUrl: 'modules/core/client/views/goal.client.view.html',
 					controller: 'GoalController',
 					controllerAs: 'vm',
+					params: {
+						'back': false
+					},
 					resolve: {
 						goal: ['GoalService', '$stateParams', function (GoalService, $stateParams) {
 							return GoalService.get($stateParams.goalId);
@@ -366,6 +417,9 @@ angular.module('core')
 					templateUrl: 'modules/core/client/views/goal.client.view.html',
 					controller: 'GoalController',
 					controllerAs: 'vm',
+					params: {
+						'back': false
+					},
 					resolve: {
 						goal: ['GoalService', '$stateParams', function (GoalService, $stateParams) {
 							return GoalService.get($stateParams.goalId);
@@ -392,6 +446,11 @@ angular.module('core')
 				.state('solutions.list', {
 					url: '/',
 					templateUrl: 'modules/core/client/views/solutions.client.view.html',
+					params: {
+						'back': false,
+						solutionId: null,
+						goalId: null
+					},
 					data: {
 						title: 'NewVote | Solutions'
 					},
@@ -408,6 +467,11 @@ angular.module('core')
 					templateUrl: 'modules/core/client/views/edit-solution.client.view.html',
 					controller: 'SolutionController',
 					controllerAs: 'vm',
+					params: {
+						'back': false,
+						solutionId: null,
+						goalId: null
+					},
 					data: {
 						roles: ['admin'],
 						title: 'Create Solution'
@@ -438,6 +502,7 @@ angular.module('core')
 					controller: 'SolutionController',
 					controllerAs: 'vm',
 					params: {
+						'back': false,
 						solutionId: null,
 						goalId: null
 					},
@@ -468,6 +533,12 @@ angular.module('core')
 					templateUrl: 'modules/core/client/views/solution.client.view.html',
 					controller: 'SolutionController',
 					controllerAs: 'vm',
+					params: {
+						'back': false,
+						'objectId': null,
+						'objectType': null,
+						'suggestionType': null
+					},
 					resolve: {
 						solution: ['SolutionService', '$stateParams', function (SolutionService, $stateParams) {
 							return SolutionService.get($stateParams.solutionId);
@@ -502,7 +573,12 @@ angular.module('core')
 						roles: ['admin', 'user'],
 						title: 'Create Suggestion'
 					},
-					params: { 'objectId': null, 'objectType': null, 'suggestionType': null },
+					params: {
+						'back': false,
+						'objectId': null,
+						'objectType': null,
+						'suggestionType': null
+					},
 					resolve: {
 						suggestion: function () {
 							return {
@@ -529,6 +605,7 @@ angular.module('core')
 						title: 'Create Media'
 					},
 					params: {
+						'back': false,
 						objectId: null,
 						objectType: null
 					},
@@ -547,6 +624,7 @@ angular.module('core')
 					controller: 'MediaController',
 					controllerAs: 'vm',
 					data: {
+						'back': false,
 						roles: ['admin'],
 						title: 'Edit Media'
 					},
@@ -573,6 +651,7 @@ angular.module('core')
 						title: 'Create Endorsement'
 					},
 					params: {
+						'back': false,
 						objectId: null,
 						objectType: null
 					},
@@ -590,6 +669,11 @@ angular.module('core')
 					templateUrl: 'modules/core/client/views/edit-endorsement.client.view.html',
 					controller: 'EndorsementController',
 					controllerAs: 'vm',
+					params: {
+						'back': false,
+						objectId: null,
+						objectType: null
+					},
 					data: {
 						roles: ['admin', 'endorser'],
 						title: 'Edit Endorsement'
