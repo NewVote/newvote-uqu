@@ -1,8 +1,8 @@
 {
     "name": "newvote",
     "description": "new vote",
-    "version": "0.4.2",
-    "meanjs-version": "0.4.2",
+    "version": "0.2.0",
+    "meanjs-version": "0.2.0",
     "private": false,
     "author": "newvote",
     "license": "MIT",
@@ -11,8 +11,8 @@
         "url": "https://github.com/meanjs/mean.git"
     },
     "engines": {
-        "node": "8.9.x",
-        "npm": "5.5.x"
+        "node": "8.12.0",
+        "npm": "6.4.1"
     },
     "scripts": {
         "start": "npm install --only=dev && npm install -g gulp && npm install -g gulp-cli && gulp prod",
