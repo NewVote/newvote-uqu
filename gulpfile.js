@@ -8,6 +8,7 @@ var _ = require('lodash'),
 	prodAssets = require('./config/assets/production'),
 	testAssets = require('./config/assets/test'),
 	gulp = require('gulp'),
+	// babel = require('gulp-babel'),
 	gulpLoadPlugins = require('gulp-load-plugins'),
 	runSequence = require('run-sequence'),
 	plugins = gulpLoadPlugins({
@@ -17,13 +18,13 @@ var _ = require('lodash'),
 	}),
 	path = require('path'),
 	endOfLine = require('os')
-		.EOL,
+	.EOL,
 	protractor = require('gulp-protractor')
-		.protractor,
+	.protractor,
 	webdriver_update = require('gulp-protractor')
-		.webdriver_update,
+	.webdriver_update,
 	webdriver_standalone = require('gulp-protractor')
-		.webdriver_standalone;
+	.webdriver_standalone;
 
 // Set NODE_ENV to 'test'
 gulp.task('env:test', function (done) {
@@ -73,7 +74,7 @@ gulp.task('watch', function (done) {
 	gulp.watch(defaultAssets.client.less, gulp.series('less', 'csslint'))
 		.on('change', plugins.livereload.changed);
 
-	if (process.env.NODE_ENV === 'production') {
+	if(process.env.NODE_ENV === 'production') {
 		gulp.watch(defaultAssets.server.gulpConfig, gulp.series('templatecache', 'eslint'));
 		gulp.watch(defaultAssets.client.views, gulp.series('templatecache', 'eslint'))
 			.on('change', plugins.livereload.changed);
@@ -91,7 +92,7 @@ gulp.task('csslint', function (done) {
 		.pipe(plugins.csslint('.csslintrc'))
 		.pipe(plugins.csslint.reporter())
 		.pipe(plugins.csslint.reporter(function (file) {
-			if (!file.csslint.errorCount) {
+			if(!file.csslint.errorCount) {
 				done();
 			}
 		}));
@@ -141,6 +142,7 @@ gulp.task('uglify', function () {
 
 	return gulp.src(assets)
 		.pipe(plugins.ngAnnotate())
+		.pipe(plugins.babel({ presets: ['@babel/preset-env'] }))
 		.pipe(plugins.uglify({
 			mangle: false
 		}))
@@ -237,7 +239,7 @@ gulp.task('dropdb', function (done) {
 
 	mongoose.connect(function (db) {
 		db.connection.db.dropDatabase(function (err) {
-			if (err) {
+			if(err) {
 				console.log(err);
 			} else {
 				console.log('Successfully dropped db: ', db.connection.db.databaseName);
