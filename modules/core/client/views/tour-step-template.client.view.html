@@ -1,0 +1,29 @@
+<div layout-padding>
+	<div class="popover-content tour-step-content"
+	    bind-html-compile="tourStep.trustedContent || tourStep.content"></div>
+	<div class="popover-navigation tour-step-navigation">
+		<div class="btn-group" layout="row">
+			<md-button class="md-icon-button md-primary"
+			    aria-label="Back"
+			    ng-if="tourStep.isPrev()"
+			    ng-click="tour.prev()">
+				<md-icon>arrow_back</md-icon>
+			</md-button>
+
+			<md-button type="button"
+			    class="md-raised"
+			    ng-click="tour.end()">End tour</md-button>
+
+				<span flex></span>
+
+			<md-button class="md-icon-button md-primary pull-right"
+			    ng-if="tourStep.isNext()"
+			    ng-click="tour.next()"
+			    aria-label="Forward">
+				<md-icon>arrow_forward</md-icon>
+			</md-button>
+			<!-- <button type="button" class="btn btn-sm btn-default" ng-click="tour.pause()">Pause</button> -->
+		</div>
+
+	</div>
+</div>

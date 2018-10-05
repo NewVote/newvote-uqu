@@ -15,6 +15,23 @@
 <update-meta name="twitter:url" use-abs-url="true"></update-meta>
 <update-meta name="twitter:image" content="{{ vm.image }}"></update-meta>
 
+<md-toolbar class="md-primary">
+	<div layout-padding
+	    class=""
+	    flex-offset-lg="15"
+	    flex-lg="70"
+	    flex-offset-xl="25"
+	    flex-xl="50"
+		layout-gt-xs="row"
+		layout-align-gt-xs="start center"
+		layout="column"
+		layout-align="start start">
+		<p>
+			A goal is the objective that you think UQ society should have in relation to the issue - the end point that you want UQ society eventually to achieve. Select a goal to view the proposed solutions.
+		</p>
+	</div>
+</md-toolbar>
+
 <div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
     <goal-list goals="vm.goals" issue-id="vm.issueId"></goal-list>
 </div>

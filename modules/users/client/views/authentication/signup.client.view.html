@@ -26,8 +26,7 @@
 		    autocomplete="off">
 			<md-card-title>
 				<md-card-title-text>
-					<span class="md-headline">Sign In</span>
-					<span class="md-subhead">Please use your UQ e-mail address</span>
+					<span class="md-headline">Sign Up</span>
 					<alert type="danger"
 					    ng-show="error"
 					    class="text-center text-danger">
@@ -40,6 +39,7 @@
 						    lowercase
 						    ng-model="credentials.username"
 						    name="username">
+						<span class="md-subhead">You will use this to sign in</span>
 						<div ng-messages="userForm.username.$error">
 							<div ng-message="required">This is required.</div>
 							<!-- <p class="help-block error-text" ng-message="required">Username is required.</p> -->
@@ -79,12 +79,12 @@
 						    lowercase
 						    type="email"
 						    ng-model="credentials.email"
+						    pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(uqconnect|uq)\.(edu|net)\.au$"
 						    name="email">
 						<div ng-messages="userForm.email.$error">
 							<div ng-message="required">This is required.</div>
 							<div ng-message="email">Email address is invalid.</div>
-							<!-- <p class="help-block error-text" ng-message="required">Email address is required.</p>
-		    					<p class="help-block error-text" ng-message="email">Email address is invalid.</p> -->
+							<div ng-message="pattern">Please use a valid UQ e-mail address.</div>
 						</div>
 					</md-input-container>
 
