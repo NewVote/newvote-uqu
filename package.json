@@ -66,12 +66,7 @@
         "serve-favicon": "^2.5.0",
         "socket.io": "^2.1.1",
         "swig": "^1.4.2",
-        "validator": "^3.41.2"
-    },
-    "devDependencies": {
-        "@angular/cli": "^6.2.3",
-        "coveralls": "^3.0.2",
-        "eslint": "^4.18.1",
+        "validator": "^3.41.2",
         "gulp": "^4.0.0",
         "gulp-angular-templatecache": "^1.7.0",
         "gulp-autoprefixer": "^2.3.1",
@@ -92,6 +87,11 @@
         "gulp-sass": "^3.1.0",
         "gulp-uglify": "^1.2.0",
         "gulp-util": "^3.0.6",
+    },
+    "devDependencies": {
+        "@angular/cli": "^6.2.3",
+        "coveralls": "^3.0.2",
+        "eslint": "^4.18.1",
         "karma": "^3.0.0",
         "karma-chrome-launcher": "~0.2.0",
         "karma-coverage": "^1.1.2",

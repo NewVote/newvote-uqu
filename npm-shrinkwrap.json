@@ -5476,7 +5476,7 @@
         "glob-watcher": "^5.0.0",
         "gulp-cli": "^2.0.0",
         "undertaker": "^1.0.0",
-        "vinyl-fs": "^3.0.0"
+        "vinyl-fs": "^3.0.3"
       },
       "dependencies": {
         "fancy-log": {
@@ -6885,7 +6885,7 @@
             "semver": "^4.1.0",
             "tildify": "^1.0.0",
             "v8flags": "^2.0.2",
-            "vinyl-fs": "^0.3.0"
+            "vinyl-fs": "^3.0.3"
           },
           "dependencies": {
             "isarray": {
