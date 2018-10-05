@@ -67,7 +67,7 @@ angular.module('core')
 				if(toParams.back) {
 					navStack.pop();
 				} else {
-					navStack.push({ fromState, fromParams });
+					navStack.push({ 'fromState': fromState, 'fromParams': fromParams });
 				}
 
 				vm.isBackState = checkBackState(toState.name);
