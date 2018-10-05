@@ -15,6 +15,23 @@
 <update-meta name="twitter:url" use-abs-url="true"></update-meta>
 <update-meta name="twitter:image" content="{{ vm.image }}"></update-meta>
 
+<md-toolbar class="md-primary">
+	<div layout-padding
+	    class=""
+	    flex-offset-lg="15"
+	    flex-lg="70"
+	    flex-offset-xl="25"
+	    flex-xl="50"
+		layout-gt-xs="row"
+		layout-align-gt-xs="start center"
+		layout="column"
+		layout-align="start start">
+		<p>
+			A solution is a specific action that can be taken to address the issue.
+		</p>
+	</div>
+</md-toolbar>
+
 <div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50">
     <solution-list solutions="vm.solutions"></solution-list>
 </div>

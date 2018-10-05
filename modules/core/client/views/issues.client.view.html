@@ -26,19 +26,35 @@
 
 <md-toolbar class="md-primary">
 	<div layout-padding
-	    class="md-toolbar-tools"
+	    class=""
 	    flex-offset-lg="15"
 	    flex-lg="70"
 	    flex-offset-xl="25"
-	    flex-xl="50">
-		<p>
-			Select an issue to learn more about it
+	    flex-xl="50"
+		layout-gt-xs="row"
+		layout-align-gt-xs="start center"
+		layout="column"
+		layout-align="start start">
+		<p flex-gt-md="75"
+		    tour-step="home.step.issues"
+		    tour-step-belongs-to="homeTour"
+		    tour-step-title="Issues"
+		    tour-step-content="Issues are the problems we aim to solve."
+		    tour-step-order="30"
+		    tour-step-placement="bottom"
+		    tour-step-scroll-into-view="true">
+			An issue is any problem in UQ that relates to students or staff and that needs to be addressed. Select an issue below to learn more about it
 		</p>
-		<div flex>
-
-		</div>
+		<div flex></div>
 		<div>
-			<md-button ng-if="authentication.user.roles.indexOf('admin')>-1"
+			<md-button tour-step="home.step.new"
+			    tour-step-belongs-to="homeTour"
+			    tour-step-title="Suggestions"
+			    tour-step-content="Have your found your ideals are not represented? You can suggest new issues, goals or solutions!"
+			    tour-step-order="40"
+			    tour-step-placement="bottom-right"
+			    tour-step-scroll-into-view="true"
+			    ng-if="authentication.user.roles.indexOf('admin')>-1"
 			    class="md-accent md-hue-1 md-raised create-btn"
 			    ui-sref="issues.create">
 				<md-icon>add</md-icon><span hide
@@ -120,7 +136,7 @@
 		    ui-sref="issues.view({ issueId: issue._id })"
 		    md-rowspan-gt-xs="3"
 		    md-colspan="3"
-		    md-rowspan="1"
+		    md-rowspan="2"
 		    class="issue"
 		    md-whiteframe="3">
 			<img ng-src="{{issue.imageUrl}}"

@@ -214,7 +214,7 @@ UserSchema.pre('validate', function (next) {
  */
 UserSchema.methods.hashPassword = function (password) {
 	if (this.salt && password) {
-		return crypto.pbkdf2Sync(password, new Buffer(this.salt, 'base64'), 100000, 64, 'SHA512')
+		return crypto.pbkdf2Sync(password, Buffer.from(this.salt, 'base64'), 100000, 64, 'SHA512')
 			.toString('base64');
 	} else {
 		return password;
@@ -234,7 +234,7 @@ UserSchema.methods.authenticate = function (password) {
 UserSchema.methods.hashVerificationCode = function (code) {
 	if (this.salt && code) {
 		console.log('hashing code: ', code);
-		return crypto.pbkdf2Sync(code.toString(), new Buffer(this.salt, 'base64'), 100000, 64, 'SHA512')
+		return crypto.pbkdf2Sync(code.toString(), Buffer.from(this.salt, 'base64'), 100000, 64, 'SHA512')
 			.toString('base64');
 	} else {
 		console.log('salt was not present');

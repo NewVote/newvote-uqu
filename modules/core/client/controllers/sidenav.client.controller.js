@@ -83,15 +83,12 @@ angular.module('core')
 
 			var handleTourStepShow = function () {
 				return new Promise((resolve, reject) => {
-					debugger;
 					let tour = uiTourService.getTourByName('homeTour')
 					let step = tour.getCurrentStep();
 					if(step.stepId == 'home.step.menu' && !$mdMedia('gt-md')) {
-						return vm.toggleSidenav().then(() => {
-							// tour.reposition();
-							return resolve();
-						})
-					}else {
+						return vm.toggleSidenav()
+							.then(() => resolve())
+					} else {
 						return resolve();
 					}
 				})
@@ -107,7 +104,7 @@ angular.module('core')
 
 			if(Authentication.user &&
 				(homeTour.getStatus() != homeTour.Status.ON && homeTour.getStatus() != homeTour.Status.WAITING)
-				// && (!$localStorage.hasEndedTour)
+				&& (!$localStorage.hasEndedTour)
 			) {
 				$scope.$on('$viewContentLoaded', function () {
 					//Here your view content is fully loaded !!
@@ -116,9 +113,12 @@ angular.module('core')
 			}
 
 			vm.onTourReady = function (tour) {
-				if($state.current.name == 'home'){
+				if($state.current.name == 'home') {
+					console.log('starting tour');
 					homeTour.start();
 					homeTour.waitFor('home.step.0');
+
+					console.log('binding to tour')
 					homeTour.on('ended', function () {
 						console.log('home tour ended')
 						$localStorage.hasEndedTour = true;
@@ -127,7 +127,24 @@ angular.module('core')
 					homeTour.on('started', function () {
 						console.log('home tour started')
 					})
+				} else if($state.current.name == 'issues.list') {
+					console.log(homeTour.getStatus());
+					homeTour.startAt('home.step.issues')
 				}
+
+			}
+
+			vm.tourNavigateAndWait = function (path, toStepId) {
+				if($mdSidenav('left')
+					.isOpen) {
+					$mdSidenav('left')
+						.toggle();
+				}
+				$state.go(path);
+				// console.log(homeTour);
+				// homeTour.pause()
+				// return Promise.reject();
+				return homeTour.waitFor('home.step.issues');
 			}
 
 			vm.toggleMessage = function () {
