@@ -24,24 +24,20 @@
 
 <div class="home-container">
 
-	<div
-	    layout="row">
+	<div layout="row">
 
 		<md-grid-list class="party-grid"
 		    flex-offset-lg="15"
 		    flex-lg="70"
 		    flex-offset-xl="25"
 		    flex-xl="50"
-			flex="100"
+		    flex="100"
 		    md-cols="1"
 		    md-cols-sm="2"
-		    md-cols-md="3"
-		    md-cols-gt-md="3"
-		    md-row-height-gt-md="10:11"
-		    md-row-height="1:1"
-			md-row-height-xs="10:7"
-		    md-gutter="8px"
-		    md-gutter-gt-sm="4px">
+		    md-cols-md="2"
+		    md-cols-gt-md="2"
+			md-row-height="10:9"
+		    md-gutter="8px">
 
 			<md-grid-tile ng-repeat="tile in vm.tiles"
 			    md-colspan-sm="1"
@@ -61,6 +57,13 @@
 						<p>
 							{{tile.description}}
 						</p>
+
+						<md-card-actions layout="row" layout-align="end center">
+							<md-button class="md-raised md-primary" ng-href="{{tile.url}}" target="_blank"
+							    aria-label="More Info">
+								More Info
+							</md-button>
+						</md-card-actions>
 					</md-card-content>
 				</md-card>
 			</md-grid-tile>
