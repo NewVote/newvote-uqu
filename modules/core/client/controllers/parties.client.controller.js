@@ -47,7 +47,7 @@ angular.module('core')
 			},
 			{
 				name: 'Revive',
-				description: '',
+				description: 'Revive is more conservative than other student parties. Revive’s goals are to reestablish organisations such as the pro-life student organisation at UQ campus, the introduction of the western civilisation degree at UQ and containing student enrolment numbers at a sustainable level.',
 				imageUrl: '/modules/core/client/img/parties/revive.png',
 				url: 'https://www.newvote.org.au/revive'
 			}]

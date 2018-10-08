@@ -5,6 +5,7 @@
  */
 var config = require('../config'),
 	express = require('express'),
+	httpsRedirect = require('express-https-redirect')
 	morgan = require('morgan'),
 	logger = require('./logger'),
 	bodyParser = require('body-parser'),
@@ -102,6 +103,9 @@ module.exports.initMiddleware = function (app) {
 		.set('prerenderServiceUrl', 'https://newvote-prerender.herokuapp.com/')
 		.set('forwardHeaders', true)
 		.blacklisted(['/admin', '/api/']));
+
+	//https redirect
+	app.use('/', httpsRedirect());
 };
 
 /**

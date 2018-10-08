@@ -37,9 +37,9 @@
         "crypto": "0.0.3",
         "csurf": "^1.9.0",
         "express": "^4.16.3",
+        "express-https-redirect": "^1.0.0",
         "express-session": "^1.15.6",
         "file-stream-rotator": "~0.0.6",
-        "forever": "^0.15.3",
         "generate-password": "^1.1.1",
         "glob": "^5.0.13",
         "gulp": "^4.0.0",
@@ -62,7 +62,6 @@
         "gulp-rename": "^1.2.2",
         "gulp-sass": "^3.1.0",
         "gulp-uglify": "^1.2.0",
-        "gulp-util": "^3.0.6",
         "helmet": "^3.13.0",
         "html-metadata": "^1.6.3",
         "jasmine-core": "^2.3.4",
@@ -88,7 +87,6 @@
         "run-sequence": "^1.1.1",
         "serve-favicon": "^2.5.0",
         "socket.io": "^2.1.1",
-        "swig": "^1.4.2",
         "validator": "^3.41.2"
     },
     "devDependencies": {
