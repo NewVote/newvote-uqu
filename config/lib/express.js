@@ -5,7 +5,7 @@
  */
 var config = require('../config'),
 	express = require('express'),
-	httpsRedirect = require('express-https-redirect')
+	httpsRedirect = require('express-https-redirect'),
 	morgan = require('morgan'),
 	logger = require('./logger'),
 	bodyParser = require('body-parser'),
