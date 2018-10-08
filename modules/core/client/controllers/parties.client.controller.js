@@ -41,7 +41,7 @@ angular.module('core')
 			},
 			{
 				name: 'International',
-				description: '',
+				description: 'International Students Assembly seemingly have no campaign and no policies. We\'re still trying to connect with them',
 				imageUrl: '/modules/core/client/img/placeholder.png',
 				url: 'https://www.newvote.org.au/international'
 			},
