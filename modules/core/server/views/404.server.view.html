@@ -1,10 +1,55 @@
-{% extends 'layout.server.view.html' %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block content %}
-<h1>Page Not Found</h1>
-<div class="alert alert-danger" role="alert">
-  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-  <span class="sr-only">Error:</span>
-  {{url}} is not a valid path.
-</div>
-{% endblock %}
+	<!-- This imports all of the head content -->
+	<% include ./head.server.view.html %>
+
+		<body class="ng-cloak"
+		    layout="column"
+		    flex
+		    ng-controller="SidenavController as vm">
+
+			<div flex
+			    layout="column"
+			    ng-cloak>
+
+				<div id="prerender"
+				    class="prerender"
+				    ng-if="{{isPrerender}}">
+				</div>
+
+				<section layout="row"
+				    flex>
+					<md-sidenav class="md-sidenav-left"
+					    md-component-id="left"
+					    md-is-locked-open="vm.lockLeft && $mdMedia('gt-md')">
+						<md-content>
+							<div flex
+							    ng-include="'modules/core/client/views/sidebar.client.view.html'"></div>
+						</md-content>
+					</md-sidenav>
+					<md-content flex
+					    layout-fill
+					    layout="column">
+						<div ng-include="'modules/core/client/views/header.client.view.html'"></div>
+						<md-progress-linear md-mode="query"
+						    class="md-primary"
+						    ng-if="requestsPending"></md-progress-linear>
+						<md-content flex>
+							<!-- Actual content is here rest is layout -->
+							<h1>Page Not Found</h1>
+							<div class="alert alert-danger" role="alert">
+							  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+							  <span class="sr-only">Error:</span>
+							  <%=url%> is not a valid path.
+							</div>
+						</md-content>
+					</md-content>
+				</section>
+
+			</div>
+		</body>
+
+		<% include ./scripts.server.view.html %>
+
+</html>

@@ -35,7 +35,6 @@ md-toolbar {
 
 .faq-header {
 	border-radius: 5px;
-	cursor:grab;
 	// height: 50px;
 	// line-height: 50px;
 	.icon {
@@ -44,12 +43,15 @@ md-toolbar {
 		text-align: center;
 		background-color: rgb(0,96,100);
 		color: white;
+
+		cursor:pointer;
 	}
 
 	.text {
 		border: 1px solid rgb(0,96,100);
 		border-top-right-radius: 5px;
 		border-bottom-right-radius: 5px;
+		cursor:pointer;
 	}
 }
 
