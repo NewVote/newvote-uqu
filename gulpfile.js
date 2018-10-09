@@ -24,7 +24,10 @@ var _ = require('lodash'),
 	webdriver_update = require('gulp-protractor')
 	.webdriver_update,
 	webdriver_standalone = require('gulp-protractor')
-	.webdriver_standalone;
+	.webdriver_standalone,
+	node = undefined,
+	spawn = require('child_process')
+	.spawn;
 
 // Set NODE_ENV to 'test'
 gulp.task('env:test', function (done) {
@@ -44,16 +47,31 @@ gulp.task('env:prod', function (done) {
 	done();
 });
 
-// Nodemon task
-gulp.task('nodemon', function (done) {
-	plugins.nodemon({
-		script: 'server.js',
-		nodeArgs: ['--inspect'],
-		ext: 'js,html',
-		watch: _.union(defaultAssets.server.views, defaultAssets.server.allJS, defaultAssets.server.config)
-	});
-	done()
-});
+gulp.task('server', function (done) {
+	if(node) node.kill();
+
+	node = spawn('node', ['server.js'], { stdio: 'inherit' })
+	node.on('close', function (code) {
+		console.log(`Got code ${code}`);
+		if(code === 8) {
+			console.log('Error detected, waiting for changes...');
+		}
+	})
+	done();
+})
+
+gulp.task('server-debug', function (done) {
+	if(node) node.kill();
+
+	node = spawn('node', ['--inspect=9229', '--inspect-brk', 'server.js'], { stdio: 'inherit' })
+	node.on('close', function (code) {
+		console.log(`Got code ${code}`);
+		if(code === 8) {
+			console.log('Error detected, waiting for changes...');
+		}
+	})
+	done();
+})
 
 // Watch Files For Changes
 gulp.task('watch', function (done) {
@@ -82,6 +100,8 @@ gulp.task('watch', function (done) {
 		gulp.watch(defaultAssets.server.gulpConfig, gulp.series('eslint'));
 		gulp.watch(defaultAssets.client.views)
 			.on('change', plugins.livereload.changed);
+
+		gulp.watch(_.union(defaultAssets.server.views, defaultAssets.server.allJS, defaultAssets.server.config), gulp.series('server'))
 	}
 	done();
 });
@@ -298,13 +318,13 @@ gulp.task('build', gulp.series(
 ));
 
 // Run the project tests
-// runSequence('env:test', 'lint', 'mocha', 'karma', 'nodemon', 'protractor', done);
+// runSequence('env:test', 'lint', 'mocha', 'karma', 'server', 'protractor', done);
 gulp.task('test', gulp.series(
 	'env:test',
 	'lint',
 	'mocha',
 	'karma',
-	'nodemon',
+	'server',
 	'protractor'
 ));
 
@@ -322,12 +342,12 @@ gulp.task('test:client', gulp.series(
 	'karma'
 ));
 
-// runSequence('env:test', 'lint', 'dropdb', 'nodemon', 'protractor', done);
+// runSequence('env:test', 'lint', 'dropdb', 'server', 'protractor', done);
 gulp.task('test:e2e', gulp.series(
 	'env:test',
 	'lint',
 	'dropdb',
-	'nodemon',
+	'server',
 	'protractor'
 ));
 
@@ -335,23 +355,23 @@ gulp.task('test:e2e', gulp.series(
 gulp.task('default', gulp.series(
 	'env:dev',
 	'lint',
-	gulp.parallel('nodemon', 'watch')
+	gulp.parallel('server', 'watch')
 ));
 
 // Run the project in debug mode
-// runSequence('env:dev', 'lint', ['nodemon', 'watch'], done);
+// runSequence('env:dev', 'lint', ['server', 'watch'], done);
 gulp.task('debug', gulp.series(
 	'env:dev',
 	'lint',
-	gulp.parallel('nodemon', 'watch')
+	gulp.parallel('server-debug', 'watch')
 ));
 
 // Run the project in production mode
-// runSequence('templatecache', 'build', 'env:prod', 'lint', ['nodemon', 'watch'], done);
+// runSequence('templatecache', 'build', 'env:prod', 'lint', ['server', 'watch'], done);
 gulp.task('prod', gulp.series(
 	'templatecache',
 	'build',
 	'env:prod',
 	'lint',
-	gulp.parallel('nodemon', 'watch')
+	gulp.parallel('server', 'watch')
 ));

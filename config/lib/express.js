@@ -39,6 +39,16 @@ module.exports.initLocalVariables = function (app) {
 	app.locals.livereload = config.livereload;
 	app.locals.logo = config.logo;
 	app.locals.favicon = config.favicon;
+	app.locals.user = false;
+	app.locals.config = false;
+	app.locals.isPrerender = false;
+	app.locals.safeJSON = function(data) {
+		if(data) {
+			return JSON.stringify(data);
+		}else {
+			return 'false';
+		}
+	}
 
 	// Passing the request url to environment locals
 	app.use(function (req, res, next) {
@@ -105,14 +115,16 @@ module.exports.initMiddleware = function (app) {
 		.blacklisted(['/admin', '/api/']));
 
 	//https redirect
-	app.use('/', httpsRedirect());
+	if(process.env.NODE_ENV === 'production') {
+		app.use('/', httpsRedirect());
+	}
 };
 
 /**
  * Configure view engine
  */
 module.exports.initViewEngine = function (app) {
-	// Set swig as the template engine
+	// Use the config file to set the server view engine
 	app.engine('server.view.html', consolidate[config.templateEngine]);
 
 	// Set views path and view engine
