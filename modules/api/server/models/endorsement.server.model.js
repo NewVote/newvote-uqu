@@ -25,17 +25,22 @@ var EndorsementSchema = new Schema({
 		type: String,
 		default: ''
 	},
+	imageUrl: {
+		type: String,
+		default: '',
+		trim: true
+	},
 	organisationName: {
-    type: String
-  },
-  organisationWebsite: {
-    type: String
-  },
+		type: String
+	},
+	organisationWebsite: {
+		type: String
+	},
 	organisationImageURL: {
-    type: String,
-    default: ''
-  },
-  issues: [{
+		type: String,
+		default: ''
+	},
+	issues: [{
 		type: Schema.ObjectId,
 		ref: 'Issue'
 	}],

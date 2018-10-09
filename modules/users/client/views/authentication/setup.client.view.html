@@ -33,7 +33,14 @@
 				<md-tab-body>
 					<h1 class="md-display-1">Account Verification</h1>
 					<div class="info-banner" ng-hide="verificationStatus.success">
-						<p layout-padding>Thank you for creating your account, please check your e-mail for your verification URL. If you have not received an e-mail please check your spam folder or settings. Alternatively you can try sending it again.
+						<p layout-padding>
+							Thank you for creating your account, please check your e-mail for your verification URL.
+						</p>
+						<p layout-padding>
+							If you have not received an e-mail <strong>please check your spam folder or settings</strong>.
+						</p>
+						<p layout-padding>
+							Alternatively, you can try sending it again.
 						</p>
 						<p ng-show="verificationStatus.message" layout-padding>{{verificationStatus.message}}</p>
 

@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('EndorsementController', ['$scope', '$rootScope', '$state', '$stateParams', 'Authentication', '$q', 'endorsement', 'IssueService', 'GoalService', 'SolutionService', 'EndorsementService',
-	function ($scope, $rootScope, $state, $stateParams, Authentication, $q, endorsement, IssueService, GoalService, SolutionService, EndorsementService) {
+angular.module('core').controller('EndorsementController', ['$scope', '$rootScope', '$state', '$stateParams', 'Authentication', '$q', 'endorsement', 'IssueService', 'GoalService', 'SolutionService', 'EndorsementService', 'UploadService',
+	function ($scope, $rootScope, $state, $stateParams, Authentication, $q, endorsement, IssueService, GoalService, SolutionService, EndorsementService, UploadService) {
 		var vm = this;
 		vm.endorsement = endorsement;
 
@@ -83,6 +83,13 @@ angular.module('core').controller('EndorsementController', ['$scope', '$rootScop
 
 		vm.createOrUpdate = function () {
 			var promise = $q.resolve();
+
+			if(vm.imageFile) {
+				promise = UploadService.upload(vm.imageFile)
+					.then(function () {
+						vm.endorsement.imageUrl = vm.imageFile.result.url;
+					});
+			}
 			return promise.then(function () {
 				return EndorsementService.createOrUpdate(vm.endorsement).then(function (endorsement) {
 					$state.go(previousState, stateData);
