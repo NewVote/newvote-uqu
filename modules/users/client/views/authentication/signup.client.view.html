@@ -32,12 +32,12 @@
 					    class="text-center text-danger">
 						<span ng-bind="error"></span>
 					</alert>
-					<!-- pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(uqconnect|uq)\.(edu|net)\.au$" -->
 					<md-input-container class="md-block"
 					    flex-gt-sm>
 						<label>E-mail</label>
 						<input required
 						    lowercase
+							pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(uqconnect|uq)\.(edu|net)\.au$"
 						    type="email"
 						    ng-model="credentials.email"
 						    name="email">
