@@ -18,12 +18,12 @@
 						<span ng-bind="error"></span>
 					</alert>
 					<div>
+						<!-- pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(uqconnect|uq)\.(edu|net)\.au$" -->
 						<md-input-container class="md-block"
 						    flex-gt-sm>
 							<label>E-mail</label>
 							<input required
 							    ng-model="credentials.email"
-								pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(uqconnect|uq)\.(edu|net)\.au$"
 							    type="email"
 							    id="email"
 							    name="email">
