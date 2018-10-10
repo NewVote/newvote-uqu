@@ -25,7 +25,7 @@ exports.sendVerificationCode = function (req, res) {
 
 	//send code via sms
 	return pass$.then(pass => saveVerificationCode(user, pass))
-		.then(pass => sendEmail(user, pass, req))
+		// .then(pass => sendEmail(user, pass, req))
 		.then((data) => {
 			console.log('Succesfully sent a verification e-mail: ', data);
 			return res.status(200)

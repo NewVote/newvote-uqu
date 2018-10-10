@@ -18,16 +18,20 @@
 						<span ng-bind="error"></span>
 					</alert>
 					<div>
+						<!-- pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(uqconnect|uq)\.(edu|net)\.au$" -->
 						<md-input-container class="md-block"
 						    flex-gt-sm>
-							<label>Username</label>
+							<label>E-mail</label>
 							<input required
-							    ng-model="credentials.username"
-							    type="text"
-							    id="username"
-							    name="username">
-							<div ng-messages="userForm.username.$error">
+							    ng-model="credentials.email"
+							    type="email"
+							    id="email"
+							    name="email">
+							<span class="md-subhead">Please use your UQ E-mail address</span>
+							<div ng-messages="userForm.email.$error">
 								<div ng-message="required">This is required.</div>
+								<div ng-message="email">Email address is invalid.</div>
+								<div ng-message="pattern">Please use a valid UQ e-mail address.</div>
 							</div>
 						</md-input-container>
 

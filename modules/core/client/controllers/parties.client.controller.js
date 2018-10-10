@@ -7,8 +7,8 @@ angular.module('core')
 			$scope.title = $rootScope.titlePrefix + 'Party Profiles' + $rootScope.titleSuffix;
 			$scope.desc = 'Learn more about the policies of the different parties at UQ';
 			$rootScope.headerTitle = 'Parties';
-
 			var vm = this;
+
 			vm.tiles = [{
 				name: 'Student Action',
 				description: 'Student Action is a progressive political body of students that believes the union has a responsibility to encourage student political engagement with fundamental issues that affect them.',
@@ -40,7 +40,7 @@ angular.module('core')
 				url: 'https://www.newvote.org.au/team-rocket'
 			},
 			{
-				name: 'International',
+				name: 'International Student Assembly',
 				description: 'International Students Assembly seemingly have no campaign and no policies. We\'re still trying to connect with them',
 				imageUrl: '/modules/core/client/img/placeholder.png',
 				url: 'https://www.newvote.org.au/international'
@@ -51,5 +51,17 @@ angular.module('core')
 				imageUrl: '/modules/core/client/img/parties/revive.png',
 				url: 'https://www.newvote.org.au/revive'
 			}]
+
+			vm.randomize = function(arr) {
+				return arr.sort(function() {
+					return .5 - Math.random();
+				})
+			}
+
+			function shuffle() {
+				vm.tiles = vm.randomize(vm.tiles);
+			}
+
+			shuffle();
 	}
 ]);

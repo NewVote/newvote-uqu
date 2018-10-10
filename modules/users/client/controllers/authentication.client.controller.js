@@ -107,25 +107,25 @@ angular.module('users')
 				$scope.credentials.recaptchaResponse = null;
 			};
 
-			$scope.sendEmail = function () {
-				console.log('attempting to send verification Email');
-				$scope.verificationStatus.status = 'sending';
-				return VerificationService.sendEmail()
-					.then(function (message) {
-						console.log('success: ', message);
-						$scope.verificationStatus.status = 'sent';
-						$scope.verificationStatus.success = true;
-						$scope.verificationStatus.error = false;
-						$scope.verificationStatus.message = 'We have sent an e-mail to your address, you should receive it shortly.';
-					})
-					.catch(function (err) {
-						console.log('critical error: ', err);
-						$scope.verificationStatus.status = 'error';
-						$scope.verificationStatus.success = false;
-						$scope.verificationStatus.error = true;
-						$scope.verificationStatus.message = 'Error: ' + err.data.message;
-					});
-			};
+			// $scope.sendEmail = function () {
+			// 	console.log('attempting to send verification Email');
+			// 	$scope.verificationStatus.status = 'sending';
+			// 	return VerificationService.sendEmail()
+			// 		.then(function (message) {
+			// 			console.log('success: ', message);
+			// 			$scope.verificationStatus.status = 'sent';
+			// 			$scope.verificationStatus.success = true;
+			// 			$scope.verificationStatus.error = false;
+			// 			$scope.verificationStatus.message = 'We have sent an e-mail to your address, you should receive it shortly.';
+			// 		})
+			// 		.catch(function (err) {
+			// 			console.log('critical error: ', err);
+			// 			$scope.verificationStatus.status = 'error';
+			// 			$scope.verificationStatus.success = false;
+			// 			$scope.verificationStatus.error = true;
+			// 			$scope.verificationStatus.message = 'Error: ' + err.data.message;
+			// 		});
+			// };
 
 			$scope.signup = function (isValid) {
 				$scope.error = null;
@@ -254,7 +254,13 @@ angular.module('users')
 					$window.user = response;
 
 					$scope.data.profileLocked = false;
-					$scope.data.selectedIndex = 1;
+
+					//navigate home or to previous page
+					if($stateParams.previous) {
+						$state.go($stateParams.previous, $state.previous.params);
+					} else {
+						$state.go('home', $state.previous.params);
+					}
 
 				}, function (response) {
 					$scope.error = response.data.message;

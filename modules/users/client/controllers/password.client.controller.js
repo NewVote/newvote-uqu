@@ -60,7 +60,7 @@ angular.module('users').controller('PasswordController', ['$scope', '$rootScope'
         Authentication.user = response;
 
         // And redirect to the index page
-        $location.path('/password/reset/success');
+        $state.go('home');
       }).error(function (response) {
         $scope.error = response.message;
       });
