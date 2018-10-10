@@ -62,7 +62,7 @@ angular.module('users').config(['$stateProvider',
 			.state('password', {
 				abstract: true,
 				url: '/password',
-				template: '<ui-view/>'
+				template: '<ui-view layout-fill/>'
 			})
 			.state('password.forgot', {
 				url: '/forgot',
@@ -71,7 +71,7 @@ angular.module('users').config(['$stateProvider',
 			.state('password.reset', {
 				abstract: true,
 				url: '/reset',
-				template: '<ui-view/>'
+				template: '<ui-view layout-fill/>'
 			})
 			.state('password.reset.invalid', {
 				url: '/invalid',

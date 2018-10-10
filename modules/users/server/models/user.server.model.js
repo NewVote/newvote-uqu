@@ -79,8 +79,7 @@ var UserSchema = new Schema({
         type: String
     },
     verified : {
-        type: Boolean,
-        default: false
+        type: Boolean
     },
 	gender: {
 		type: String
@@ -101,8 +100,7 @@ var UserSchema = new Schema({
 		type: String
 	},
 	terms: {
-		type: Boolean,
-		default: false
+		type: Boolean
 	},
 	password: {
 		type: String,

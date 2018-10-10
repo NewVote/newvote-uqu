@@ -51,16 +51,6 @@ angular.module(ApplicationConfiguration.applicationModuleName)
 		$rootScope.title = window.title;
 		// Check authentication before changing state
 		$rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
-			if(
-				Authentication.user && //if there is a user
-				(!Authentication.user.terms || !Authentication.user.verified) && //and they have not accepted the terms OR verified
-				(toState.name !== 'setup' && toState.name !== 'verify' && toState.name !== 'privacy') //and the route is not setup, verify, or privacy
-			) {
-				//redirect them to the setup page
-				event.preventDefault();
-				$state.go('setup');
-			}
-
 			if(toState.data && toState.data.title) {
 				// console.log('setting title', toState.data.title);
 				$rootScope.pageTitle = toState.data.title;

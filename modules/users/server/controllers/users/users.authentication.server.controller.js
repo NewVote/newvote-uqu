@@ -67,7 +67,7 @@ exports.signup = function (req, res) {
 						.then(pass => {
 							user.verificationCode = user.hashVerificationCode(pass);
 							user.save().then(() => {
-								sendEmail(user, pass, req)
+								// sendEmail(user, pass, req)
 
 								// Remove sensitive data before login
 								user.password = undefined;

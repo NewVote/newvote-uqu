@@ -37,9 +37,9 @@
 			<p ng-show="verificationStatus.message"
 			    layout-padding>{{verificationStatus.message}}</p>
 
+				<!-- ng-click="sendEmail();" -->
 			<md-button type="button"
 			    class="md-raised md-primary"
-			    ng-click="sendEmail();"
 			    ng-disabled="verificationStatus.status=='sending'">Resend Email</md-button>
 		</div>
 

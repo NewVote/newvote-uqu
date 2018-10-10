@@ -32,12 +32,12 @@
 					    class="text-center text-danger">
 						<span ng-bind="error"></span>
 					</alert>
+					<!-- pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(uqconnect|uq)\.(edu|net)\.au$" -->
 					<md-input-container class="md-block"
 					    flex-gt-sm>
 						<label>E-mail</label>
 						<input required
 						    lowercase
-							pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(uqconnect|uq)\.(edu|net)\.au$"
 						    type="email"
 						    ng-model="credentials.email"
 						    name="email">
@@ -74,6 +74,24 @@
 						    on-create="setWidgetId(widgetId)"
 						    on-success="setResponse(response)"
 						    on-expire="cbExpiration()"></div>
+					</md-input-container>
+
+					<md-input-container class="md-block"
+						flex-gt-sm>
+						<md-checkbox ng-model="credentials.terms"
+							aria-label="I accept the terms and conditions"
+							required
+							name="terms">
+							I accept the <a href="#">Terms and Conditions</a> and have viewed the <a target="_blank"
+								href="privacy">Privacy Policy</a>
+						</md-checkbox>
+
+						<div ng-messages="userForm.terms.$error"
+							md-auto-hide="true">
+							<div ng-message="required">
+								You must accept the terms of service before you can proceed.
+							</div>
+						</div>
 					</md-input-container>
 
 					<div ng-show="error"
