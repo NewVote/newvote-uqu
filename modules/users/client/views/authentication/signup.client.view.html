@@ -34,52 +34,12 @@
 					</alert>
 					<md-input-container class="md-block"
 					    flex-gt-sm>
-						<label>Username</label>
-						<input required
-						    lowercase
-						    ng-model="credentials.username"
-						    name="username">
-						<span class="md-subhead">You will use this to sign in</span>
-						<div ng-messages="userForm.username.$error">
-							<div ng-message="required">This is required.</div>
-							<!-- <p class="help-block error-text" ng-message="required">Username is required.</p> -->
-						</div>
-					</md-input-container>
-
-					<div layout="row">
-						<md-input-container class="md-block"
-						    flex-gt-sm>
-							<label>First Name</label>
-							<input required
-							    ng-model="credentials.firstName"
-							    name="firstName">
-							<div ng-messages="userForm.firstName.$error">
-								<div ng-message="required">This is required.</div>
-								<!-- <p class="help-block error-text" ng-message="required">First name is required.</p> -->
-							</div>
-						</md-input-container>
-
-						<md-input-container class="md-block"
-						    flex-gt-sm>
-							<label>Last Name</label>
-							<input required
-							    ng-model="credentials.lastName"
-							    name="lastName">
-							<div ng-messages="userForm.lastName.$error">
-								<div ng-message="required">This is required.</div>
-								<!-- <p class="help-block error-text" ng-message="required">Last name is required.</p> -->
-							</div>
-						</md-input-container>
-					</div>
-
-					<md-input-container class="md-block"
-					    flex-gt-sm>
 						<label>E-mail</label>
 						<input required
 						    lowercase
+							pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(uqconnect|uq)\.(edu|net)\.au$"
 						    type="email"
 						    ng-model="credentials.email"
-						    pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(uqconnect|uq)\.(edu|net)\.au$"
 						    name="email">
 						<span class="md-subhead">Please use your UQ E-mail address</span>
 						<div ng-messages="userForm.email.$error">

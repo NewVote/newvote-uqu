@@ -87,6 +87,24 @@ angular.module('core')
 					}
 				})
 
+				.state('majority-opinions', {
+					url: '/majority-opinions',
+					templateUrl: 'modules/core/client/views/majority-opinions.client.view.html',
+					controller: 'MajorityController',
+					controllerAs: 'vm',
+					params: {
+						'back': false
+					},
+					data: {
+						title: 'Majority'
+					},
+					resolve: {
+						issues: ['IssueService', function (IssueService) {
+							return IssueService.list();
+						}]
+					}
+				})
+
 				.state('topics', {
 					url: '/topics',
 					abstract: true,

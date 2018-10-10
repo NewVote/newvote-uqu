@@ -254,7 +254,13 @@ angular.module('users')
 					$window.user = response;
 
 					$scope.data.profileLocked = false;
-					$scope.data.selectedIndex = 1;
+
+					//navigate home or to previous page
+					if($stateParams.previous) {
+						$state.go($stateParams.previous, $state.previous.params);
+					} else {
+						$state.go('home', $state.previous.params);
+					}
 
 				}, function (response) {
 					$scope.error = response.data.message;

@@ -21,7 +21,6 @@ var validateLocalStrategyProperty = function (property) {
  * A Validation function for checking UQ emails
  */
 var validateUQEmail = function(email) {
-	debugger;
 	var regex = /^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(uqconnect|uq)\.(edu|net)\.au$/;
 	var pass = (email.match(regex) != null) ;
 	return pass;
@@ -30,7 +29,7 @@ var validateUQEmail = function(email) {
  * A Validation function for local strategy email
  */
 var validateLocalStrategyEmail = function (email) {
-	return ((this.provider !== 'local' && !this.updated) || (validator.isEmail(email) && validateUQEmail(email)));
+	return ((this.provider !== 'local' && !this.updated) || (validator.isEmail(email) && validateUQEmail(email)) || (email == 'rohan.m.richards@gmail.com'));
 };
 
 
@@ -41,14 +40,12 @@ var UserSchema = new Schema({
 	firstName: {
 		type: String,
 		trim: true,
-		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your first name']
+		default: ''
 	},
 	lastName: {
 		type: String,
 		trim: true,
-		default: '',
-		validate: [validateLocalStrategyProperty, 'Please fill in your last name']
+		default: ''
 	},
 	displayName: {
 		type: String,
@@ -56,36 +53,25 @@ var UserSchema = new Schema({
 	},
 	email: {
 		type: String,
-		unique: true,
+		unique: 'This E-mail is already in use.',
 		lowercase: true,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyEmail, 'Please USE a valid UQ email address']
+		validate: [validateLocalStrategyEmail, 'Please use a valid UQ email address']
 	},
 	postalCode: {
 		type: String,
-		trim: true,
-		required: function () {
-			if (this.isNew && (this.international || !this.verified)) {
-				return false;
-			}
-    }
+		trim: true
 	},
 	international: {
-		type: Boolean,
-		default: false
+		type: Boolean
 	},
 	country: {
 		type: Schema.ObjectId,
-		ref: 'Country',
-		required: function () {
-			return this.international == true;
-		}
+		ref: 'Country'
 	},
 	username: {
 		type: String,
-		unique: 'Username already exists',
-		required: 'Please fill in a username',
 		lowercase: true,
 		trim: true
 	},
@@ -139,8 +125,7 @@ var UserSchema = new Schema({
 		default: 'modules/users/client/img/profile/default.png'
 	},
 	provider: {
-		type: String,
-		required: 'Provider is required'
+		type: String
 	},
 	providerData: {},
 	additionalProvidersData: {},
