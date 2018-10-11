@@ -57,7 +57,8 @@ var UserSchema = new Schema({
 		lowercase: true,
 		trim: true,
 		default: '',
-		validate: [validateLocalStrategyEmail, 'Please use a valid UQ email address']
+		validate: [validateLocalStrategyEmail, 'Please use a valid UQ email address'],
+		index: true
 	},
 	postalCode: {
 		type: String,
@@ -72,8 +73,6 @@ var UserSchema = new Schema({
 	},
 	username: {
 		type: String,
-		lowercase: true,
-		trim: true
 	},
     mobileNumber: {
         type: String
