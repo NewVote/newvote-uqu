@@ -13,6 +13,7 @@ angular.module('core')
 			vm.mdMedia = $mdMedia;
 			vm.searchOpen = false;
 			vm.$state = $state;
+			vm.message = true;
 
 			vm.backStates = {
 				'topics.view': 'topics.list',
@@ -148,7 +149,7 @@ angular.module('core')
 			}
 
 			vm.toggleMessage = function () {
-				$scope.message = !$scope.message;
+				vm.message = !vm.message;
 			};
 
 			vm.openMenu = function ($mdMenu, ev) {
