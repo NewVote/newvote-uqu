@@ -9,7 +9,7 @@ angular.module('core').service('SocialshareService', ['$window', '$resource', '$
     svc.windowWidth = 600;
 
     // Social media settings
-    var prefix = 'NewVote | ';
+    var prefix = 'UQ Votes | ';
     var suffix = '';
 
     // Social media URLs
@@ -19,7 +19,7 @@ angular.module('core').service('SocialshareService', ['$window', '$resource', '$
     var linkedinURL = 'https://www.linkedin.com/shareArticle?';
     var redditURL = 'http://www.reddit.com/submit?';
     svc.hostURL = getHostURL();
-    
+
     // Facebook
     svc.facebookID = '108325769791251';
 
@@ -27,9 +27,9 @@ angular.module('core').service('SocialshareService', ['$window', '$resource', '$
     svc.twitterVia = 'NewVoteAus';
 
     svc.share = function(params) {
-      
+
       var url = svc.hostURL + params.rel_url;
-      
+
       switch(params.provider) {
 
         case 'facebook':
@@ -59,8 +59,8 @@ angular.module('core').service('SocialshareService', ['$window', '$resource', '$
           openWindow(linkedinURL, {
             url: url
           });
-          break;   
-          
+          break;
+
         case 'reddit':
           openWindow(redditURL, {
             url: url,
@@ -73,7 +73,7 @@ angular.module('core').service('SocialshareService', ['$window', '$resource', '$
     function getHostURL() {
       return $location.protocol() + '://' + $location.host();
     }
-    
+
     function openWindow(baseURL, params) {
       var queryStr = $httpParamSerializer(params);
 
@@ -81,7 +81,7 @@ angular.module('core').service('SocialshareService', ['$window', '$resource', '$
       var left = ($window.innerWidth / 2) - (svc.windowWidth / 2);
 
       var win = $window.open(
-        baseURL + queryStr, 
+        baseURL + queryStr,
         '_blank',
         'width=' + svc.windowWidth + ', height=' + svc.windowHeight + ', ' +
         'top=' + top + ', ' +

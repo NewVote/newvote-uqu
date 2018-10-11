@@ -63,7 +63,7 @@ exports.create = function (req, res) {
 							// to: 'dion@newvote.org.au',
 							to: process.env.MAILER_TO,
 							replyTo: req.user.email,
-							subject: 'NewVote Suggestion',
+							subject: 'UQ Votes Suggestion',
 							html: buildMessage(suggestion, req)
 						})
 						.then(function (data) {
