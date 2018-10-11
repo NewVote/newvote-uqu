@@ -56,10 +56,14 @@ exports.signup = function (req, res) {
 
 			// Add missing user fields
 			user.provider = 'local';
-			user.displayName = user.firstName + ' ' + user.lastName;
+			//set the username to e-mail to satisfy unique indexes
+			//we cant just remove username as its the index for the table
+			//we'd have to drop the entire table to change the index field
+			user.username = user.email;
 
 			// Then save the user
 			// first save generates salt
+			debugger;
 			return user.save()
 				.then(user => {
 					//generate a verification code for Email
