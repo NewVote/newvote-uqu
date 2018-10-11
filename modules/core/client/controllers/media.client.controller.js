@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('core')
-	.controller('MediaController', ['$scope', '$rootScope', '$state', '$stateParams', 'Authentication', '$q', 'media', 'IssueService', 'GoalService', 'SolutionService', 'MediaService',
-		function ($scope, $rootScope, $state, $stateParams, Authentication, $q, media, IssueService, GoalService, SolutionService, MediaService) {
+	.controller('MediaController', ['$scope', '$rootScope', '$state', '$stateParams', 'Authentication', '$q', 'media', 'IssueService', 'GoalService', 'SolutionService', 'MediaService', 'UploadService',
+		function ($scope, $rootScope, $state, $stateParams, Authentication, $q, media, IssueService, GoalService, SolutionService, MediaService, UploadService) {
 			var vm = this;
 			vm.media = media;
 
@@ -13,6 +13,7 @@ angular.module('core')
 			var stateData = null;
 			$rootScope.pageTitle = 'Create Media';
 			vm.previewData = {};
+			vm.manualImage = '';
 
 			if ($stateParams.objectId && $stateParams.objectType) {
 				if ($stateParams.objectType === 'issue') {
@@ -73,6 +74,27 @@ angular.module('core')
 				MediaService.getMeta(vm.media.url)
 					.$promise.then(function (meta) {
 						console.log('meta is: ', meta);
+						//check if there is already manually entered data
+						//set it from the scrape if not
+						if(!vm.media.title) vm.media.title = meta.title;
+						if(!vm.media.description) vm.media.description = meta.description;
+						if(!vm.media.image) vm.media.image = meta.image;
+						vm.media.imageOnly = false;
+						console.log('finished scrape');
+					}, function (err) {
+						console.log('was an error scraping');
+						if (/\.(jpe?g|png|gif|bmp)$/i.test(vm.media.url)) {
+							console.log('user linking directly to image');
+							if(!vm.media.image) vm.media.image = vm.media.url;
+							vm.media.imageOnly = true;
+						}
+					});
+			};
+
+			vm.resetData = function() {
+				MediaService.getMeta(vm.media.url)
+					.$promise.then(function (meta) {
+						console.log('meta is: ', meta);
 						vm.media.title = meta.title;
 						vm.media.description = meta.description;
 						vm.media.image = meta.image;
@@ -86,7 +108,11 @@ angular.module('core')
 							vm.media.imageOnly = true;
 						}
 					});
-			};
+			}
+
+			vm.isSecure = function(url) {
+				return !/^https/.test(url);
+			}
 
 			if (vm.media.url) {
 				vm.getMeta();
@@ -112,6 +138,12 @@ angular.module('core')
 
 			vm.createOrUpdate = function () {
 				var promise = $q.resolve();
+				if (vm.manualImage) {
+					promise = UploadService.upload(vm.manualImage).then(function () {
+						// console.log('uploaded file', vm.imageFile);
+						vm.media.image = vm.manualImage.result.secure_url;
+					});
+				}
 				return promise.then(function () {
 					return MediaService.createOrUpdate(vm.media)
 						.then(function (media) {

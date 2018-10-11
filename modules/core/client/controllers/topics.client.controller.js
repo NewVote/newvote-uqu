@@ -15,7 +15,7 @@ angular.module('core').controller('TopicsController', ['$scope', 'Authentication
 		$rootScope.headerTitle = 'Topics';
 
 		// Meta tags
-		vm.desc = 'A collection of the current topics being discussed on the NewVote platform.';
+		vm.desc = 'A collection of the current topics being discussed on the UQ Votes platform.';
 		vm.image = vm.topics[0] ? vm.topics[0].imageUrl : null;
 
 		vm.sort = function (sortData, $event) {

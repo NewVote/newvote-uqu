@@ -24,7 +24,7 @@ angular.module('core')
 						'back': false
 					},
 					data: {
-						title: 'NewVote'
+						title: 'UQ Votes'
 					},
 					resolve: {
 						topics: ['TopicService', function (TopicService) {
@@ -70,7 +70,7 @@ angular.module('core')
 						'back': false
 					},
 					data: {
-						title: 'NewVote'
+						title: 'UQ Votes'
 					}
 				})
 
@@ -83,7 +83,7 @@ angular.module('core')
 						'back': false
 					},
 					data: {
-						title: 'NewVote'
+						title: 'UQ Votes'
 					}
 				})
 
@@ -324,7 +324,7 @@ angular.module('core')
 						'back': false
 					},
 					data: {
-						title: 'NewVote | Goals'
+						title: 'UQ Votes | Goals'
 					},
 					controller: 'GoalsController',
 					controllerAs: 'vm',
@@ -470,7 +470,7 @@ angular.module('core')
 						goalId: null
 					},
 					data: {
-						title: 'NewVote | Solutions'
+						title: 'UQ Votes | Solutions'
 					},
 					controller: 'SolutionsController',
 					controllerAs: 'vm',
@@ -720,7 +720,7 @@ angular.module('core')
 						function ($scope, $rootScope, $state) {
 							var vm = this;
 							// Meta tags
-							vm.desc = 'The privacy policy for the NewVote platform.';
+							vm.desc = 'The privacy policy for the UQ Votes platform.';
 							// Title
 							vm.titleText = '';
 							vm.titleText = 'Privacy Policy';

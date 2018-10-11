@@ -13,6 +13,7 @@ angular.module('core')
 			vm.mdMedia = $mdMedia;
 			vm.searchOpen = false;
 			vm.$state = $state;
+			vm.message = true;
 
 			vm.backStates = {
 				'topics.view': 'topics.list',
@@ -44,12 +45,7 @@ angular.module('core')
 
 			// Update title and description
 			$scope.title = $rootScope.titlePrefix + '' + $rootScope.titleSuffix;
-			$scope.desc = 'NewVote is a dedicated online platform aimed at providing' +
-				' balanced, unbiased information on the current federal political issues' +
-				' and solutions in Australia. This information is maintained by an in de' +
-				'pendent panel and is presented in a simplified and organised manner. It' +
-				' also allows people to vote on the solutions, making people\'s opinion ' +
-				'available to the decision makers.';
+			$scope.desc = 'A democracy app: Building a bridge between you and your student representatives. We are not radical, and we are not undermining representative democracy at UQ. In fact, the opposite is true - we want to make representative democracy more representative.';
 
 			$rootScope.removeHtmlElements = function (text) {
 				if(text != null) {
@@ -148,7 +144,7 @@ angular.module('core')
 			}
 
 			vm.toggleMessage = function () {
-				$scope.message = !$scope.message;
+				vm.message = !vm.message;
 			};
 
 			vm.openMenu = function ($mdMenu, ev) {

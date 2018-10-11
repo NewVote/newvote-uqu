@@ -39,6 +39,19 @@
 			ng-model="vm.media.description">
 			</textarea>
 		</md-input-container>
+
+		<p ng-if="vm.media.url && vm.isSecure(vm.media.image)">
+			WARNING: This media URL contains non-secure images which will cause a security warning in most browsers.
+		</p>
+
+		<md-input-container>
+			<!-- <label>Override Image</label> -->
+			<!-- <img ngf-thumbnail="vm.imageFile || vm.solution.imageUrl"> -->
+			<md-button class="md-primary md-raised" ngf-select ng-model="vm.manualImage" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB">Manually Set Image</md-button>
+			<md-button class="md-raised md-warn" ng-if="vm.media._id" ng-click="vm.resetData()">
+				Reset Data
+			</md-button>
+		</md-input-container>
 	</div>
 
 
@@ -85,7 +98,8 @@
 			</md-card-header>
 		</md-card>
 		<md-card class="media-card">
-			<img hide-gt-sm class="md-card-image" src='{{vm.media.image}}' />
+			<img hide-gt-sm ng-if="!vm.manualImage" class="md-card-image" ngf-thumbnail='{{vm.manualImage ? vm.manualImage : vm.media.image}}' />
+			<img hide-gt-sm ng-if="!vm.manualImage" class="md-card-image" src='{{vm.manualImage ? vm.manualImage : vm.media.image}}' />
 			<md-card-title ng-if="!vm.media.imageOnly">
 				<md-card-title-text>
 					<!-- <span>votes object:{{media.votes.currentUser.voteValue}}</span> -->
@@ -94,7 +108,10 @@
 
 				</md-card-title-text>
 				<md-card-title-media hide show-gt-sm ng-if="!vm.media.imageOnly">
-					<div class="md-media-lg card-media"><img src='{{vm.media.image}}' /></div>
+					<div class="md-media-lg card-media">
+						<img ng-if="vm.manualImage" ngf-thumbnail="vm.manualImage">
+						<img ng-if="!vm.manualImage" src='{{vm.media.image}}' />
+					</div>
 				</md-card-title-media>
 			</md-card-title>
 			<md-card-title hide-gt-sm ng-if="vm.media.imageOnly">

@@ -2,14 +2,9 @@
 
 module.exports = {
   app: {
-    title: 'NewVote UQU',
-    description: 'NewVote is a dedicated online platform aimed at providing' +
-    ' balanced, unbiased information on the current federal political issues' +
-    ' and solutions in Australia. This information is maintained by an in de' +
-    'pendent panel and is presented in a simplified and organised manner. It' +
-    ' also allows people to vote on the solutions, making people\'s opinion ' +
-    'available to the decision makers.',
-    keywords: 'newvote',
+    title: 'UQ Votes',
+    description: 'A democracy app: Building a bridge between you and your student representatives. We are not radical, and we are not undermining representative democracy at UQ. In fact, the opposite is true - we want to make representative democracy more representative.',
+    keywords: 'uqvotes uqu uqunion',
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
   },
   port: process.env.PORT || 3000,
@@ -24,7 +19,7 @@ module.exports = {
     // secure cookie should be turned to true to provide additional
     // layer of security so that the cookie is set only when working
     // in HTTPS mode.
-    secure: false
+    secure: true
   },
   // sessionSecret should be changed for security measures and concerns
   sessionSecret: process.env.SESSION_SECRET || 'MEAN',

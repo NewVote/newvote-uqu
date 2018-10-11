@@ -20,8 +20,6 @@
 <update-meta name="twitter:url"
     use-abs-url="true"></update-meta>
 
-
-
 <div class="home-container">
 
 	<div class="home-search-banner"
@@ -33,7 +31,8 @@
 					class="home-logo"
 					alt="UQ Votes"/>
 	    	</h1>
-			<h2 class="title-text">Sign up and be heard</h2>
+			<h2 ng-if="!authentication.user" class="title-text">Sign up and be heard</h2>
+			<h3 ng-if="authentication.user" class="title-text">Welcome Back</h2>
 			<div>
 				<a layout-padding
 				    class=""
@@ -43,6 +42,7 @@
 				    layout-align="center center">
 					<img src="modules/core/client/img/join.png" width="200px" height="auto"/>
 				</a>
+
 			</div>
 		</div>
 	</div>
@@ -92,8 +92,8 @@
 	</md-content>
 
 	<div class="md-toolbar transparent"
-		flex="90"
-		flex-offset="5">
+	    flex="90"
+	    flex-offset="5">
 		<h2 class="md-display-1">FAQ</h2>
 	</div>
 

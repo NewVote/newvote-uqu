@@ -87,7 +87,7 @@ angular.module('core').controller('EndorsementController', ['$scope', '$rootScop
 			if(vm.imageFile) {
 				promise = UploadService.upload(vm.imageFile)
 					.then(function () {
-						vm.endorsement.imageUrl = vm.imageFile.result.url;
+						vm.endorsement.imageUrl = vm.imageFile.result.secure_url;
 					});
 			}
 			return promise.then(function () {

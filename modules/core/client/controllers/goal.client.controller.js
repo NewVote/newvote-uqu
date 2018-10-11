@@ -125,7 +125,7 @@ angular.module('core')
 					promise = UploadService.upload(vm.imageFile)
 						.then(function () {
 							console.log('uploaded file', vm.imageFile);
-							vm.goal.imageUrl = vm.imageFile.result.url;
+							vm.goal.imageUrl = vm.imageFile.result.secure_url;
 						});
 				}
 				return promise.then(function () {
