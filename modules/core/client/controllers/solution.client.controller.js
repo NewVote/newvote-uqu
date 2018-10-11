@@ -46,7 +46,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 			if (vm.imageFile) {
 				promise = UploadService.upload(vm.imageFile).then(function () {
 					// console.log('uploaded file', vm.imageFile);
-					vm.solution.imageUrl = vm.imageFile.result.url;
+					vm.solution.imageUrl = vm.imageFile.result.secure_url;
 				});
 			}
 			return promise.then(function () {
