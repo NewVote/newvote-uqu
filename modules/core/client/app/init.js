@@ -83,10 +83,10 @@ angular.module(ApplicationConfiguration.applicationModuleName)
 			storePreviousState(fromState, fromParams);
 		});
 
-		$rootScope.$on('$viewContentLoaded', function(event) {
-			console.log('setting prerender ready: ', event.targetScope.vm)
-			// window.prerenderReady = true;
-		})
+		// $rootScope.$on('$viewContentLoaded', function(event) {
+		// 	console.log('setting prerender ready: ', event.targetScope.vm)
+		// 	window.prerenderReady = true;
+		// })
 
 		// Store previous state
 		function storePreviousState(state, params) {

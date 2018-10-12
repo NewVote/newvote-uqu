@@ -14,8 +14,12 @@ angular.module('core').controller('SolutionController', ['$scope', '$window', 'A
 		vm.desc = $rootScope.removeHtmlElements(vm.solution.description);
 		vm.image = vm.solution.imageUrl;
 
-		console.log('got solution: ' + vm.solution.title);
-		$window.prerenderReady = true;
+		$scope.$on('$viewContentLoaded', function(event) {
+			console.log('view loaded solution: ' + vm.solution.title);
+			$window.prerenderReady = true;
+			console.log('prerender set to ready');
+		})
+
 
 		if ($state.is('goals.solution')) {
 			vm.desc = 'Proposed solution for the solution "' + vm.solution.title + '": ' + vm.solutions[0].title;
