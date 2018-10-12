@@ -20,12 +20,13 @@
 	    src="<%=file%>"></script>
 <% }); %>
 
-<script>
-	window.prerenderReady = true;
-</script>
 
 <!--Livereload script rendered -->
 <% if (livereload) {%>
 <script type="text/javascript"
 src="<%=host%>:35729/livereload.js"></script>
 <% } %>
+
+<script>
+	window.prerenderReady = false;
+</script>

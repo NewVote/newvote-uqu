@@ -83,6 +83,10 @@ angular.module(ApplicationConfiguration.applicationModuleName)
 			storePreviousState(fromState, fromParams);
 		});
 
+		$rootScope.$on('$viewContentLoaded', function() {
+			window.prerenderReady = true;
+		})
+
 		// Store previous state
 		function storePreviousState(state, params) {
 			// only store this state if it shouldn't be ignored
