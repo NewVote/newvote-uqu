@@ -66,12 +66,13 @@ module.exports.initMiddleware = function (app) {
 	app.use(require('prerender-node')
 	.set('prerenderToken', 'Sp1xuBcejkoGhbvsTk5p')
 	.set('forwardHeaders', true)
+	.set('protocol', 'https')
 	.blacklisted(['/admin', '/api/']));
 	// app.use(require('prerender-node')
 	// 	.set('prerenderServiceUrl', 'https://newvote-prerender.herokuapp.com/')
 	// 	.set('forwardHeaders', true)
 	// 	.blacklisted(['/admin', '/api/']));
-	
+
 	// Showing stack errors
 	app.set('showStackError', true);
 
