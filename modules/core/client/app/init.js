@@ -85,7 +85,7 @@ angular.module(ApplicationConfiguration.applicationModuleName)
 
 		$rootScope.$on('$viewContentLoaded', function(event) {
 			console.log('setting prerender ready: ', event.targetScope.vm)
-			window.prerenderReady = true;
+			// window.prerenderReady = true;
 		})
 
 		// Store previous state

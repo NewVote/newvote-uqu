@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'GoalService', 'SolutionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'goals', 'endorsement', 'media', 'UploadService', 'SortService', 'isSingleSolution', '$mdConstant',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, GoalService, SolutionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, goals, endorsement, media, UploadService, SortService, isSingleSolution, $mdConstant) {
+angular.module('core').controller('SolutionController', ['$scope', '$window', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'GoalService', 'SolutionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'goals', 'endorsement', 'media', 'UploadService', 'SortService', 'isSingleSolution', '$mdConstant',
+	function ($scope, $window, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, GoalService, SolutionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, goals, endorsement, media, UploadService, SortService, isSingleSolution, $mdConstant) {
 		// This provides Authentication context.
 		var vm = this;
 		vm.solution = solution;
@@ -15,6 +15,7 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		vm.image = vm.solution.imageUrl;
 
 		console.log('got solution: ' + vm.solution.title);
+		$window.prerenderReady = true;
 
 		if ($state.is('goals.solution')) {
 			vm.desc = 'Proposed solution for the solution "' + vm.solution.title + '": ' + vm.solutions[0].title;
