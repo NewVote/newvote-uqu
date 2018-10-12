@@ -38,6 +38,9 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		} else if ($state.is('solutions.create')) {
 			vm.titleText = 'Add a Solution';
 			$rootScope.headerTitle = 'Add Solution';
+		} else if($state.is('solutions.view')) {
+			vm.titleText = vm.solution.title;
+			$rootScope.headerTitle = 'Solution';
 		}
 		vm.title = $rootScope.titlePrefix + vm.titleText + $rootScope.titleSuffix;
 

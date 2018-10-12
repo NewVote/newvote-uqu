@@ -23,7 +23,7 @@ angular.module('core')
 						{ name: 'Google+', id: 'google_plus', imageName: 'google-plus.svg' },
 						{ name: 'LinkedIn', id: 'linkedin', imageName: 'linkedin.svg' },
 						{ name: 'Reddit', id: 'reddit', imageName: 'reddit.svg' }
-        ];
+        			];
 
 					vm.$onInit = function () {
 						if(vm.verticalResize) {
@@ -67,14 +67,14 @@ angular.module('core')
 								provider: provider,
 								rel_url: '/goals/' + vm.object._id,
 								title: vm.object.title,
-								hashtags: vm.object.topics ? vm.object.topics.join() : ''
+								hashtags: ''
 							});
 							break;
 
 						case 'solution':
 							SocialshareService.share({
 								provider: provider,
-								rel_url: '/goals/' + vm.reqObject._id + '/?solutionId=' + vm.object._id,
+								rel_url: '/solutions/' + vm.object._id,
 								title: vm.object.title,
 								hashtags: ''
 							});
@@ -83,7 +83,6 @@ angular.module('core')
 						default:
 							console.log('Unknown object type', vm.objectType);
 							break;
-
 						}
 					};
 			}
