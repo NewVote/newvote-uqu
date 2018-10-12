@@ -160,7 +160,10 @@ gulp.task('uglify', function () {
 		defaultAssets.client.templates
 	);
 
-	return gulp.src(assets)
+	return gulp.src([
+      'node_modules/babel-polyfill/dist/polyfill.js',
+	  assets
+      ])
 		.pipe(plugins.ngAnnotate())
 		.pipe(plugins.babel({ presets: ['@babel/preset-env'] }))
 		.pipe(plugins.uglify({

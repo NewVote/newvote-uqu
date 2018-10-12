@@ -7,8 +7,7 @@ var config = require('../config'),
   mongoose = require('./mongoose'),
   express = require('./express'),
   chalk = require('chalk'),
-  seed = require('./seed')
-  require ('babel-polyfill');;
+  seed = require('./seed');
 
 function seedDB() {
   if (config.seedDB && config.seedDB.seed) {
