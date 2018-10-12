@@ -14,6 +14,8 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		vm.desc = $rootScope.removeHtmlElements(vm.solution.description);
 		vm.image = vm.solution.imageUrl;
 
+		console.log('got solution: ' + vm.solution.title);
+
 		if ($state.is('goals.solution')) {
 			vm.desc = 'Proposed solution for the solution "' + vm.solution.title + '": ' + vm.solutions[0].title;
 		}
@@ -93,9 +95,5 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 
 			return $mdDialog.show(confirmDialog);
 		}
-
-		angular.element(document).find('script[src="https://pol.is/embed.js"]').remove();
-		var el = angular.element('<script>').attr('src', 'https://pol.is/embed.js');
-		angular.element(document).find('body').append(el);
 	}
 ]);
