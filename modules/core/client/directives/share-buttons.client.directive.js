@@ -44,6 +44,14 @@ angular.module('core')
 
 						switch(vm.objectType) {
 
+						case 'topic':
+							SocialshareService.share({
+								provider: provider,
+								rel_url: '/topics/' + vm.object._id,
+								title: vm.object.name,
+							});
+							break;
+
 						case 'issue':
 							SocialshareService.share({
 								provider: provider,

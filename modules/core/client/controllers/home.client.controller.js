@@ -20,18 +20,13 @@ angular.module('core')
 
 			// Page title config
 			$rootScope.titlePrefix = '';
-			$rootScope.titleSuffix = ' | NewVote';
+			$rootScope.titleSuffix = ' | UQ Votes - Powered by Newvote - VOTE NOW';
 
 			$rootScope.showBackButton = false;
 
 			// Update title and description
 			$scope.title = $rootScope.titlePrefix + 'Home' + $rootScope.titleSuffix;
-			$scope.desc = 'NewVote is a dedicated online platform aimed at providing' +
-				' balanced, unbiased information on the current federal political issues' +
-				' and solutions in Australia. This information is maintained by an in de' +
-				'pendent panel and is presented in a simplified and organised manner. It' +
-				' also allows people to vote on the solutions, making people\'s opinion ' +
-				'available to the decision makers.';
+			$scope.desc = 'UQ Votes is a democracy app: building a bridge between you and your student representatives. We are not radical, and we are not undermining representative democracy at UQ. In fact, the opposite is true - we want to make representative democracy more representative.';
 			$rootScope.headerTitle = 'Home';
 
 			//watch for changes in screen width and catch when screen is gt-md

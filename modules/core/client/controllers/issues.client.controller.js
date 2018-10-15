@@ -13,7 +13,7 @@ angular.module('core').controller('IssuesController', ['$scope', 'Authentication
 		$rootScope.headerTitle = 'Issues';
 
 		// Meta tags
-		vm.desc = 'A collection of the current issues being discussed on the NewVote platform.';
+		vm.desc = 'A collection of the current issues being discussed on the UQ Votes platform.';
 		vm.image = vm.issues[0] ? vm.issues[0].imageUrl : null;
 
 		// vm.filterTags = [];

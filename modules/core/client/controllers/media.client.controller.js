@@ -7,7 +7,7 @@ angular.module('core')
 			vm.media = media;
 
 			// Title
-			vm.title = 'NewVote | Create Media';
+			vm.title = 'Create Media';
 			vm.desc = 'Create and submit Media';
 			var previousState = '';
 			var stateData = null;
