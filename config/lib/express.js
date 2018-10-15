@@ -62,6 +62,17 @@ module.exports.initLocalVariables = function (app) {
  * Initialize application middleware
  */
 module.exports.initMiddleware = function (app) {
+	// Server side prerender for non-js web crawlers
+	// app.use(require('prerender-node')
+	// .set('prerenderToken', 'Sp1xuBcejkoGhbvsTk5p')
+	// .set('forwardHeaders', true)
+	// .set('protocol', 'https')
+	// .blacklisted(['/admin', '/api/']));
+	app.use(require('prerender-node')
+		.set('prerenderServiceUrl', 'https://newvote-prerender.herokuapp.com/')
+		.set('forwardHeaders', true)
+		.blacklisted(['/admin', '/api/']));
+
 	// Showing stack errors
 	app.set('showStackError', true);
 
@@ -107,12 +118,6 @@ module.exports.initMiddleware = function (app) {
 		next();
 	});
 
-	// Server side prerender for non-js web crawlers
-	// app.use(require('prerender-node').set('prerenderServiceUrl', 'https://prerender-newvote.herokuapp.com'));
-	// app.use(require('prerender-node')
-	// 	.set('prerenderServiceUrl', 'https://newvote-prerender.herokuapp.com/')
-	// 	.set('forwardHeaders', true)
-	// 	.blacklisted(['/admin', '/api/']));
 
 	//https redirect
 	if(process.env.NODE_ENV === 'production') {

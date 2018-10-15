@@ -159,7 +159,7 @@ gulp.task('uglify', function () {
 		defaultAssets.client.js,
 		defaultAssets.client.templates
 	);
-
+	assets.push('node_modules/@babel/polyfill/dist/polyfill.js');
 	return gulp.src(assets)
 		.pipe(plugins.ngAnnotate())
 		.pipe(plugins.babel({ presets: ['@babel/preset-env'] }))

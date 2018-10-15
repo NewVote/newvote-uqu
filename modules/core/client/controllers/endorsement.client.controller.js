@@ -6,7 +6,7 @@ angular.module('core').controller('EndorsementController', ['$scope', '$rootScop
 		vm.endorsement = endorsement;
 
 		// Title
-		vm.title = 'NewVote | Create Endorsement';
+		vm.title = 'Create Endorsement';
 		vm.desc = 'Create and submit Endorsement';
 		var previousState = '';
 		var stateData = null;

@@ -14,7 +14,7 @@ angular.module('core')
 			$rootScope.headerTitle = 'Goals';
 
 			// Meta tags
-			vm.desc = vm.desc = 'A collection of the current goals being discussed on the NewVote platform.';
+			vm.desc = vm.desc = 'A collection of the current goals being discussed on the UQ Votes platform.';
 			vm.image = vm.goals[0] ? vm.goals[0].imageUrl : null;
 	}
 ]);

@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('SolutionController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'GoalService', 'SolutionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'goals', 'endorsement', 'media', 'UploadService', 'SortService', 'isSingleSolution', '$mdConstant',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, GoalService, SolutionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, goals, endorsement, media, UploadService, SortService, isSingleSolution, $mdConstant) {
+angular.module('core').controller('SolutionController', ['$scope', '$window', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', 'GoalService', 'SolutionService', '$q', '$mdDialog', 'VoteService', 'VOTE_TYPES', 'solution', 'goals', 'endorsement', 'media', 'UploadService', 'SortService', 'isSingleSolution', '$mdConstant',
+	function ($scope, $window, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, GoalService, SolutionService, $q, $mdDialog, VoteService, VOTE_TYPES, solution, goals, endorsement, media, UploadService, SortService, isSingleSolution, $mdConstant) {
 		// This provides Authentication context.
 		var vm = this;
 		vm.solution = solution;
@@ -13,6 +13,13 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		// Meta tags
 		vm.desc = $rootScope.removeHtmlElements(vm.solution.description);
 		vm.image = vm.solution.imageUrl;
+
+		$scope.$on('$viewContentLoaded', function(event) {
+			console.log('view loaded solution: ' + vm.solution.title);
+			$window.prerenderReady = true;
+			console.log('prerender set to ready');
+		})
+
 
 		if ($state.is('goals.solution')) {
 			vm.desc = 'Proposed solution for the solution "' + vm.solution.title + '": ' + vm.solutions[0].title;
@@ -38,6 +45,9 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 		} else if ($state.is('solutions.create')) {
 			vm.titleText = 'Add a Solution';
 			$rootScope.headerTitle = 'Add Solution';
+		} else if($state.is('solutions.view')) {
+			vm.titleText = vm.solution.title;
+			$rootScope.headerTitle = 'Solution';
 		}
 		vm.title = $rootScope.titlePrefix + vm.titleText + $rootScope.titleSuffix;
 
@@ -90,9 +100,5 @@ angular.module('core').controller('SolutionController', ['$scope', 'Authenticati
 
 			return $mdDialog.show(confirmDialog);
 		}
-
-		angular.element(document).find('script[src="https://pol.is/embed.js"]').remove();
-		var el = angular.element('<script>').attr('src', 'https://pol.is/embed.js');
-		angular.element(document).find('body').append(el);
 	}
 ]);

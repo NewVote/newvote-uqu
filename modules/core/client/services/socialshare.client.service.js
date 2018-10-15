@@ -10,7 +10,7 @@ angular.module('core').service('SocialshareService', ['$window', '$resource', '$
 
     // Social media settings
     var prefix = 'UQ Votes | ';
-    var suffix = '';
+    var suffix = ' | VOTE NOW';
 
     // Social media URLs
     var twitterURL = 'http://twitter.com/share?';

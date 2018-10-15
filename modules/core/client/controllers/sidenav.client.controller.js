@@ -41,7 +41,7 @@ angular.module('core')
 
 			// Page title config
 			$rootScope.titlePrefix = '';
-			$rootScope.titleSuffix = ' | UQVotes - Powered by NewVote';
+			$rootScope.titleSuffix = ' | UQ Votes - Powered by NewVote - VOTE NOW';
 
 			// Update title and description
 			$scope.title = $rootScope.titlePrefix + '' + $rootScope.titleSuffix;
