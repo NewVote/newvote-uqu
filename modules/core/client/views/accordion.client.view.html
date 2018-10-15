@@ -1,15 +1,18 @@
-<div>
+<div class="faq-accordion">
 	<div layout="row"
-	    class="faq-header" ng-click="vm.toggle()">
+	    class="faq-header"
+	    ng-click="vm.toggle()">
 		<h2 class="md-display-1 text-center icon"
 		    flex="10"
 		    layout-padding>Q</h2>
-		<h2 class="md-display-1 text" flex
+		<h2 class="md-display-1 text"
+		    flex
 		    layout-padding>{{vm.title}}</h2>
 	</div>
-	<div class="faq-content" ng-if="vm.isOpen">
-		<p class="md-body-1"
-		    layout-padding ng-bind-html="vm.description">
+	<div class="faq-content"
+	    ng-if="vm.isOpen">
+		<p class=""
+		    ng-bind-html="vm.description">
 		</p>
 	</div>
 </div>

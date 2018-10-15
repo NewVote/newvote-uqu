@@ -13,16 +13,18 @@ angular.module('core')
 			templateUrl: 'modules/core/client/views/share-buttons.client.view.html',
 			bindToController: true,
 			controllerAs: 'vm',
-			controller: ['$scope', '$window', '$state', 'SocialshareService', 'GoalService',
-			function ($scope, $window, $state, SocialshareService, GoalService) {
+			controller: ['$scope', '$window', '$location', '$state', 'SocialshareService', 'GoalService',
+			function ($scope, $window, $location, $state, SocialshareService, GoalService) {
 					var vm = this;
+					vm.url = $location.absUrl();
 
 					vm.shareItems = [
 						{ name: 'Facebook', id: 'facebook', imageName: 'facebook.svg' },
 						{ name: 'Twitter', id: 'twitter', imageName: 'twitter.svg' },
 						{ name: 'Google+', id: 'google_plus', imageName: 'google-plus.svg' },
 						{ name: 'LinkedIn', id: 'linkedin', imageName: 'linkedin.svg' },
-						{ name: 'Reddit', id: 'reddit', imageName: 'reddit.svg' }
+						{ name: 'Reddit', id: 'reddit', imageName: 'reddit.svg' },
+						{ name: 'Copy to Clipboard', id: 'clipboard', imageName: 'clipboard.svg' }
         			];
 
 					vm.$onInit = function () {
@@ -40,7 +42,15 @@ angular.module('core')
 							.off('resize');
 					};
 
+					vm.copyToClipboard = function() {
+
+					}
+
 					vm.share = function (provider) {
+
+						if(provider == 'clipboard'){
+							return vm.copyToClipboard();
+						}
 
 						switch(vm.objectType) {
 

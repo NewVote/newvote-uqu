@@ -44,7 +44,9 @@ module.exports = {
         'public/lib/ngstorage/ngStorage.js',
         'public/lib/angular-ui-carousel/dist/ui-carousel.min.js',
         'public/lib/angular-recaptcha/release/angular-recaptcha.js',
-        'public/lib/ang-accordion/js/ang-accordion.js'
+        'public/lib/ang-accordion/js/ang-accordion.js',
+		'https://cdn.rawgit.com/zenorocha/clipboard.js/master/dist/clipboard.min.js',
+		'public/lib/ngclipboard/dist/ngclipboard.js'
 
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']
