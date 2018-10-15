@@ -45,7 +45,7 @@ module.exports = {
         'public/lib/angular-ui-carousel/dist/ui-carousel.min.js',
         'public/lib/angular-recaptcha/release/angular-recaptcha.js',
         'public/lib/ang-accordion/js/ang-accordion.js',
-		'https://cdn.rawgit.com/zenorocha/clipboard.js/master/dist/clipboard.min.js',
+		'public/lib/clipboard/dist/clipboard.js',
 		'public/lib/ngclipboard/dist/ngclipboard.js'
 
       ],
