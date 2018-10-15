@@ -31,7 +31,9 @@ md-toolbar {
 	max-width: 100%;
 }
 
-.faq-accordion {}
+.faq-accordion {
+	margin-bottom: 25px;
+}
 
 .faq-header {
 	border-radius: 5px;
@@ -44,6 +46,9 @@ md-toolbar {
 		background-color: rgb(0,96,100);
 		color: white;
 
+		margin-top: 0px;
+		margin-bottom: 0px;
+
 		cursor:pointer;
 	}
 
@@ -52,6 +57,18 @@ md-toolbar {
 		border-top-right-radius: 5px;
 		border-bottom-right-radius: 5px;
 		cursor:pointer;
+
+		margin-top: 0px;
+		margin-bottom: 0px;
+	}
+}
+
+.faq-content {
+	padding-left: 25px;
+	padding-right: 25px;
+
+	p{
+		margin-top: 5px;
 	}
 }
 
@@ -69,6 +86,21 @@ md-toolbar {
 	a:link,
 	a:visited {
 		color: black;
+	}
+}
+
+.secure-footer {
+	display: inline;
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	background-color: rgba(255, 255, 255, 0.8);
+	border-top-right-radius: 5px;
+	padding-top: 5px;
+
+	img {
+		width: 100px;
+		height: auto;
 	}
 }
 
@@ -375,7 +407,7 @@ md-input-container {
 	background-position: center;
 	background-size: cover;
 	width: 100%;
-	height: calc(100vh - 64px);
+	min-height: calc(100vh - 64px);
 }
 
 .banner-logo-wrapper {
@@ -568,6 +600,29 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
 	transform: translate(-50%, -50%);
 	position: absolute;
 	width: 360px;
+}
+
+.vote-totals-lrg {
+	height:60px;
+	width: 60px;
+	line-height: 60px;
+	text-align: center;
+	background-color: white;
+	color: black;
+	border-radius: 100%;
+	margin-left: 14px;
+	margin-right: 6px;
+}
+
+.vote-totals-sml {
+	height:40px;
+	width: 40px;
+	line-height: 40px;
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.2);
+	color: black;
+	border-radius: 100%;
+	margin-right: 6px;
 }
 
 .likert-container {
