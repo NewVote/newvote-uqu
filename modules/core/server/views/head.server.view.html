@@ -2,58 +2,75 @@
 	<!-- <script>
 		window.prerenderReady = false;
 	</script> -->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async
+	    src="https://www.googletagmanager.com/gtag/js?id=UA-127730661-1">
+	</script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+
+		function gtag() {
+			dataLayer.push(arguments);
+		}
+		gtag('js', new Date());
+
+		gtag('config', '<%=googleAnalyticsTrackingID%>');
+	</script>
+
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible"
-		content="IE=edge,chrome=1">
+	    content="IE=edge,chrome=1">
 	<meta name="viewport"
-		content="width=device-width,initial-scale=1,maximum-scale=1">
+	    content="width=device-width,initial-scale=1,maximum-scale=1">
 	<base href="/">
-	<title><%=title%></title>
+	<title>
+		<%=title%>
+	</title>
 	<meta name="description"
-		content="<%=description%>">
+	    content="<%=description%>">
 	<meta name="fragment"
-		content="!">
+	    content="!">
 
 	<!-- Apple META -->
 	<meta name="apple-mobile-web-app-capable"
-		content="yes">
+	    content="yes">
 	<meta name="apple-mobile-web-app-status-bar-style"
-		content="black">
+	    content="black">
 
 	<!-- Facebook META -->
 	<meta property="fb:app_id"
-		content="<%=facebookAppId%>">
+	    content="<%=facebookAppId%>">
 	<meta property="og:site_name"
-		content="<%=title%>">
+	    content="<%=title%>">
 	<meta property="og:title"
-		content="<%=title%>">
+	    content="<%=title%>">
 	<meta property="og:description"
-		content="<%=description%>">
+	    content="<%=description%>">
 	<meta property="og:url"
-		content="<%=url%>">
+	    content="<%=url%>">
 	<meta property="og:image"
-		content="<%=logo%>">
+	    content="<%=logo%>">
 	<meta property="og:type"
-		content="website">
+	    content="website">
 
 	<!-- Twitter META -->
 	<meta name="twitter:title"
-		content="<%=title%>">
+	    content="<%=title%>">
 	<meta name="twitter:description"
-		content="<%=description%>">
+	    content="<%=description%>">
 	<meta name="twitter:url"
-		content="<%=url%>">
+	    content="<%=url%>">
 	<meta name="twitter:image"
-		content="<%=logo%>">
+	    content="<%=logo%>">
 
 	<!-- Fav Icon -->
 	<link href="<%=favicon%>"
-		rel="shortcut icon"
-		type="image/x-icon">
+	    rel="shortcut icon"
+	    type="image/x-icon">
 
 	<!-- Application CSS Files -->
 	<% cssFiles.forEach(function(file) { %>
-	<link rel="stylesheet"
-		href="<%= file %>">
-	<% }); %>
+		<link rel="stylesheet"
+		    href="<%= file %>">
+		<% }); %>
 </head>
