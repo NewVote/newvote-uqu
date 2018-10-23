@@ -206,7 +206,7 @@ describe('User Model Unit Tests:', function () {
 
     it('should not save the passphrase in plain text', function (done) {
       var _user1 = new User(user1);
-      _user1.password = 'Open-Source Full-Stack Solution for MEAN';
+      _user1.password = 'Open-Source Full-Stack Proposal for MEAN';
       var passwordBeforeSave = _user1.password;
       _user1.save(function (err) {
         should.not.exist(err);
@@ -254,9 +254,9 @@ describe('User Model Unit Tests:', function () {
       });
     });
 
-    it('should validate when the passphrase strength passes - "Open-Source Full-Stack Solution For MEAN Applications"', function () {
+    it('should validate when the passphrase strength passes - "Open-Source Full-Stack Proposal For MEAN Applications"', function () {
       var _user1 = new User(user1);
-      _user1.password = 'Open-Source Full-Stack Solution For MEAN Applications';
+      _user1.password = 'Open-Source Full-Stack Proposal For MEAN Applications';
 
       _user1.validate(function (err) {
         should.not.exist(err);

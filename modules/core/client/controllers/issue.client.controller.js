@@ -1,15 +1,15 @@
 'use strict';
 
 angular.module('core')
-	.controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', '$location', '$anchorScroll', 'IssueService', 'TopicService', '$mdDialog', 'issue', 'VoteService', 'goals', 'solutions', 'endorsement', 'media', 'UploadService', '$q', 'SortService', '$mdConstant',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, $location, $anchorScroll, IssueService, TopicService, $mdDialog, issue, VoteService, goals, solutions, endorsement, media, UploadService, $q, SortService, $mdConstant) {
+	.controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', '$location', '$anchorScroll', 'IssueService', 'TopicService', '$mdDialog', 'issue', 'VoteService', 'solutions', 'proposals', 'endorsement', 'media', 'UploadService', '$q', 'SortService', '$mdConstant',
+	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, $location, $anchorScroll, IssueService, TopicService, $mdDialog, issue, VoteService, solutions, proposals, endorsement, media, UploadService, $q, SortService, $mdConstant) {
 			// This provides Authentication context.
 			var vm = this;
 			vm.issue = issue;
 			vm.media = media;
 			vm.issueId = issue._id;
-			vm.goals = goals;
 			vm.solutions = solutions;
+			vm.proposals = proposals;
 			vm.endorsement = endorsement;
 			$scope.$state = $state;
 			$scope.toggle = function () {
@@ -79,9 +79,9 @@ angular.module('core')
 					});
 			};
 
-			vm.vote = function (goal, voteType, $event) {
+			vm.vote = function (solution, voteType, $event) {
 				$event.stopPropagation();
-				VoteService.vote(goal, 'Goal', voteType);
+				VoteService.vote(solution, 'Solution', voteType);
 			};
 
 			vm.searchTopics = function (query) {

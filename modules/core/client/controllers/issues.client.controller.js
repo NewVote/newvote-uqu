@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('IssuesController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', 'issues', 'GoalService', 'SortService',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, issues, GoalService, SortService) {
+angular.module('core').controller('IssuesController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', 'issues', 'SolutionService', 'SortService',
+	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, issues, SolutionService, SortService) {
 		// This provides Authentication context.
 		var vm = this;
 		vm.issues = issues;
@@ -19,11 +19,11 @@ angular.module('core').controller('IssuesController', ['$scope', 'Authentication
 		// vm.filterTags = [];
 		//
 		// var tagPromise = issues.map(function (issue) {
-		// 	return GoalService.list({issueId: issue._id}).then(function (goals) {
+		// 	return SolutionService.list({issueId: issue._id}).then(function (solutions) {
 		// 		var tags = [];
-		// 		goals.map(function (goal) {
-		// 			// console.log(goal.tags);
-		// 			return goal.tags.map(function (tag) {
+		// 		solutions.map(function (solution) {
+		// 			// console.log(solution.tags);
+		// 			return solution.tags.map(function (tag) {
 		// 				tags.push({name: tag});
 		// 			});
 		// 		});

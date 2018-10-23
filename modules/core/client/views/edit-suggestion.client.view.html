@@ -47,14 +47,14 @@
         </md-contact-chips>
 
         <md-contact-chips ng-if="vm.type != 'edit'"
-          ng-model="vm.suggestion.goals"
-          md-contacts="vm.searchGoals($query)"
+          ng-model="vm.suggestion.solutions"
+          md-contacts="vm.searchSolutions($query)"
           md-contact-name="title"
           md-require-match="true"
           md-highlight-flags="i"
           md-delay="400"
-          placeholder="Linked Goals"
-          secondary-placeholder="Add another goal">
+          placeholder="Linked Solutions"
+          secondary-placeholder="Add another solution">
         </md-contact-chips>
 
         <div layout="row">

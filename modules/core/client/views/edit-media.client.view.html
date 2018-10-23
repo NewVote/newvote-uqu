@@ -46,7 +46,7 @@
 
 		<md-input-container>
 			<!-- <label>Override Image</label> -->
-			<!-- <img ngf-thumbnail="vm.imageFile || vm.solution.imageUrl"> -->
+			<!-- <img ngf-thumbnail="vm.imageFile || vm.proposal.imageUrl"> -->
 			<md-button class="md-primary md-raised" ngf-select ng-model="vm.manualImage" name="file" ngf-pattern="'image/*'" ngf-accept="'image/*'" ngf-max-size="20MB">Manually Set Image</md-button>
 			<md-button class="md-raised md-warn" ng-if="vm.media._id" ng-click="vm.resetData()">
 				Reset Data
@@ -67,17 +67,6 @@
     </md-contact-chips>
 
 	<md-contact-chips
-	  ng-model="vm.media.goals"
-	  md-contacts="vm.searchGoals($query)"
-	  md-contact-name="title"
-	  md-require-match="true"
-	  md-highlight-flags="i"
-	  md-delay="400"
-	  placeholder="Linked Goals"
-	  secondary-placeholder="Add another goal">
-	</md-contact-chips>
-
-	<md-contact-chips
 	  ng-model="vm.media.solutions"
 	  md-contacts="vm.searchSolutions($query)"
 	  md-contact-name="title"
@@ -88,9 +77,20 @@
 	  secondary-placeholder="Add another solution">
 	</md-contact-chips>
 
+	<md-contact-chips
+	  ng-model="vm.media.proposals"
+	  md-contacts="vm.searchProposals($query)"
+	  md-contact-name="title"
+	  md-require-match="true"
+	  md-highlight-flags="i"
+	  md-delay="400"
+	  placeholder="Linked Proposals"
+	  secondary-placeholder="Add another proposal">
+	</md-contact-chips>
+
 	<div layout="column" layout-padding>
 		<span>Media Preview</span>
-		<md-card class="solution-card" ng-if="vm.media.length==0">
+		<md-card class="proposal-card" ng-if="vm.media.length==0">
 			<md-card-header>
 				<md-card-header-text>
 					<span class="md-headline">No media has been added yet!</span>

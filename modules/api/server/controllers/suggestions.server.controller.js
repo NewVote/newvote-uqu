@@ -8,7 +8,7 @@ var path = require('path'),
 	config = require(path.resolve('./config/config')),
 	Suggestion = mongoose.model('Suggestion'),
 	Issue = mongoose.model('Issue'),
-	Goal = mongoose.model('Goal'),
+	Solution = mongoose.model('Solution'),
 	errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
 	nodemailer = require('nodemailer'),
 	transporter = nodemailer.createTransport(config.mailer.options),
@@ -26,11 +26,11 @@ var buildMessage = function (suggestion, req) {
 		}
 		messageString += '</p>';
 	}
-	if(suggestion.goals) {
-		messageString += '<p>Related Goals: ';
-		for(var x = 0; x < suggestion.goals.length; x++) {
-			var goal = suggestion.goals[x];
-			messageString += '<a target="_blank" href="' + url + '/goals/' + goal._id + '">' + goal.title + '</a> ';
+	if(suggestion.solutions) {
+		messageString += '<p>Related Solutions: ';
+		for(var x = 0; x < suggestion.solutions.length; x++) {
+			var solution = suggestion.solutions[x];
+			messageString += '<a target="_blank" href="' + url + '/solutions/' + solution._id + '">' + solution.title + '</a> ';
 		}
 		messageString += '</p>';
 	}
@@ -54,7 +54,7 @@ exports.create = function (req, res) {
 					message: errorHandler.getErrorMessage(err)
 				});
 		} else {
-			Suggestion.populate(suggestion, { path: 'issues goals user' })
+			Suggestion.populate(suggestion, { path: 'issues solutions user' })
 				.then(function (suggestion) {
 					// console.log(buildMessage(suggestion, req));
 					// console.log(process.env);
@@ -129,16 +129,16 @@ exports.delete = function (req, res) {
  */
 exports.list = function (req, res) {
 	var issueId = req.query.issueId;
-	var goalId = req.query.goalId;
+	var solutionId = req.query.solutionId;
 	var searchParams = req.query.search;
 	var query;
 	if(issueId) {
 		query = {
 			issues: issueId
 		};
-	} else if(goalId) {
+	} else if(solutionId) {
 		query = {
-			goals: goalId
+			solutions: solutionId
 		};
 	} else if(searchParams) {
 		query = {
@@ -181,7 +181,7 @@ exports.suggestionByID = function (req, res, next, id) {
 	Suggestion.findById(id)
 		.populate('user', 'displayName')
 		.populate('issues')
-		.populate('goals')
+		.populate('solutions')
 		.exec(function (err, suggestion) {
 			if(err) {
 				return next(err);

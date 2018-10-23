@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('core')
-	.controller('HelpController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', 'SearchService', '$mdMedia', 'IssueService', 'GoalService', 'SolutionService', '$timeout', 'Carousel',
-		function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, SearchService, $mdMedia, IssueService, GoalService, SolutionService, $timeout, Carousel) {
+	.controller('HelpController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', 'SearchService', '$mdMedia', 'IssueService', 'SolutionService', 'ProposalService', '$timeout', 'Carousel',
+		function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, SearchService, $mdMedia, IssueService, SolutionService, ProposalService, $timeout, Carousel) {
 			// This provides Authentication context.
 			$scope.authentication = Authentication;
 			$scope.$state = $state;

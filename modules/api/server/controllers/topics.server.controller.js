@@ -8,7 +8,7 @@ var path = require('path'),
 	Topic = mongoose.model('Topic'),
 	TopicsController = require('./topics.server.controller'),
 	votes = require('./votes.server.controller'),
-	Goal = mongoose.model('Goal'),
+	Solution = mongoose.model('Solution'),
 	errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
 	_ = require('lodash');
 

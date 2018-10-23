@@ -74,29 +74,29 @@ exports.delete = function (req, res) {
  * List of endorsements
  */
 exports.list = function (req, res) {
-	var goalId = req.query.goalId,
+	var solutionId = req.query.solutionId,
 		issueId = req.query.issueId,
-		solutionId = req.query.solutionId,
+		proposalId = req.query.proposalId,
 		searchParams = req.query.search,
 		endorsementId = req.query.endorsementId,
 		query;
 
-	if (goalId) {
+	if (solutionId) {
 		query = {
-			goals: goalId
+			solutions: solutionId
 		};
 	} else if(issueId) {
 		query = {
 			issues: issueId
 		};
-	} else if(solutionId) {
+	} else if(proposalId) {
 		query = {
-			solutions: solutionId
+			proposals: proposalId
 		};
 	} else {
 		query = null;
 	}
-	Endorsement.find(query).sort('-created').populate('user', 'displayName').populate('issues').populate('goals').exec(function (err,endorsements) {
+	Endorsement.find(query).sort('-created').populate('user', 'displayName').populate('issues').populate('solutions').exec(function (err,endorsements) {
 		if (err) {
 			return res.status(400).send({
 				message: errorHandler.getErrorMessage(err)
@@ -125,7 +125,7 @@ exports.endorsementByID = function (req, res, next, id) {
 		});
 	}
 
-	Endorsement.findById(id).populate('user', 'displayName').populate('issues').populate('goals').exec(function (err, endorsement) {
+	Endorsement.findById(id).populate('user', 'displayName').populate('issues').populate('solutions').exec(function (err, endorsement) {
 		if (err) {
 			return next(err);
 		} else if (!endorsement) {

@@ -77,7 +77,7 @@
     });
 
     it('should be valid when password meets requirements with a passphrase', function() {
-      scope.passwordMock.password = 'Open-Source Full-Stack Solution for MEAN';
+      scope.passwordMock.password = 'Open-Source Full-Stack Proposal for MEAN';
       compileDirective();
       scope.$digest();
 

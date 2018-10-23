@@ -7,8 +7,8 @@ var path = require('path'),
 	_ = require('lodash'),
 	mongoose = require('mongoose'),
 	Vote = mongoose.model('Vote'),
-	Goal = mongoose.model('Goal'),
 	Solution = mongoose.model('Solution'),
+	Proposal = mongoose.model('Proposal'),
 	Media = mongoose.model('Media'),
 	errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller'));
 
@@ -46,12 +46,12 @@ function attachObjects(votes) {
 		var type = vote.objectType;
 		var objectID = vote.object;
 		var object = {};
-		//find the correct object (solution or goal) by objectId
+		//find the correct object (proposal or solution) by objectId
 		var model = {};
-		if (type === 'Solution') {
+		if (type === 'Proposal') {
+			model = Proposal;
+		} else if (type === 'Solution') {
 			model = Solution;
-		} else if (type === 'Goal') {
-			model = Goal;
 		} else if(type === 'Media') {
 			model = Media;
 		}
@@ -72,12 +72,12 @@ function attachObjects(votes) {
 	// 		var type = vote.objectType;
 	// 		var objectID = vote.object;
 	// 		var object = {};
-	// 		//find the correct object (solution or goal) by objectId
+	// 		//find the correct object (proposal or solution) by objectId
 	// 		var model = {};
-	// 		if (type === 'Solution') {
+	// 		if (type === 'Proposal') {
+	// 			model = Proposal;
+	// 		} else if (type === 'Solution') {
 	// 			model = Solution;
-	// 		} else if (type === 'Goal') {
-	// 			model = Goal;
 	// 		}
 	//
 	// 		model.findById(objectID)

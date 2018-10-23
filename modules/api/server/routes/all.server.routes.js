@@ -6,8 +6,8 @@
 var policy = require('../policies/generic.server.policy'),
 	topics = require('../controllers/topics.server.controller'),
 	issues = require('../controllers/issues.server.controller'),
-	goals = require('../controllers/goals.server.controller'),
 	solutions = require('../controllers/solutions.server.controller'),
+	proposals = require('../controllers/proposals.server.controller'),
   	suggestions = require('../controllers/suggestions.server.controller'),
 	media = require('../controllers/media.server.controller'),
 	endorsement = require('../controllers/endorsement.server.controller'),
@@ -27,9 +27,9 @@ module.exports = function (app) {
 		.get(issues.list)
 		.post(issues.create);
 
-	app.route('/api/goals').all(policy.isAllowed)
-		.get(goals.list)
-		.post(goals.create);
+	app.route('/api/solutions').all(policy.isAllowed)
+		.get(solutions.list)
+		.post(solutions.create);
 
 	app.route('/api/comments').all(policy.isAllowed)
 		.get(comments.list)
@@ -39,9 +39,9 @@ module.exports = function (app) {
 		.get(votes.list)
 		.post(votes.updateOrCreate);
 
-	app.route('/api/solutions').all(policy.isAllowed)
-		.get(solutions.list)
-		.post(solutions.create);
+	app.route('/api/proposals').all(policy.isAllowed)
+		.get(proposals.list)
+		.post(proposals.create);
 
 	app.route('/api/suggestions').all(policy.isAllowed)
 		.get(suggestions.list)
@@ -76,10 +76,10 @@ module.exports = function (app) {
 		.put(issues.update)
 		.delete(issues.delete);
 
-	app.route('/api/goals/:goalId').all(policy.isAllowed)
-		.get(goals.read)
-		.put(goals.update)
-		.delete(goals.delete);
+	app.route('/api/solutions/:solutionId').all(policy.isAllowed)
+		.get(solutions.read)
+		.put(solutions.update)
+		.delete(solutions.delete);
 
 	app.route('/api/comments/:commentId').all(policy.isAllowed)
 		.get(comments.read)
@@ -91,10 +91,10 @@ module.exports = function (app) {
 		.put(votes.update)
 		.delete(votes.delete);
 
-	app.route('/api/solutions/:solutionId').all(policy.isAllowed)
-		.get(solutions.read)
-		.put(solutions.update)
-		.delete(solutions.delete);
+	app.route('/api/proposals/:proposalId').all(policy.isAllowed)
+		.get(proposals.read)
+		.put(proposals.update)
+		.delete(proposals.delete);
 
 	app.route('/api/suggestions/:suggestionId').all(policy.isAllowed)
 		.get(suggestions.read)
@@ -126,8 +126,8 @@ module.exports = function (app) {
 	// Finish by binding the article middleware
 	app.param('topicId', topics.topicByID);
 	app.param('issueId', issues.issueByID);
-	app.param('goalId', goals.goalByID);
 	app.param('solutionId', solutions.solutionByID);
+	app.param('proposalId', proposals.proposalByID);
 	app.param('commentId', comments.commentByID);
 	app.param('voteId', votes.voteByID);
 	app.param('suggestionId', suggestions.suggestionByID);

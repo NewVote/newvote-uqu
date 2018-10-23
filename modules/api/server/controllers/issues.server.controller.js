@@ -8,7 +8,7 @@ var path = require('path'),
 	Issue = mongoose.model('Issue'),
 	IssuesController = require('./issues.server.controller'),
 	votes = require('./votes.server.controller'),
-	Goal = mongoose.model('Goal'),
+	Solution = mongoose.model('Solution'),
 	errorHandler = require(path.resolve('./modules/core/server/controllers/errors.server.controller')),
 	_ = require('lodash');
 
@@ -175,59 +175,59 @@ exports.attachMetaData = function (issues, user) {
 		return issue._id;
 	});
 
-	return Goal.find({
+	return Solution.find({
 			issues: {
 				$in: issueIds
 			}
 		})
 		.sort('-created')
 		.exec()
-		.then(function (goals) {
-			return votes.attachVotes(goals, user)
-				.then(function (goals) {
+		.then(function (solutions) {
+			return votes.attachVotes(solutions, user)
+				.then(function (solutions) {
 					issues = issues.map(function (issue) {
 
 						var up = 0,
 							down = 0,
 							total = 0,
-							goalCount = 0,
+							solutionCount = 0,
 							totalTrendingScore = 0,
 							lastCreated = issue.created;
 
 						//looping through each issue passed in to exported method
 
-						goals.forEach(function (goal) {
-							//loop through each goal found in the db
+						solutions.forEach(function (solution) {
+							//loop through each solution found in the db
 
-							//must check that this goal belongs to the current issue being tested
-							if(goal.issues.indexOf(issue._id.toString()) !== -1) {
-								//found issue id inside goal issues array
+							//must check that this solution belongs to the current issue being tested
+							if(solution.issues.indexOf(issue._id.toString()) !== -1) {
+								//found issue id inside solution issues array
 								var currentDate = new Date(lastCreated);
-								var date = new Date(goal.created);
+								var date = new Date(solution.created);
 								var nowDate = new Date();
 								var age = (nowDate.getTime() - date.getTime()) / (1000 * 60 * 60);
 
-								up += goal.votes.up;
-								down += goal.votes.down;
-								total += goal.votes.total;
-								goalCount++;
-								totalTrendingScore += (goal.votes.up / age);
+								up += solution.votes.up;
+								down += solution.votes.down;
+								total += solution.votes.total;
+								solutionCount++;
+								totalTrendingScore += (solution.votes.up / age);
 								lastCreated = date > lastCreated ? date : lastCreated;
 							}
 						});
 
-						issue.goalMetaData = {
+						issue.solutionMetaData = {
 							votes: {
 								up: up,
 								down: down,
 								total: total
 							},
-							goalCount: goalCount,
+							solutionCount: solutionCount,
 							totalTrendingScore: totalTrendingScore,
 							lastCreated: lastCreated
 						};
 
-						// console.log(issue.goalMetaData);
+						// console.log(issue.solutionMetaData);
 
 						return issue;
 					});

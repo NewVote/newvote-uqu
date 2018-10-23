@@ -15,20 +15,20 @@ angular.module('core')
 					var vm = this;
 					vm.sortSvc = SortService;
 					vm.regions = [];
-					// vm.solutions = [];
+					// vm.proposals = [];
 					$scope.authentication = Authentication;
 					$scope.$state = $state;
 
-					vm.vote = function (solution, voteType, $event) {
+					vm.vote = function (proposal, voteType, $event) {
 						$event.stopPropagation();
-						VoteService.vote(solution, 'Solution', voteType)
+						VoteService.vote(proposal, 'Proposal', voteType)
 							.then(function (data) {
-								solution.$get();
+								proposal.$get();
 							});
 					};
 					vm.sort = function (sortData, $event) {
 						if ($event) $event.stopPropagation();
-						SortService.setSort('solution', sortData.type, sortData.order);
+						SortService.setSort('proposal', sortData.type, sortData.order);
 					};
 
 					function getIssues() {

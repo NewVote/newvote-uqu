@@ -13,8 +13,8 @@ angular.module('core')
 			templateUrl: 'modules/core/client/views/share-buttons.client.view.html',
 			bindToController: true,
 			controllerAs: 'vm',
-			controller: ['$scope', '$window', '$location', '$state', 'SocialshareService', 'GoalService',
-			function ($scope, $window, $location, $state, SocialshareService, GoalService) {
+			controller: ['$scope', '$window', '$location', '$state', 'SocialshareService', 'SolutionService',
+			function ($scope, $window, $location, $state, SocialshareService, SolutionService) {
 					var vm = this;
 					vm.url = $location.absUrl();
 
@@ -80,19 +80,19 @@ angular.module('core')
 							});
 							break;
 
-						case 'goal':
+						case 'solution':
 							SocialshareService.share({
 								provider: provider,
-								rel_url: '/goals/' + vm.object._id,
+								rel_url: '/solutions/' + vm.object._id,
 								title: vm.object.title,
 								hashtags: ''
 							});
 							break;
 
-						case 'solution':
+						case 'proposal':
 							SocialshareService.share({
 								provider: provider,
-								rel_url: '/solutions/' + vm.object._id,
+								rel_url: '/proposals/' + vm.object._id,
 								title: vm.object.title,
 								hashtags: ''
 							});
