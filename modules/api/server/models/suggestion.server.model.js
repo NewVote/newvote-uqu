@@ -29,9 +29,9 @@ var SuggestionSchema = new Schema({
       ref: 'Issue',
       required: false
   }],
-  goals: [{
+  solutions: [{
       type: Schema.ObjectId,
-      ref: 'Goal',
+      ref: 'Solution',
       required: false
   }],
   type: {

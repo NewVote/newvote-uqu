@@ -32,9 +32,9 @@
 	<label>Solution Description</label>
 	<ng-quill-editor ng-model="vm.solution.description"></ng-quill-editor>
 
-	<md-contact-chips ng-model="vm.solution.goals" md-contacts="vm.searchGoals($query)" md-contact-name="title" md-require-match="true" md-highlight-flags="i" md-delay="400" placeholder="Goals Solutioned" secondary-placeholder="Add another goal">
+	<md-contact-chips ng-model="vm.solution.issues" md-contacts="vm.searchIssues($query)" md-contact-name="name" md-require-match="true" md-highlight-flags="i" md-delay="400" placeholder="Issues Addressed" secondary-placeholder="Add another issue">
 	</md-contact-chips>
-
+	
 	<div layout="row">
 		<md-button class="md-raised md-primary" ng-click="vm.createOrUpdate()">
 			<span ng-if="vm.solution._id">Update</span>

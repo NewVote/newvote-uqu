@@ -64,13 +64,13 @@ angular.module('core').directive('mediaList', ['$timeout', function ($timeout) {
 								}, {
 									reload: true
 								});
-							} else if ($state.is('goals.view')) {
-								$state.go('issues.view', {
-									goalId: vm.objectId
-								});
 							} else if ($state.is('solutions.view')) {
-								$state.go('solutions.view', {
+								$state.go('issues.view', {
 									solutionId: vm.objectId
+								});
+							} else if ($state.is('proposals.view')) {
+								$state.go('proposals.view', {
+									proposalId: vm.objectId
 								});
 							}
 

@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('EndorsementController', ['$scope', '$rootScope', '$state', '$stateParams', 'Authentication', '$q', 'endorsement', 'IssueService', 'GoalService', 'SolutionService', 'EndorsementService', 'UploadService',
-	function ($scope, $rootScope, $state, $stateParams, Authentication, $q, endorsement, IssueService, GoalService, SolutionService, EndorsementService, UploadService) {
+angular.module('core').controller('EndorsementController', ['$scope', '$rootScope', '$state', '$stateParams', 'Authentication', '$q', 'endorsement', 'IssueService', 'SolutionService', 'ProposalService', 'EndorsementService', 'UploadService',
+	function ($scope, $rootScope, $state, $stateParams, Authentication, $q, endorsement, IssueService, SolutionService, ProposalService, EndorsementService, UploadService) {
 		var vm = this;
 		vm.endorsement = endorsement;
 
@@ -22,20 +22,20 @@ angular.module('core').controller('EndorsementController', ['$scope', '$rootScop
 						issueId: issue._id
 					};
 				});
-			} else if ($stateParams.objectType === 'goal') {
-				GoalService.get($stateParams.objectId).then(function (goal) {
-					previousState = 'goals.view';
-					vm.endorsement.goals.push(goal);
-					stateData = {
-						goalId: goal._id
-					};
-				});
 			} else if ($stateParams.objectType === 'solution') {
 				SolutionService.get($stateParams.objectId).then(function (solution) {
 					previousState = 'solutions.view';
 					vm.endorsement.solutions.push(solution);
 					stateData = {
 						solutionId: solution._id
+					};
+				});
+			} else if ($stateParams.objectType === 'proposal') {
+				ProposalService.get($stateParams.objectId).then(function (proposal) {
+					previousState = 'proposals.view';
+					vm.endorsement.proposals.push(proposal);
+					stateData = {
+						proposalId: proposal._id
 					};
 				});
 			}
@@ -50,15 +50,15 @@ angular.module('core').controller('EndorsementController', ['$scope', '$rootScop
 				stateData = {
 					issueId: $stateParams.previousObjectId
 				};
-			} else if ($stateParams.objectType === 'goal') {
-				previousState = 'goals.view';
-				stateData = {
-					goalId: $stateParams.previousObjectId
-				};
 			} else if ($stateParams.objectType === 'solution') {
 				previousState = 'solutions.view';
 				stateData = {
 					solutionId: $stateParams.previousObjectId
+				};
+			} else if ($stateParams.objectType === 'proposal') {
+				previousState = 'proposals.view';
+				stateData = {
+					proposalId: $stateParams.previousObjectId
 				};
 			}
 		}
@@ -69,14 +69,14 @@ angular.module('core').controller('EndorsementController', ['$scope', '$rootScop
 			});
 		};
 
-		vm.searchGoals = function (query) {
-			return GoalService.list({
+		vm.searchSolutions = function (query) {
+			return SolutionService.list({
 				search: query
 			});
 		};
 
-		vm.searchSolutions = function (query) {
-			return SolutionService.list({
+		vm.searchProposals = function (query) {
+			return ProposalService.list({
 				search: query
 			});
 		};

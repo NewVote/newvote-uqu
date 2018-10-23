@@ -72,23 +72,23 @@
 
 				<md-button ng-if="authentication.user.roles.indexOf('admin')>-1"
 				    class="md-accent md-hue-1 md-raised create-btn"
-				    ui-sref="solutions.create({goalId: vm.goal._id})">
+				    ui-sref="proposals.create({solutionId: vm.solution._id})">
 					<md-icon>add</md-icon><span hide
 					    show-gt-sm>New</span>
-					<md-tooltip>Create a new solution</md-tooltip>
+					<md-tooltip>Create a new proposal</md-tooltip>
 				</md-button>
 				<md-button ng-if="authentication.user.roles.indexOf('admin')==-1"
 				    class="md-accent md-hue-1 md-raised create-btn"
-				    ui-sref="suggestions({objectId: vm.goal._id, objectType: 'goal', suggestionType: 'new'})">
+				    ui-sref="suggestions({objectId: vm.solution._id, objectType: 'solution', suggestionType: 'new'})">
 					<md-icon>add</md-icon><span hide
 					    show-gt-sm>New</span>
-					<md-tooltip>Suggest a new solution</md-tooltip>
+					<md-tooltip>Suggest a new proposal</md-tooltip>
 				</md-button>
 			</div>
 		</div>
 
 		<span class="md-title">This is a solution for:
-			<a layout-margin ng-repeat="goal in vm.solution.goals" ui-sref="goals.view({goalId: goal._id})">{{goal.title}}</a>
+			<a layout-margin ng-repeat="issue in vm.solution.issues" ui-sref="issues.view({issueId: issue._id})">{{issue.name}}</a>
 		</span>
 
 		<div class="header-description"
@@ -134,6 +134,16 @@
 			</div>
 		</div>
 	</div>
+	<div layout="row"
+	    layout-padding
+	    md-colors="{background: 'orange'}"
+	    ng-if="vm.isSingleProposal"
+	    ui-sref="solutions.view({solutionId: '{{vm.solution._id}}'})">
+		<span flex-offset-lg="15"
+		    flex-lg="70"
+		    flex-offset-xl="25"
+		    flex-xl="50">You are viewing a single proposal, click here to view all proposals for this solution.</span>
+	</div>
 </md-toolbar>
 
 <div flex-offset-lg="15"
@@ -147,24 +157,29 @@
 		<collapsible-item item-title="Media">
 			<media-list media="vm.media"
 			object-id="vm.solution._id"
+			,
 			object-type="'solution'"></media-list>
 		</collapsible-item>
 		<!-- <collapsible-item item-title="What are the majority opinions?">
 			<span class="md-subhead">In order to use this section of the App you may need to login again with Pol.is.<br>
-				 Please be aware that your image (showing where you stand) may be visible to other users</span>
-			<div class="polis"
-			    data-topic="What do you think?"
-			    data-page_id="{{vm.solution._id}}"
-			    data-site_id="polis_site_id_7YYdpN4NRpUvCKC7ZU">
+				Please be aware that your image (showing where you stand) may be visible to other users</span>
+				<div class="polis"
+				data-topic="What do you think?"
+				data-page_id="{{vm.solution._id}}"
+				data-site_id="polis_site_id_7YYdpN4NRpUvCKC7ZU">
 			</div>
 		</collapsible-item> -->
 		<!-- <collapsible-item item-title="Meetups">
-			<span class="md-headline">In the future this section will contain details of real world events related to this Goal.</span>
+			<span class="md-headline">In the future this section will contain details of real world events related to this Solution.</span>
 		</collapsible-item> -->
 		<collapsible-item item-title="Endorsements">
 			<endorsement-list endorsement="vm.endorsement"
-			    object-id="vm.solution._id"
-			    object-type="'solution'"></endorsement-list>
+			object-id="vm.solution._id"
+			object-type="'solution'"></endorsement-list>
+		</collapsible-item>
+		<collapsible-item item-title="Vote on Proposals">
+			<proposal-list proposals="vm.proposals"
+			    solution-id="vm.solution._id"></proposal-list>
 		</collapsible-item>
 	</ang-accordion>
 

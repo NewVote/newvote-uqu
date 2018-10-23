@@ -4,14 +4,14 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
     function ($resource, $stateParams, $q, _, $location, $window) {
 		var Topic = $resource('api/topics/');
         var Issue = $resource('api/issues/');
-        var Goal = $resource('api/goals/');
         var Solution = $resource('api/solutions/');
+        var Proposal = $resource('api/proposals/');
 
         var modelEnum = {
 			topic: 0,
             issue: 1,
-            goal: 2,
-            solution: 3
+            solution: 2,
+            proposal: 3
         };
 
         var svc = this;
@@ -24,21 +24,21 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
             return Issue.query({ search: text }).$promise;
         };
 
-        svc.searchGoals = function(text) {
-            return Goal.query({ search: text }).$promise;
-        };
-
         svc.searchSolutions = function(text) {
             return Solution.query({ search: text }).$promise;
+        };
+
+        svc.searchProposals = function(text) {
+            return Proposal.query({ search: text }).$promise;
         };
 
         svc.searchAll = function(text) {
 			var topics = svc.searchTopics(text);
             var issues = svc.searchIssues(text);
-            var goals = svc.searchGoals(text);
             var solutions = svc.searchSolutions(text);
+            var proposals = svc.searchProposals(text);
 
-            return Promise.all([topics, issues, goals, solutions]).then(function(data) {
+            return Promise.all([topics, issues, solutions, proposals]).then(function(data) {
                 var results = [];
                 for (var model in data) {
                     for (var item in data[model]) {
@@ -55,12 +55,12 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
                                     data[model][item].model = 'Issue';
                                     break;
 
-                                case modelEnum.goal:
-                                    data[model][item].model = 'Goal';
-                                    break;
-
                                 case modelEnum.solution:
                                     data[model][item].model = 'Solution';
+                                    break;
+
+                                case modelEnum.proposal:
+                                    data[model][item].model = 'Proposal';
                                     break;
 
                             }
@@ -77,7 +77,7 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
             if (item.name !== undefined) {
                 return item.name;
 
-            // Goals and Solutions
+            // Solutions and Proposals
             } else if (item.title !== undefined) {
                 return item.title;
             }
@@ -91,11 +91,11 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
                 case 'Issue':
                     return getIssueLink(item);
 
-                case 'Goal':
-                    return getGoalLink(item);
-
                 case 'Solution':
                     return getSolutionLink(item);
+
+                case 'Proposal':
+                    return getProposalLink(item);
 
             }
         };
@@ -110,14 +110,14 @@ angular.module('core').service('SearchService', ['$resource', '$stateParams', '$
             return getOriginURL() + url;
         }
 
-        function getGoalLink(item) {
-            var url = '/goals/' + item._id;
+        function getSolutionLink(item) {
+            var url = '/solutions/' + item._id;
             return getOriginURL() + url;
         }
 
-        function getSolutionLink(item) {
-            // Return a url to the parent goal
-            var url = '/goals/' + item.goal + '/?solutionId=' + item._id;
+        function getProposalLink(item) {
+            // Return a url to the parent solution
+            var url = '/solutions/' + item.solution + '/?proposalId=' + item._id;
             return getOriginURL() + url;
         }
 

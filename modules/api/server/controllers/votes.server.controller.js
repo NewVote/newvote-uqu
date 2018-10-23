@@ -230,11 +230,11 @@ exports.attachVotes = function (objects, user, regions) {
 // Local functions
 function fixVoteTypes(vote) {
 	// fixing a bug where vote object types were being incorrectly set
-	// now the database is populated with votes with objectType of 'solution'
+	// now the database is populated with votes with objectType of 'proposal'
 
-	if (vote.objectType === 'solution') {
+	if (vote.objectType === 'proposal') {
 		console.log('found vote to fix');
-		vote.objectType = 'Solution';
+		vote.objectType = 'Proposal';
 		vote.save().then(function(vote) {
 			console.log('vote updated: ', vote._id);
 		});

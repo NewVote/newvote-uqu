@@ -69,17 +69,17 @@
 
 				<md-button ng-if="authentication.user.roles.indexOf('admin')>-1"
 				    class="md-accent md-hue-1 md-raised create-btn"
-				    ui-sref="goals.create({ issueId: vm.issue._id })">
+				    ui-sref="solutions.create({ issueId: vm.issue._id })">
 					<md-icon>add</md-icon><span hide
 					    show-gt-sm>New</span>
-					<md-tooltip>Create a new goal</md-tooltip>
+					<md-tooltip>Create a new solution</md-tooltip>
 				</md-button>
 				<md-button ng-if="authentication.user.roles.indexOf('admin')==-1"
 				    class="md-accent md-hue-1 md-raised create-btn"
 				    ui-sref="suggestions({objectId: vm.issue._id, objectType: 'issue', suggestionType: 'new'})">
 					<md-icon>add</md-icon><span hide
 					    show-gt-sm>New</span>
-					<md-tooltip>Suggest a new goal</md-tooltip>
+					<md-tooltip>Suggest a new solution</md-tooltip>
 				</md-button>
 			</div>
 		</div>
@@ -139,20 +139,20 @@
 			</div>
 		</collapsible-item>
 		<!-- <collapsible-item item-title="Meetups">
-			<span class="md-headline">In the future this section will contain details of real world events related to this Goal.</span>
+			<span class="md-headline">In the future this section will contain details of real world events related to this Solution.</span>
 		</collapsible-item> -->
 		<collapsible-item item-title="Endorsements">
 			<endorsement-list endorsement="vm.endorsement"
 			object-id="vm.issue._id"
 			object-type="'issue'"></endorsement-list>
 		</collapsible-item>
-		<collapsible-item item-title="Vote on Goals">
-			<goal-list goals="vm.goals"
-			    issue-id="vm.issueId"></goal-list>
-		</collapsible-item>
 		<collapsible-item item-title="Vote on Solutions">
 			<solution-list solutions="vm.solutions"
 			    issue-id="vm.issueId"></solution-list>
+		</collapsible-item>
+		<collapsible-item item-title="Vote on Proposals">
+			<proposal-list proposals="vm.proposals"
+			    issue-id="vm.issueId"></proposal-list>
 		</collapsible-item>
 	</ang-accordion>
 

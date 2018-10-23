@@ -9,7 +9,7 @@ angular.module('core')
 			svc.reverse = false;
 
 			var controversialSort = function (a) {
-				var votes = a.goalMetaData ? a.goalMetaData.votes : a.votes;
+				var votes = a.solutionMetaData ? a.solutionMetaData.votes : a.votes;
 				// var aUp = votes.up===0 ? 1 : votes.up;
 				// return (votes.down / aUp) * votes.total;
 				var diff = Math.abs(votes.up - votes.down);
@@ -31,7 +31,7 @@ angular.module('core')
 			var buildExpression = function (objectType, sortParam, order) {
 				svc.reverse = order === 'asc' ? false : true;
 
-				if (objectType === 'solution' || objectType === 'goal') {
+				if (objectType === 'proposal' || objectType === 'solution') {
 					if (sortParam === 'top') {
 						return 'votes.up-votes.down';
 					} else if (sortParam === 'controversial') {
@@ -45,13 +45,13 @@ angular.module('core')
 					if (sortParam === 'alpha') {
 						return 'name';
 					} else if (sortParam === 'top') {
-						return 'goalMetaData.votes.up-goalMetaData.votes.down';
+						return 'solutionMetaData.votes.up-solutionMetaData.votes.down';
 					} else if (sortParam === 'controversial') {
 						return controversialSort;
 					} else if (sortParam === 'trending') {
-						return 'goalMetaData.totalTrendingScore';
+						return 'solutionMetaData.totalTrendingScore';
 					} else if (sortParam === 'newest') {
-						return 'goalMetaData.lastCreated';
+						return 'solutionMetaData.lastCreated';
 					}
 				}
 			};

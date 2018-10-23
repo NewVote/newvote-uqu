@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('SuggestionsController', ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'Authentication', '$q', 'SuggestionsService', 'IssueService', 'GoalService', 'SolutionService', 'suggestion',
-	function ($scope, $rootScope, $state, $stateParams, $location, Authentication, $q, SuggestionsService, IssueService, GoalService, SolutionService, suggestion) {
+angular.module('core').controller('SuggestionsController', ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'Authentication', '$q', 'SuggestionsService', 'IssueService', 'SolutionService', 'ProposalService', 'suggestion',
+	function ($scope, $rootScope, $state, $stateParams, $location, Authentication, $q, SuggestionsService, IssueService, SolutionService, ProposalService, suggestion) {
 		var vm = this;
 		vm.suggestion = suggestion;
 		vm.parentObject = {};
@@ -32,28 +32,28 @@ angular.module('core').controller('SuggestionsController', ['$scope', '$rootScop
 					if(vm.type == 'edit'){
 						vm.suggestion.title = 'Edit for issue: ' + issue.name;
 					}else {
-						vm.suggestion.title = 'New goal for issue: ' + issue.name;
+						vm.suggestion.title = 'New solution for issue: ' + issue.name;
 					}
 					vm.suggestion.issues.push(issue);
-				});
-				break;
-			case 'goal':
-				GoalService.get(vm.objectId).then(function (goal) {
-					console.log('got goal as parentObject: ', goal);
-					vm.parentObject = goal;
-					if(vm.type == 'edit'){
-						vm.suggestion.title = 'Edit for goal: ' + goal.title;
-					}else {
-						vm.suggestion.title = 'New solution for goal: ' + goal.title;
-					}
-					vm.suggestion.goals.push(goal);
 				});
 				break;
 			case 'solution':
 				SolutionService.get(vm.objectId).then(function (solution) {
 					console.log('got solution as parentObject: ', solution);
 					vm.parentObject = solution;
-					vm.suggestion.title = 'Edit for solution: ' + solution.title;
+					if(vm.type == 'edit'){
+						vm.suggestion.title = 'Edit for solution: ' + solution.title;
+					}else {
+						vm.suggestion.title = 'New proposal for solution: ' + solution.title;
+					}
+					vm.suggestion.solutions.push(solution);
+				});
+				break;
+			case 'proposal':
+				ProposalService.get(vm.objectId).then(function (proposal) {
+					console.log('got proposal as parentObject: ', proposal);
+					vm.parentObject = proposal;
+					vm.suggestion.title = 'Edit for proposal: ' + proposal.title;
 				});
 				break;
 		}
@@ -65,8 +65,8 @@ angular.module('core').controller('SuggestionsController', ['$scope', '$rootScop
 			});
 		};
 
-		vm.searchGoals = function (query) {
-			return GoalService.list({
+		vm.searchSolutions = function (query) {
+			return SolutionService.list({
 				search: query
 			});
 		};

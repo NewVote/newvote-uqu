@@ -33,23 +33,15 @@ var SolutionSchema = new Schema({
 		type: Schema.ObjectId,
 		ref: 'User'
 	},
-	goals: [{
+	comments: [{
 		type: Schema.ObjectId,
-		ref: 'Goal',
-        required: true
+		ref: 'Comment'
 	}],
-	goal: {
+	issues: [{
 		type: Schema.ObjectId,
-		ref: 'Goal'
-	},
-	solutions: [{
-		type: Schema.ObjectId,
-		ref: 'Goal'
+		ref: 'Issue',
+		required: true
 	}],
-	solution: {
-		type: Schema.ObjectId,
-		ref: 'Goal'
-	},
 	votes: {
 		up: Number,
 		down: Number,
@@ -59,6 +51,10 @@ var SolutionSchema = new Schema({
 			ref: 'Vote'
 		}
 	},
+	tags: [{
+		type: String,
+		trim: true
+	}],
 	likert: {
 		type: Boolean,
 		default: false

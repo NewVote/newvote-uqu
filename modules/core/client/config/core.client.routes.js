@@ -233,10 +233,10 @@ angular.module('core')
 								tags: []
 							};
 						},
-						goals: function () {
+						solutions: function () {
 							return {};
 						},
-						solutions: function () {
+						proposals: function () {
 							return [];
 						},
 						media: function () {
@@ -263,10 +263,10 @@ angular.module('core')
 						issue: ['IssueService', '$stateParams', function (IssueService, $stateParams) {
 							return IssueService.get($stateParams.issueId);
 						}],
-						goals: function () {
+						solutions: function () {
 							return {};
 						},
-						solutions: function () {
+						proposals: function () {
 							return [];
 						},
 						media: function () {
@@ -289,13 +289,13 @@ angular.module('core')
 						issue: ['IssueService', '$stateParams', function (IssueService, $stateParams) {
 							return IssueService.get($stateParams.issueId);
 						}],
-						goals: ['GoalService', '$stateParams', function (GoalService, $stateParams) {
-							return GoalService.list({
+						solutions: ['SolutionService', '$stateParams', function (SolutionService, $stateParams) {
+							return SolutionService.list({
 								issueId: $stateParams.issueId
 							});
 						}],
-						solutions: ['SolutionService', '$stateParams', function (SolutionService, $stateParams) {
-							return SolutionService.list({
+						proposals: ['ProposalService', '$stateParams', function (ProposalService, $stateParams) {
+							return ProposalService.list({
 								issueId: $stateParams.issueId
 							});
 						}],
@@ -309,150 +309,6 @@ angular.module('core')
 								issueId: $stateParams.issueId
 							});
 						}]
-					}
-				})
-
-				.state('goals', {
-					url: '/goals',
-					abstract: true,
-					template: '<ui-view/>'
-				})
-				.state('goals.list', {
-					url: '/',
-					templateUrl: 'modules/core/client/views/goals.client.view.html',
-					params: {
-						'back': false
-					},
-					data: {
-						title: 'UQ Votes | Goals'
-					},
-					controller: 'GoalsController',
-					controllerAs: 'vm',
-					resolve: {
-						goals: ['GoalService', function (GoalService) {
-							return GoalService.list();
-						}]
-					}
-				})
-				.state('goals.create', {
-					url: '/create?:issueId',
-					templateUrl: 'modules/core/client/views/edit-goal.client.view.html',
-					controller: 'GoalController',
-					controllerAs: 'vm',
-					params: {
-						'back': false
-					},
-					data: {
-						roles: ['admin'],
-						title: 'Create Goal'
-					},
-					resolve: {
-						goal: function () {
-							return {
-								issues: [],
-								tags: []
-							};
-						},
-						solutions: function () {
-							return [];
-						},
-						media: function () {
-							return [];
-						},
-						endorsement: function () {
-							return [];
-						},
-						isSingleSolution: function () {
-							return false;
-						}
-					}
-				})
-				.state('goals.edit', {
-					url: '/:goalId/edit',
-					templateUrl: 'modules/core/client/views/edit-goal.client.view.html',
-					controller: 'GoalController',
-					controllerAs: 'vm',
-					params: {
-						'back': false
-					},
-					data: {
-						roles: ['admin'],
-						title: 'Edit Goal'
-					},
-					resolve: {
-						goal: ['GoalService', '$stateParams', function (GoalService, $stateParams) {
-							return GoalService.get($stateParams.goalId);
-						}],
-						solutions: function () {
-							return [];
-						},
-						media: function () {
-							return [];
-						},
-						isSingleSolution: function () {
-							return false;
-						},
-						endorsement: function () {
-							return [];
-						}
-					}
-				})
-				.state('goals.view', {
-					url: '/:goalId',
-					templateUrl: 'modules/core/client/views/goal.client.view.html',
-					controller: 'GoalController',
-					controllerAs: 'vm',
-					params: {
-						'back': false
-					},
-					resolve: {
-						goal: ['GoalService', '$stateParams', function (GoalService, $stateParams) {
-							return GoalService.get($stateParams.goalId);
-						}],
-						solutions: ['SolutionService', '$stateParams', function (SolutionService, $stateParams) {
-							return SolutionService.list({
-								goalId: $stateParams.goalId
-							});
-						}],
-						media: ['MediaService', '$stateParams', function (MediaService, $stateParams) {
-							return MediaService.list({
-								goalId: $stateParams.goalId
-							});
-						}],
-						endorsement: ['EndorsementService', '$stateParams', function (EndorsementService, $stateParams) {
-							return EndorsementService.list({
-								goalId: $stateParams.goalId
-							});
-						}],
-						isSingleSolution: function () {
-							return false;
-						}
-					}
-				})
-
-				.state('goals.solution', {
-					url: '/:goalId/?:solutionId',
-					templateUrl: 'modules/core/client/views/goal.client.view.html',
-					controller: 'GoalController',
-					controllerAs: 'vm',
-					params: {
-						'back': false
-					},
-					resolve: {
-						goal: ['GoalService', '$stateParams', function (GoalService, $stateParams) {
-							return GoalService.get($stateParams.goalId);
-						}],
-						solutions: ['SolutionService', '$stateParams', function (SolutionService, $stateParams) {
-							return SolutionService.get($stateParams.solutionId);
-						}],
-						media: ['MediaService', '$stateParams', function (MediaService, $stateParams) {
-							return MediaService.list({
-								goalId: $stateParams.goalId
-							});
-						}],
-						isSingleSolution: function () {
-							return true;
-						}
 					}
 				})
 
@@ -465,9 +321,7 @@ angular.module('core')
 					url: '/',
 					templateUrl: 'modules/core/client/views/solutions.client.view.html',
 					params: {
-						'back': false,
-						solutionId: null,
-						goalId: null
+						'back': false
 					},
 					data: {
 						title: 'UQ Votes | Solutions'
@@ -481,14 +335,12 @@ angular.module('core')
 					}
 				})
 				.state('solutions.create', {
-					url: '/create?:goalId',
+					url: '/create?:issueId',
 					templateUrl: 'modules/core/client/views/edit-solution.client.view.html',
 					controller: 'SolutionController',
 					controllerAs: 'vm',
 					params: {
-						'back': false,
-						solutionId: null,
-						goalId: null
+						'back': false
 					},
 					data: {
 						roles: ['admin'],
@@ -497,10 +349,11 @@ angular.module('core')
 					resolve: {
 						solution: function () {
 							return {
-								goals: []
+								issues: [],
+								tags: []
 							};
 						},
-						goals: function () {
+						proposals: function () {
 							return [];
 						},
 						media: function () {
@@ -509,8 +362,8 @@ angular.module('core')
 						endorsement: function () {
 							return [];
 						},
-						isSingleSolution: function () {
-							return true;
+						isSingleProposal: function () {
+							return false;
 						}
 					}
 				})
@@ -520,9 +373,7 @@ angular.module('core')
 					controller: 'SolutionController',
 					controllerAs: 'vm',
 					params: {
-						'back': false,
-						solutionId: null,
-						goalId: null
+						'back': false
 					},
 					data: {
 						roles: ['admin'],
@@ -532,17 +383,17 @@ angular.module('core')
 						solution: ['SolutionService', '$stateParams', function (SolutionService, $stateParams) {
 							return SolutionService.get($stateParams.solutionId);
 						}],
-						goals: function () {
+						proposals: function () {
 							return [];
 						},
 						media: function () {
 							return [];
 						},
+						isSingleProposal: function () {
+							return false;
+						},
 						endorsement: function () {
 							return [];
-						},
-						isSingleSolution: function () {
-							return true;
 						}
 					}
 				})
@@ -552,17 +403,14 @@ angular.module('core')
 					controller: 'SolutionController',
 					controllerAs: 'vm',
 					params: {
-						'back': false,
-						'objectId': null,
-						'objectType': null,
-						'suggestionType': null
+						'back': false
 					},
 					resolve: {
 						solution: ['SolutionService', '$stateParams', function (SolutionService, $stateParams) {
 							return SolutionService.get($stateParams.solutionId);
 						}],
-						goals: ['GoalService', '$stateParams', function (GoalService, $stateParams) {
-							return GoalService.list({
+						proposals: ['ProposalService', '$stateParams', function (ProposalService, $stateParams) {
+							return ProposalService.list({
 								solutionId: $stateParams.solutionId
 							});
 						}],
@@ -576,7 +424,159 @@ angular.module('core')
 								solutionId: $stateParams.solutionId
 							});
 						}],
-						isSingleSolution: function () {
+						isSingleProposal: function () {
+							return false;
+						}
+					}
+				})
+
+				.state('solutions.proposal', {
+					url: '/:solutionId/?:proposalId',
+					templateUrl: 'modules/core/client/views/solution.client.view.html',
+					controller: 'SolutionController',
+					controllerAs: 'vm',
+					params: {
+						'back': false
+					},
+					resolve: {
+						solution: ['SolutionService', '$stateParams', function (SolutionService, $stateParams) {
+							return SolutionService.get($stateParams.solutionId);
+						}],
+						proposals: ['ProposalService', '$stateParams', function (ProposalService, $stateParams) {
+							return ProposalService.get($stateParams.proposalId);
+						}],
+						media: ['MediaService', '$stateParams', function (MediaService, $stateParams) {
+							return MediaService.list({
+								solutionId: $stateParams.solutionId
+							});
+						}],
+						isSingleProposal: function () {
+							return true;
+						}
+					}
+				})
+
+				.state('proposals', {
+					url: '/proposals',
+					abstract: true,
+					template: '<ui-view/>'
+				})
+				.state('proposals.list', {
+					url: '/',
+					templateUrl: 'modules/core/client/views/proposals.client.view.html',
+					params: {
+						'back': false,
+						proposalId: null,
+						solutionId: null
+					},
+					data: {
+						title: 'UQ Votes | Proposals'
+					},
+					controller: 'ProposalsController',
+					controllerAs: 'vm',
+					resolve: {
+						proposals: ['ProposalService', function (ProposalService) {
+							return ProposalService.list();
+						}]
+					}
+				})
+				.state('proposals.create', {
+					url: '/create?:solutionId',
+					templateUrl: 'modules/core/client/views/edit-proposal.client.view.html',
+					controller: 'ProposalController',
+					controllerAs: 'vm',
+					params: {
+						'back': false,
+						proposalId: null,
+						solutionId: null
+					},
+					data: {
+						roles: ['admin'],
+						title: 'Create Proposal'
+					},
+					resolve: {
+						proposal: function () {
+							return {
+								solutions: []
+							};
+						},
+						solutions: function () {
+							return [];
+						},
+						media: function () {
+							return [];
+						},
+						endorsement: function () {
+							return [];
+						},
+						isSingleProposal: function () {
+							return true;
+						}
+					}
+				})
+				.state('proposals.edit', {
+					url: '/:proposalId/edit',
+					templateUrl: 'modules/core/client/views/edit-proposal.client.view.html',
+					controller: 'ProposalController',
+					controllerAs: 'vm',
+					params: {
+						'back': false,
+						proposalId: null,
+						solutionId: null
+					},
+					data: {
+						roles: ['admin'],
+						title: 'Edit Proposal'
+					},
+					resolve: {
+						proposal: ['ProposalService', '$stateParams', function (ProposalService, $stateParams) {
+							return ProposalService.get($stateParams.proposalId);
+						}],
+						solutions: function () {
+							return [];
+						},
+						media: function () {
+							return [];
+						},
+						endorsement: function () {
+							return [];
+						},
+						isSingleProposal: function () {
+							return true;
+						}
+					}
+				})
+				.state('proposals.view', {
+					url: '/:proposalId',
+					templateUrl: 'modules/core/client/views/proposal.client.view.html',
+					controller: 'ProposalController',
+					controllerAs: 'vm',
+					params: {
+						'back': false,
+						'objectId': null,
+						'objectType': null,
+						'suggestionType': null
+					},
+					resolve: {
+						proposal: ['ProposalService', '$stateParams', function (ProposalService, $stateParams) {
+							return ProposalService.get($stateParams.proposalId);
+						}],
+						solutions: ['SolutionService', '$stateParams', function (SolutionService, $stateParams) {
+							return SolutionService.list({
+								proposalId: $stateParams.proposalId
+							});
+						}],
+						media: ['MediaService', '$stateParams', function (MediaService, $stateParams) {
+							return MediaService.list({
+								proposalId: $stateParams.proposalId
+							});
+						}],
+						endorsement: ['EndorsementService', '$stateParams', function (EndorsementService, $stateParams) {
+							return EndorsementService.list({
+								proposalId: $stateParams.proposalId
+							});
+						}],
+						isSingleProposal: function () {
 							return true;
 						}
 					}
@@ -601,7 +601,7 @@ angular.module('core')
 						suggestion: function () {
 							return {
 								issues: [],
-								goals: []
+								solutions: []
 							};
 						}
 					}
@@ -631,7 +631,7 @@ angular.module('core')
 						media: function () {
 							return {
 								issues: [],
-								goals: []
+								solutions: []
 							};
 						}
 					}
@@ -677,7 +677,7 @@ angular.module('core')
 						endorsement: function () {
 							return {
 								issues: [],
-								goals: []
+								solutions: []
 							};
 						}
 					}

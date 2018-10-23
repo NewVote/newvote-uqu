@@ -9,8 +9,8 @@ var acl = require('acl');
 acl = new acl(new acl.memoryBackend());
 
 
-var collectionRoutes = ['/api/issues', '/api/topics', '/api/goals', '/api/votes', '/api/comments', '/api/solutions', '/api/suggestions', '/api/endorsement', '/api/media', '/api/regions', '/api/countries'];
-var objectRoutes = ['/api/issues/:issueId', '/api/topics/:topicId', '/api/goals/:goalId', '/api/votes/:voteId', '/api/comments/:commentId', '/api/solutions/:solutionId', '/api/suggestions/:suggestionId', '/api/endorsement/:endorsementId', '/api/media/:mediaId', '/api/meta/:uri', '/api/regions/:regionId'];
+var collectionRoutes = ['/api/issues', '/api/topics', '/api/solutions', '/api/votes', '/api/comments', '/api/proposals', '/api/suggestions', '/api/endorsement', '/api/media', '/api/regions', '/api/countries'];
+var objectRoutes = ['/api/issues/:issueId', '/api/topics/:topicId', '/api/solutions/:solutionId', '/api/votes/:voteId', '/api/comments/:commentId', '/api/proposals/:proposalId', '/api/suggestions/:suggestionId', '/api/endorsement/:endorsementId', '/api/media/:mediaId', '/api/meta/:uri', '/api/regions/:regionId'];
 /**
  * Invoke Articles Permissions
  */
@@ -67,7 +67,7 @@ exports.isAllowed = function (req, res, next) {
   var roles = (req.user) ? req.user.roles : ['guest'];
 
   // If an article is being processed and the current user created it then allow any manipulation
-  var object = req.article || req.vote || req.issue || req.goal || req.endorsement || req.comment;
+  var object = req.article || req.vote || req.issue || req.solution || req.endorsement || req.comment;
   if (object && req.user && object.user && object.user.id === req.user.id) {
     return next();
   }

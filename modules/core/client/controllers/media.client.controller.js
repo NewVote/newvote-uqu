@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('core')
-	.controller('MediaController', ['$scope', '$rootScope', '$state', '$stateParams', 'Authentication', '$q', 'media', 'IssueService', 'GoalService', 'SolutionService', 'MediaService', 'UploadService',
-		function ($scope, $rootScope, $state, $stateParams, Authentication, $q, media, IssueService, GoalService, SolutionService, MediaService, UploadService) {
+	.controller('MediaController', ['$scope', '$rootScope', '$state', '$stateParams', 'Authentication', '$q', 'media', 'IssueService', 'SolutionService', 'ProposalService', 'MediaService', 'UploadService',
+		function ($scope, $rootScope, $state, $stateParams, Authentication, $q, media, IssueService, SolutionService, ProposalService, MediaService, UploadService) {
 			var vm = this;
 			vm.media = media;
 
@@ -25,15 +25,6 @@ angular.module('core')
 								issueId: issue._id
 							};
 						});
-				} else if ($stateParams.objectType === 'goal') {
-					GoalService.get($stateParams.objectId)
-						.then(function (goal) {
-							previousState = 'goals.view';
-							vm.media.goals.push(goal);
-							stateData = {
-								goalId: goal._id
-							};
-						});
 				} else if ($stateParams.objectType === 'solution') {
 					SolutionService.get($stateParams.objectId)
 						.then(function (solution) {
@@ -41,6 +32,15 @@ angular.module('core')
 							vm.media.solutions.push(solution);
 							stateData = {
 								solutionId: solution._id
+							};
+						});
+				} else if ($stateParams.objectType === 'proposal') {
+					ProposalService.get($stateParams.objectId)
+						.then(function (proposal) {
+							previousState = 'proposals.view';
+							vm.media.proposals.push(proposal);
+							stateData = {
+								proposalId: proposal._id
 							};
 						});
 				}
@@ -55,15 +55,15 @@ angular.module('core')
 					stateData = {
 						issueId: $stateParams.previousObjectId
 					};
-				} else if ($stateParams.objectType === 'goal') {
-					previousState = 'goals.view';
-					stateData = {
-						goalId: $stateParams.previousObjectId
-					};
 				} else if ($stateParams.objectType === 'solution') {
 					previousState = 'solutions.view';
 					stateData = {
 						solutionId: $stateParams.previousObjectId
+					};
+				} else if ($stateParams.objectType === 'proposal') {
+					previousState = 'proposals.view';
+					stateData = {
+						proposalId: $stateParams.previousObjectId
 					};
 				}
 			}
@@ -124,14 +124,14 @@ angular.module('core')
 				});
 			};
 
-			vm.searchGoals = function (query) {
-				return GoalService.list({
+			vm.searchSolutions = function (query) {
+				return SolutionService.list({
 					search: query
 				});
 			};
 
-			vm.searchSolutions = function (query) {
-				return SolutionService.list({
+			vm.searchProposals = function (query) {
+				return ProposalService.list({
 					search: query
 				});
 			};
