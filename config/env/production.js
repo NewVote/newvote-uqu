@@ -76,6 +76,10 @@ module.exports = {
 			}
 		}
 	},
+    mailchimp: {
+  	  api: process.env.MAILCHIMP_API_KEY || 'MAILCHIMP_API_KEY',
+  	  list: process.env.MAILCHIMP_LIST_ID || 'MAILCHIMP_LIST_ID'
+    },
 	smsBroadcast: {
 		username: process.env.SMS_USERNAME || '',
         password: process.env.SMS_PASSWORD || ''
