@@ -28,6 +28,7 @@ module.exports = {
   sessionKey: 'sessionId',
   sessionCollection: 'sessions',
   logo: 'modules/core/client/img/brand/logo.png',
+  social: 'modules/core/client/img/brand/social.png',
   favicon: 'modules/core/client/img/brand/favicon.png',
   uploads: {
     profileUpload: {

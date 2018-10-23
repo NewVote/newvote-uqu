@@ -12,12 +12,12 @@ angular.module('core')
 
 			// Page title config
 			$rootScope.titlePrefix = '';
-			$rootScope.titleSuffix = ' | UQ Votes - Powered by NewVote - VOTE NOW';
+			$rootScope.titleSuffix = ' | UQ Votes - Student democracy app - Powered by NewVote - VOTE NOW';
 
 			// Update title and description
 			$scope.title = $rootScope.titlePrefix + 'Help' + $rootScope.titleSuffix;
-			$scope.desc = 'UQ Votes is a democracy app: building a bridge between you and your student representatives. We are not radical, and we are not undermining representative democracy at UQ. In fact, the opposite is true - we want to make representative democracy more representative.';
-			
+			$scope.desc = 'UQvotes is an independent and nonpartisan voting app for the students of the University of Queensland, developed by student volunteers at NewVote, an education nonprofit tech startup based at UQ\'s iLab.';
+
 			$rootScope.headerTitle = 'Help';
 
 			$scope.toggleMessage = function () {
