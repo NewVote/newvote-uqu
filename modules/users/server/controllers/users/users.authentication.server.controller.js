@@ -11,6 +11,7 @@ var path = require('path'),
 	User = mongoose.model('User'),
 	nodemailer = require('nodemailer'),
 	transporter = nodemailer.createTransport(config.mailer.options),
+	Mailchimp = require('mailchimp-api-v3'),
 	Recaptcha = require('recaptcha-verify');
 
 // URLs for which user can't be redirected on signin
@@ -23,6 +24,16 @@ var recaptcha = new Recaptcha({
 	secret: config.reCaptcha.secret,
 	verbose: true
 });
+
+var mailchimp = new Mailchimp(config.mailchimp.api);
+const MAILCHIMP_LIST_ID = config.mailchimp.list;
+
+var addToMailingList = function(user) {
+	return mailchimp.post(`/lists/${MAILCHIMP_LIST_ID}/members`, {
+		email_address: user.email,
+		status: 'subscribed'
+	})
+}
 
 /**
  * Signup
@@ -61,9 +72,14 @@ exports.signup = function (req, res) {
 			//we'd have to drop the entire table to change the index field
 			user.username = user.email;
 
+			addToMailingList(user).then(results => {
+				// console.log('Added user to mailchimp');
+			}).catch(err => {
+				console.log('Error saving to mailchimp: ', err);
+			})
+
 			// Then save the user
 			// first save generates salt
-			debugger;
 			return user.save()
 				.then(user => {
 					//generate a verification code for Email
