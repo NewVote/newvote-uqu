@@ -25,8 +25,12 @@ var recaptcha = new Recaptcha({
 	verbose: true
 });
 
-var mailchimp = new Mailchimp(config.mailchimp.api);
-const MAILCHIMP_LIST_ID = config.mailchimp.list;
+try{
+	var mailchimp = new Mailchimp(config.mailchimp.api);
+	const MAILCHIMP_LIST_ID = config.mailchimp.list;
+}catch(err) {
+	console.log('Error while connecting to mailchimp API:', err)
+}
 
 var addToMailingList = function(user) {
 	return mailchimp.post(`/lists/${MAILCHIMP_LIST_ID}/members`, {
@@ -49,7 +53,6 @@ exports.signup = function (req, res) {
 
 	//ensure captcha code is valid or return with an error
 	recaptcha.checkResponse(recaptchaResponse, function (err, response) {
-		console.log(response);
 		if(err) {
 			return res.status(400)
 				.send({
@@ -72,11 +75,15 @@ exports.signup = function (req, res) {
 			//we'd have to drop the entire table to change the index field
 			user.username = user.email;
 
-			addToMailingList(user).then(results => {
-				// console.log('Added user to mailchimp');
-			}).catch(err => {
-				console.log('Error saving to mailchimp: ', err);
-			})
+			try {
+				addToMailingList(user).then(results => {
+					// console.log('Added user to mailchimp');
+				}).catch(err => {
+					console.log('Error saving to mailchimp: ', err);
+				})
+			}catch(err) {
+				console.log('Issue with mailchimp: ', err);
+			}
 
 			// Then save the user
 			// first save generates salt

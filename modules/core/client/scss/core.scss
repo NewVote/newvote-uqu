@@ -353,12 +353,17 @@ md-tooltip {
 		md-card {
 			overflow: hidden;
 
+			md-card-content {
+				min-height: 100px;
+			}
+
 			> .md-card-image {
 				height: 205px;
 				align-self: center;
 				width: auto;
 				max-width: none;
 			}
+
 		}
 	}
 }

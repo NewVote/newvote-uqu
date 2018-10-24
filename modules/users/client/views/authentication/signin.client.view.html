@@ -4,18 +4,22 @@
     layout-fill>
 	<md-card md-theme-watch>
 		<form name="userForm"
-		    ng-submit="signin(userForm.$valid)"
+		    ng-submit="submitForm(userForm)"
 		    class="signin"
 		    novalidate
 		    autocomplete="off">
 			<md-card-title>
 				<md-card-title-text>
-					<span class="md-headline">Sign In</span>
+					<span class="md-headline"
+					ng-if="state=='signin'">Sign In</span>
+					<span class="md-headline"
+					ng-if="state=='signup'">Create an Account</span>
 					<!-- <span class="md-subhead">Please use your student E-mail address</span> -->
 					<alert type="danger"
 					    ng-show="error"
 					    class="text-center text-danger">
 						<span ng-bind="error"></span>
+						<span ng-if="errorCode==404">. Why not <a ng-click="setState('signup')" style="text-decoration:underline">create an account?</a></span>
 					</alert>
 					<div>
 						<!-- pattern="^[a-zA-Z0-9_.+-]+@(?:(?:[a-zA-Z0-9-]+\.)?[a-zA-Z]+\.)?(uqconnect|uq)\.(edu|net)\.au$" -->
@@ -36,7 +40,8 @@
 						</md-input-container>
 
 						<md-input-container class="md-block"
-						    flex-gt-sm>
+						    flex-gt-sm
+						    ng-if="state=='signin'">
 							<label>Password</label>
 							<input required
 							    ng-model="credentials.password"
@@ -47,19 +52,85 @@
 								<div ng-message="required">This is required.</div>
 							</div>
 						</md-input-container>
+
+						<md-input-container class="md-block"
+						    flex-gt-sm
+						    ng-if="state=='signup'">
+							<label>Password</label>
+							<input password-validator
+							    required
+							    ng-model="credentials.password"
+							    type="password"
+							    id="password"
+							    name="password">
+							<div>
+								<md-progress-linear class="md-subhead"
+								    md-mode="determinate"
+								    value="{{(strength / 4) * 100}}"></md-progress-linear>
+								<md-tooltip>Add a special character, number, or capital letter to increase password strength</md-tooltip>
+							</div>
+							<span class="md-subhead">{{popoverMsg}}</span>
+							<div ng-messages="userForm.password.$error">
+								<div ng-message="required">This is required.</div>
+								<div ng-message="passwordVerify"
+								    ng-repeat="error in passwordErrors">{{error}}</div>
+							</div>
+						</md-input-container>
+
+						<md-input-container
+							ng-if="state=='signup'">
+							<div vc-recaptcha
+							    theme="'light'"
+							    key="recaptchaKey"
+							    on-create="setWidgetId(widgetId)"
+							    on-success="setResponse(response)"
+							    on-expire="cbExpiration()"></div>
+						</md-input-container>
+
+						<md-input-container class="md-block"
+							ng-hide="state=='signin'"
+						    ng-if="state=='signup'"
+						    flex-gt-sm>
+							<md-checkbox ng-model="credentials.terms"
+							    aria-label="I accept the terms and conditions"
+							    required
+							    name="terms">
+								I accept the <a href="#">Terms and Conditions</a> and have viewed the <a target="_blank"
+								    href="privacy">Privacy Policy</a>
+							</md-checkbox>
+
+							<div ng-messages="userForm.terms.$error"
+							    md-auto-hide="true">
+								<div ng-message="required">
+									You must accept the terms of service before you can proceed.
+								</div>
+							</div>
+						</md-input-container>
 					</div>
 
-					<div class="text-center forgot-password">
+					<div class="text-center forgot-password"
+					    ng-if="state=='signin'">
 						<a ui-sref="password.forgot">Forgot your password?</a>
 					</div>
 				</md-card-title-text>
 			</md-card-title>
 			<md-card-actions layout="row"
-			    layout-align="end center">
-				<md-button ui-sref="authentication.signup"
-				class="">Sign Up</md-button>
+			    layout-align="end center"
+			    ng-if="state=='signin'">
+				<md-button ng-click="setState('signup')"
+				    class="">Create Account</md-button>
 				<md-button type="submit"
+					ng-disabled="userForm.$invalid"
 				    class="md-raised md-primary">Sign In</md-button>
+			</md-card-actions>
+			<md-card-actions layout="row"
+			    layout-align="end center"
+			    ng-if="state=='signup'">
+				<md-button ng-click="setState('signin')"
+				    class="">Cancel</md-button>
+				<md-button type="submit"
+					ng-disabled="userForm.$invalid"
+				    class="md-raised md-primary">Create</md-button>
 			</md-card-actions>
 		</form>
 	</md-card>

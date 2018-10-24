@@ -19,13 +19,16 @@
     <div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50" layout-padding layout="column">
         <!-- parentObject: {{vm.parentObject}} -->
 
+		<h1>Thanks for wanting to contribute to UQvotes</h1>
+		<p>
+			Here we will need you to fill out the following information which will be sent to the editor of UQvotes for their consideration to add to the site. Don't worry, unless you plan on offending others, your contribution will be posted
+		</p>
         <div ng-if="vm.type == 'edit'">
             <h1 >Suggesting an edit for {{vm.objectType}}: {{vm.parentObject.title || vm.parentObject.name}}</h1>
             <p>
                 In the future this will be a publicly edited wiki. For now, please suggest an edit using the below form
             </p>
         </div>
-
 
         <md-input-container ng-if="vm.type != 'edit'">
           <label>Suggestion Title</label>
