@@ -14,33 +14,42 @@ var SuggestionSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  type: {
+	  type: String,
+	  default: '',
+  },
   title: {
     type: String,
     trim: true,
-    required: 'Title cannot be blank'
+    required: 'Title cannot be empty'
   },
   description: {
     type: String,
     default: '',
+    trim: true,
+    required: 'Summary cannot be empty'
+  },
+  statements: {
+    type: String,
+    default: '',
     trim: true
   },
-  issues: [{
-      type: Schema.ObjectId,
-      ref: 'Issue',
-      required: false
-  }],
-  solutions: [{
-      type: Schema.ObjectId,
-      ref: 'Solution',
-      required: false
-  }],
-  type: {
-      type: String,
-      default: '',
+  media: {
+    type: String,
+    default: '',
+    trim: true,
   },
   user: {
     type: Schema.ObjectId,
     ref: 'User'
+  },
+  parentType: {
+	  type: String,
+	  required: function() { return this.parent }
+  },
+  parent: {
+    type: Schema.ObjectId,
+    refPath: 'parentType'
   }
 });
 

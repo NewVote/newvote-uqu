@@ -15,28 +15,24 @@ var path = require('path'),
 	_ = require('lodash');
 
 var buildMessage = function (suggestion, req) {
+	debugger;
 	var messageString = '';
 	var url = req.protocol + '://' + req.get('host');
-	messageString += '<h3>' + suggestion.title + '</h3>';
-	if(suggestion.issues) {
-		messageString += '<p>Related issues: ';
-		for(var i = 0; i < suggestion.issues.length; i++) {
-			var issue = suggestion.issues[i];
-			messageString += '<a target="_blank" href="' + url + '/issues/' + issue._id + '">' + issue.name + '</a> ';
-		}
-		messageString += '</p>';
-	}
-	if(suggestion.solutions) {
-		messageString += '<p>Related Solutions: ';
-		for(var x = 0; x < suggestion.solutions.length; x++) {
-			var solution = suggestion.solutions[x];
-			messageString += '<a target="_blank" href="' + url + '/solutions/' + solution._id + '">' + solution.title + '</a> ';
-		}
-		messageString += '</p>';
+	if(suggestion.type == 'new') {
+		messageString += '<h2> This is a new suggestion' + '</h2>';
+		messageString += '<h3>Title: ' + suggestion.title + '</h3>';
+	}else {
+		messageString += '<h2> This is an edit for:' + '</h2>';
+		messageString += `<h3>Title: <a href='${url}/${suggestion.parentType.toLowerCase()}s/${suggestion.parent._id}'>` + suggestion.title + '</a></h3>';
 	}
 
-	messageString += '<p>User: ' + suggestion.user.firstName + ' ' + suggestion.user.lastName + '</p>';
-	messageString += 'Message: ' + suggestion.description;
+	messageString += '<p>User: ' + suggestion.user.firstName + ' ' + suggestion.user.lastName + '(' + suggestion.user.email + ')</p>';
+	messageString += '<h3>Summary: </h3>';
+	messageString += '<p>' + suggestion.description + '</p>';
+	messageString += '<h3>Starting Statements: </h3>';
+	messageString += '<p>' + suggestion.statements + '</p>';
+	messageString += '<h3>3rd Party Media: </h3>';
+	messageString += '<p>' + suggestion.media + '</p>';
 
 	return messageString;
 };
@@ -54,7 +50,7 @@ exports.create = function (req, res) {
 					message: errorHandler.getErrorMessage(err)
 				});
 		} else {
-			Suggestion.populate(suggestion, { path: 'issues solutions user' })
+			Suggestion.populate(suggestion, { path: 'user parent' })
 				.then(function (suggestion) {
 					// console.log(buildMessage(suggestion, req));
 					// console.log(process.env);
@@ -81,7 +77,6 @@ exports.create = function (req, res) {
  * Show the current suggestion
  */
 exports.read = function (req, res) {
-
 	res.json(req.suggestion);
 };
 

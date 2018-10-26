@@ -1,70 +1,117 @@
 <!-- Meta tags -->
 <!-- Basic meta tags -->
 <update-title title="{{ vm.title }}"></update-title>
-<update-meta name="description" content="{{ vm.desc }}"></update-meta>
+<update-meta name="description"
+    content="{{ vm.desc }}"></update-meta>
 
 <!-- Facebook META -->
-<update-meta property="og:title" content="{{ vm.title }}"></update-meta>
-<update-meta property="og:description" content="{{ vm.desc }}"></update-meta>
-<update-meta property="og:url" use-abs-url="true"></update-meta>
+<update-meta property="og:title"
+    content="{{ vm.title }}"></update-meta>
+<update-meta property="og:description"
+    content="{{ vm.desc }}"></update-meta>
+<update-meta property="og:url"
+    use-abs-url="true"></update-meta>
 
 <!-- Twitter META -->
-<update-meta name="twitter:title" content="{{ vm.title }}"></update-meta>
-<update-meta name="twitter:description" content="{{ vm.desc }}"></update-meta>
-<update-meta name="twitter:url" use-abs-url="true"></update-meta>
-
-
+<update-meta name="twitter:title"
+    content="{{ vm.title }}"></update-meta>
+<update-meta name="twitter:description"
+    content="{{ vm.desc }}"></update-meta>
+<update-meta name="twitter:url"
+    use-abs-url="true"></update-meta>
 
 <div flex>
-    <div flex-offset-lg="15" flex-lg="70" flex-offset-xl="25" flex-xl="50" layout-padding layout="column">
-        <!-- parentObject: {{vm.parentObject}} -->
+	<div flex-offset-lg="15"
+	    flex-lg="70"
+	    flex-offset-xl="25"
+	    flex-xl="50"
+	    layout-padding
+	    layout="column">
+		<!-- parentObject: {{vm.parentObject}} -->
 
-		<h1>Thanks for wanting to contribute to UQvotes</h1>
-		<p>
-			Here we will need you to fill out the following information which will be sent to the editor of UQvotes for their consideration to add to the site. Don't worry, unless you plan on offending others, your contribution will be posted
-		</p>
-        <div ng-if="vm.type == 'edit'">
-            <h1 >Suggesting an edit for {{vm.objectType}}: {{vm.parentObject.title || vm.parentObject.name}}</h1>
-            <p>
-                In the future this will be a publicly edited wiki. For now, please suggest an edit using the below form
-            </p>
-        </div>
+		<h1 class="md-headline">Thanks for wanting to contribute to UQ Votes</h1>
+		<span class="md-subhead">
+			Start by searching for something to amend, or if your suggestion doesn't exist, create something new.
+		</span>
 
-        <md-input-container ng-if="vm.type != 'edit'">
-          <label>Suggestion Title</label>
-          <input ng-model="vm.suggestion.title" autofocus>
-        </md-input-container>
+		<md-input-container class="">
+			<md-autocomplete md-no-cache="true"
+			    md-floating-label="Try searching for something..."
+			    md-clear-button="false"
+			    md-selected-item="selectedItem"
+			    md-search-text="searchText"
+			    md-items="item in vm.results"
+			    md-search-text-change="vm.searchAll(searchText)"
+			    md-selected-item-change="vm.setSelectedItem(selectedItem)"
+			    md-item-text="vm.getItemTitle(item)"
+			    md-delay="300"
+			    md-min-length="1">
 
-        <label>Suggestion Description</label>
-        <ng-quill-editor ng-model="vm.suggestion.description"></ng-quill-editor>
+				<md-item-template>
+					<a class="">
+							<span><strong>{{item.model}}: </strong></span>
+							<span md-highlight-text="searchText" md-highlight-flags="gi">{{vm.getItemTitle(item)}}</span>
+						</a>
+				</md-item-template>
+				<md-not-found>
+					Nothing found. <a href="suggestions">Make a suggestion?</a>
+				</md-not-found>
 
-        <md-contact-chips ng-if="vm.type != 'edit'"
-          ng-model="vm.suggestion.issues"
-          md-contacts="vm.searchIssues($query)"
-          md-contact-name="name"
-          md-require-match="true"
-          md-highlight-flags="i"
-          md-delay="400"
-          placeholder="Linked Issues"
-          secondary-placeholder="Add another issue">
-        </md-contact-chips>
+			</md-autocomplete>
+		</md-input-container>
 
-        <md-contact-chips ng-if="vm.type != 'edit'"
-          ng-model="vm.suggestion.solutions"
-          md-contacts="vm.searchSolutions($query)"
-          md-contact-name="title"
-          md-require-match="true"
-          md-highlight-flags="i"
-          md-delay="400"
-          placeholder="Linked Solutions"
-          secondary-placeholder="Add another solution">
-        </md-contact-chips>
+		<md-card layout-padding
+		    ng-if="vm.suggestion.type">
+			<md-input-container>
+				<label>Title</label>
+				<input ng-model="vm.suggestion.title">
+				<span class="md-caption">Hint: Make it snappy!</span>
+			</md-input-container>
 
-        <div layout="row">
-          <md-button class="md-raised md-primary" ng-click="vm.create()">
-            <span>Send</span>
-          </md-button>
-        </div>
-        <!-- <span ng-bind-html="vm.suggestion.mailText"></span> -->
-    </div>
+			<md-input-container ng-if="vm.suggestion.type === 'new'">
+				<label>Summary</label>
+				<textarea
+				    ng-model="vm.suggestion.description"
+				    md-maxlength="250"
+				    rows="3"
+				    md-select-on-focus></textarea>
+				<span class="md-caption">Hint: The summary is a general introduction to the Issue (which will be a wiki, eventually). Written for an audience of people that don’t know about politics. The tone is simple, clear, friendly and authoritative (like Wikipedia, in fact, we should emulate Wikipedia’s core pillars). Include links to sources (feel free to use Wikipedia as a source of this information). Aim for 250 words max.</span>
+			</md-input-container>
+
+			<div ng-if="vm.suggestion.type === 'edit'">
+				<label>Summary</label>
+				<ng-quill-editor ng-model="vm.suggestion.description"></ng-quill-editor>
+				<span class="md-caption">Hint: The summary is a general introduction to the Issue (which will be a wiki, eventually). Written for an audience of people that don’t know about politics. The tone is simple, clear, friendly and authoritative (like Wikipedia, in fact, we should emulate Wikipedia’s core pillars). Include links to sources (feel free to use Wikipedia as a source of this information). Aim for 250 words max.</span>
+			</div>
+
+			<md-input-container>
+				<label>Starting Statements</label>
+				<textarea
+				    ng-model="vm.suggestion.statements"
+				    rows="5"
+				    md-select-on-focus></textarea>
+				<span class="md-caption">Hint: Try to provide 10 statements about your suggestion. These should feature diverse perspectives about the Issue. These statements are going to be used to seed the conversations in the integrated Pol.is platform.</span>
+			</md-input-container>
+
+			<md-input-container>
+				<label>Third Party Media</label>
+				<textarea ng-model="vm.suggestion.media"
+				    rows="5"
+				    md-select-on-focus></textarea>
+				<span class="md-caption">Hint: At least five third-party media sources (articles, videos, podcast or memes) that relate to the Issue.</span>
+			</md-input-container>
+
+			<span class="md-caption">
+				This information will be sent to the editor of UQ Votes for their consideration to add to the site. Don't worry, unless you plan on offending others, your contribution will be posted.
+			</span>
+			<div layout="row">
+				<md-button class="md-raised md-primary"
+				    ng-click="vm.create()">
+					<span>Send</span>
+				</md-button>
+			</div>
+
+			<!-- <span ng-bind-html="vm.suggestion.mailText"></span> -->
+		</md-card>
+	</div>
 </div>
