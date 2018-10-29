@@ -8,7 +8,8 @@ angular.module('core')
 				object: '=',
 				reqObject: '=',
 				objectType: '=',
-				verticalResize: '='
+				direction: '=',
+				side: '='
 			},
 			templateUrl: 'modules/core/client/views/share-buttons.client.view.html',
 			bindToController: true,
@@ -26,21 +27,6 @@ angular.module('core')
 						{ name: 'Reddit', id: 'reddit', imageName: 'reddit.svg' },
 						{ name: 'Copy to Clipboard', id: 'clipboard', imageName: 'clipboard.svg' }
         			];
-
-					vm.$onInit = function () {
-						if(vm.verticalResize) {
-							vm.windowWidth = $window.innerWidth;
-							angular.element($window)
-								.on('resize', function () {
-									vm.windowWidth = $window.innerWidth;
-								});
-						}
-					};
-
-					vm.$onDestroy = function () {
-						angular.element($window)
-							.off('resize');
-					};
 
 					vm.copyToClipboard = function() {
 

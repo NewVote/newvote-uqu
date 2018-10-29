@@ -665,7 +665,7 @@ angular.module('core')
 					controller: 'EndorsementController',
 					controllerAs: 'vm',
 					data: {
-						roles: ['endorser'],
+						roles: ['endorser', 'admin'],
 						title: 'Create Endorsement'
 					},
 					params: {

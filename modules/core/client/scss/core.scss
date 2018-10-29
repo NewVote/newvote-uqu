@@ -210,6 +210,11 @@ md-sidenav {
 	padding: 20px;
 }
 
+.admin-controls {
+	background-color: rgba(0, 0, 0, 0.6);
+	border-bottom-left-radius: 10px;
+}
+
 .left-menu {
 	.active .item-content {
 		color: #009688;
@@ -250,6 +255,23 @@ md-sidenav {
 			cursor: pointer !important;
 		}
 	}
+}
+
+.endorser-badge {
+	padding: 8px;
+}
+
+.endorser-image-wrapper {
+	width: 45px;
+	height: 45px;
+	border-radius: 100%;
+	border: 1px solid black;
+}
+
+.endorser-image {
+	height: 100%;
+	width: auto;
+	border-radius: 100%;
 }
 
 .create-btn {
@@ -325,7 +347,7 @@ md-tooltip {
 	.description-container {
 		.description {
 			overflow: hidden;
-			height: 20px;
+			height: 50px;
 			max-width: 90%;
 			float: left;
 		}
@@ -333,6 +355,28 @@ md-tooltip {
 		&::after {
 			content: '...';
 			float: left;
+		}
+	}
+}
+
+.mini-proposal {
+	.likert-container {
+		margin: 0px !important;
+	}
+}
+
+md-card {
+	.header-image-wrapper {
+		height:200px;
+		width: 100%;
+
+		.header-image {
+			height: 100%;
+			width: 100%;
+
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: cover;
 		}
 	}
 }
@@ -551,6 +595,7 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
 	max-height: 20vh;
 	text-overflow: ellipsis;
 	overflow: hidden;
+	margin-top: -20px !important;
 
 	&.full {
 		max-height: none;
@@ -699,11 +744,12 @@ md-toolbar.app-header:not(.md-menu-toolbar) {
 }
 
 .share-button-config {
-	position: relative;
+	// position: relative;
+	position: absolute;
+	top: -100px;
+	left: -40px;
 	@media screen and (max-width: 580px) {
-		position: absolute;
-		top: -85px;
-		left: 40px;
+
 	}
 }
 @media (min-width: 960px) {

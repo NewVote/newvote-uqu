@@ -58,8 +58,15 @@
 		<input ng-model="vm.endorsement.organisationWebsite">
 	</md-input-container>
 
-	<label>Endorsement Description</label>
-	<ng-quill-editor ng-model="vm.endorsement.description"></ng-quill-editor>
+	<md-input-container>
+		<label>Summary</label>
+		<textarea
+			ng-model="vm.endorsement.description"
+			md-maxlength="250"
+			rows="3"
+			md-select-on-focus></textarea>
+		<span class="md-caption">Hint: The summary is a general introduction to the Issue (which will be a wiki, eventually). Written for an audience of people that don’t know about politics. The tone is simple, clear, friendly and authoritative (like Wikipedia, in fact, we should emulate Wikipedia’s core pillars). Include links to sources (feel free to use Wikipedia as a source of this information). Aim for 250 words max.</span>
+	</md-input-container>
 
 	<md-contact-chips ng-model="vm.endorsement.issues"
 	    md-contacts="vm.searchIssues($query)"

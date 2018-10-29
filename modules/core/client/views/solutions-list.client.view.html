@@ -1,9 +1,16 @@
 <md-content layout="column">
-	<div layout-gt-sm="row" layout-align-gt-sm="start center" layout-padding>
+	<div layout="row"
+	    layout-align="start center"
+	    layout-padding>
+		<span class="md-headline">Vote on Solutions</span>
+		<div flex></div>
 		<span>Sort</span>
 		<div>
-			<md-select class="sort-select" ng-model="vm.sortSelectState" md-on-close='vm.sort(vm.sortSelectState)'>
-				<md-option ng-value="{type: 'top', order: 'desc'}" ng-selected=true>Top</md-option>
+			<md-select class="sort-select"
+			    ng-model="vm.sortSelectState"
+			    md-on-close='vm.sort(vm.sortSelectState)'>
+				<md-option ng-value="{type: 'top', order: 'desc'}"
+				    ng-selected=true>Top</md-option>
 				<md-option ng-value="{type: 'controversial', order: 'desc'}">Controversial</md-option>
 				<md-option ng-value="{type: 'trending', order: 'desc'}">Trending</md-option>
 				<md-option ng-value="{type: 'newest', order: 'desc'}">Newest</md-option>
@@ -14,9 +21,7 @@
 			<md-tooltip ng-if="vm.sortSelectState.type === 'trending'">Recently popular</md-tooltip>
 			<md-tooltip ng-if="vm.sortSelectState.type === 'newest'">Most recently updated or created</md-tooltip>
 		</div>
-		<div flex>
 
-		</div>
 		<!-- <span>Filter</span>
 		<div layout-align="start center">
 
@@ -38,69 +43,56 @@
 		</div> -->
 	</div>
 	<div>
-		<md-card class="proposal-card" ng-if="vm.solutions.length==0">
+		<md-card class="proposal-card"
+		    ng-if="vm.solutions.length==0"
+		    ui-sref="suggestions.create()">
 			<md-card-header>
 				<md-card-header-text>
 					<span class="md-headline">Looks like there are no solutions here yet, why not suggest one?</span>
 				</md-card-header-text>
 			</md-card-header>
 		</md-card>
-		<md-card class="solution-card" ng-repeat="solution in vm.solutions | orderBy:vm.sortSvc.expression : vm.sortSvc.reverse" ui-sref="solutions.view({solutionId:solution._id})">
-			<md-card-title>
-				<md-card-title-text>
-					<span class="md-headline" ng-bind="solution.title"></span>
-					<p class="md-body-2" ng-if="$state.current.name == 'solutions.list' || $state.current.name == 'issues.view'">This is a solution for:
-						<a layout-margin ng-repeat="issue in solution.issues" ui-sref="issues.view({issueId: issue._id})">{{issue.name}}</a>
-					</p>
-				</md-card-title-text>
-				<md-card-title-media layout-padding>
-					<div class="md-media-sm card-media"><img ng-src="{{::solution.imageUrl}}" alt="Solution Image" /></div>
-				</md-card-title-media>
-			</md-card-title>
-			<md-card-content ng-if="solution.description">
-				<span class="md-body-2 description-container"><span class="description" ng-bind="solution.description | htmlToPlaintext"></span></span>
-			</md-card-content>
-			<md-card-actions layout-gt-sm="row">
-				<binary-vote ng-if="!solution.likert" object="solution" object-type="'solution'"></binary-vote>
-				<likert-vote ng-if="solution.likert" object="solution" object-type="'solution'"></likert-vote>
 
-				<share-buttons object="solution" object-type="'solution'" vertical-resize="true"></share-buttons>
-
-				<div layout flex layout-align="end start">
-					<md-button class="md-raised md-primary">
-						<md-tooltip>
-							<span>View proposals to this Solution.</span>
-						</md-tooltip>
-						View Proposals
-					</md-button>
-				</div>
-				<!-- <div layout>
-					<md-button class="md-raised vote-btn" ng-class="{ selected: solution.votes.currentUser.voteValue===1 }" ng-click="vm.vote(solution, 'str_agree', $event)">
-						<md-tooltip>
-							<span ng-if="solution.votes.currentUser.voteValue===1">Undo</span>
-							<span ng-if="solution.votes.currentUser.voteValue!==1">Vote Up</span>
-						</md-tooltip>
-						<md-icon>arrow_upward</md-icon> <span hide show-gt-xs>Vote Up</span>
-					</md-button>
-					<div class="card-chart-container">
-						<div class="card-chart-score">
-							<span>{{solution.votes.up / (solution.votes.up + solution.votes.down) * 100 || 0 | number: 0}} %</span>
-						</div>
-						<canvas id="card-pie" class="chart chart-pie" chart-data="[solution.votes.down, solution.votes.up]" chart-labels="vm.chartLabels" chart-options="vm.chartOptions" chart-colors="vm.chartColors" height="100%" width="100%">
-						</canvas>
-						<md-tooltip>
-							<span>For: {{solution.votes.up}}, Against: {{solution.votes.down}}</span>
-						</md-tooltip>
+		<div ng-repeat="solution in vm.solutions | orderBy:vm.sortSvc.expression : vm.sortSvc.reverse">
+			<md-card class="solution-card"
+			    ui-sref="solutions.view({solutionId:solution._id})">
+				<div class="header-image-wrapper">
+					<div style="background-image: url({{solution.imageUrl}})"
+					    class="header-image">
 					</div>
-					<md-button class="md-raised vote-btn" ng-class="{ selected: solution.votes.currentUser.voteValue===-1 }" ng-click="vm.vote(solution, 'str_disagree', $event)">
-						<md-tooltip>
-							<span ng-if="solution.votes.currentUser.voteValue===-1">Undo</span>
-							<span ng-if="solution.votes.currentUser.voteValue!==-1">Vote Down</span>
-						</md-tooltip>
-						<md-icon>arrow_downward</md-icon> <span hide show-gt-xs>Vote Down</span>
-					</md-button>
-				</div> -->
-			</md-card-actions>
-		</md-card>
+				</div>
+				<md-card-title>
+					<md-card-title-text layout="row"
+					    layout-align="start center">
+						<span flex
+						    class="md-headline"
+						    ng-bind="solution.title"></span>
+						<share-buttons object="solution"
+						    object-type="'solution'"
+						    direction="'up'"></share-buttons>
+					</md-card-title-text>
+				</md-card-title>
+				<md-card-content ng-if="solution.description"
+				    layout="column">
+					<span class="md-body-2 description-container"><span class="md-body-2 description" ng-bind="solution.description | htmlToPlaintext"></span></span>
+					<span flex
+					    layout-padding
+					    class="md-headline">Your Vote</span>
+					<binary-vote ng-if="!solution.likert"
+					    object="solution"
+					    object-type="'solution'"></binary-vote>
+					<likert-vote ng-if="solution.likert"
+					    object="solution"
+					    object-type="'solution'"></likert-vote>
+				</md-card-content>
+				<md-card-actions layout-gt-sm="row">
+
+				</md-card-actions>
+			</md-card>
+			<mini-proposal-list solution-id="solution._id"
+			issue-id="vm.issue._id">
+		</mini-proposal-list>
+
+		</div>
 	</div>
 </md-content>
