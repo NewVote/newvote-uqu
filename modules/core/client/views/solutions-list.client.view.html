@@ -59,25 +59,28 @@
 				<div class="header-image-wrapper">
 					<div style="background-image: url({{solution.imageUrl}})"
 					    class="header-image">
+						<endorsement-list
+							object-id="solution._id"
+							object-type="'solution'"></endorsement-list>
 					</div>
 				</div>
 				<md-card-title>
 					<md-card-title-text layout="row"
 					    layout-align="start center">
 						<span flex
-						    class="md-headline"
+						    class="md-display-1"
 						    ng-bind="solution.title"></span>
 						<share-buttons object="solution"
 						    object-type="'solution'"
 						    direction="'up'"></share-buttons>
 					</md-card-title-text>
 				</md-card-title>
-				<md-card-content ng-if="solution.description"
-				    layout="column">
+				<md-card-content layout="column">
 					<span class="md-body-2 description-container"><span class="md-body-2 description" ng-bind="solution.description | htmlToPlaintext"></span></span>
+					<md-divider></md-divider>
 					<span flex
 					    layout-padding
-					    class="md-headline">Your Vote</span>
+					    class="md-headline"></span>
 					<binary-vote ng-if="!solution.likert"
 					    object="solution"
 					    object-type="'solution'"></binary-vote>
@@ -90,8 +93,8 @@
 				</md-card-actions>
 			</md-card>
 			<mini-proposal-list solution-id="solution._id"
-			issue-id="vm.issue._id">
-		</mini-proposal-list>
+			    issue-id="vm.issue._id">
+			</mini-proposal-list>
 
 		</div>
 	</div>

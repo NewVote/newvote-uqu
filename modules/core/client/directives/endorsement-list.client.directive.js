@@ -1,74 +1,69 @@
 'use strict';
 
-angular.module('core').directive('endorsementList', ['$timeout', function ($timeout) {
-	return {
-		restrict: 'E',
-		scope: {
-			endorsement: '=',
-			objectId: '=',
-			objectType: '='
-		},
-		templateUrl: 'modules/core/client/views/endorsement-list.client.view.html',
-		bindToController: true,
-		controllerAs: 'vm',
-		controller: ['$scope', '$state', '$mdDialog', 'VoteService', 'SortService', 'Authentication', 'SocialshareService', 'EndorsementService',
-			function ($scope, $state, $mdDialog, VoteService, SortService, Authentication, SocialshareService, EndorsementService) {
-				var vm = this;
-				vm.sortSvc = SortService;
-				$scope.authentication = Authentication;
+angular.module('core')
+	.directive('endorsementList', ['$timeout', function ($timeout) {
+		return {
+			restrict: 'E',
+			scope: {
+				objectId: '=',
+				objectType: '='
+			},
+			templateUrl: 'modules/core/client/views/endorsement-list.client.view.html',
+			bindToController: true,
+			controllerAs: 'vm',
+			controller: ['$scope', '$state', '$mdDialog', 'Authentication', 'EndorsementService',
+			function ($scope, $state, $mdDialog, Authentication, EndorsementService) {
+					var vm = this;
+					$scope.authentication = Authentication;
+					vm.edorsements = [];
 
-				vm.vote = function (endorsement, voteType, $event) {
-					$event.stopPropagation();
-					VoteService.vote(endorsement, 'Endorsement', voteType).then(function (data) {
-						// endorsement.$get();
-						// endorsement.meta = EndorsementService.getMeta(endorsement.url);
-					});
-				};
+					vm.$onInit = function () {
+						var query = {
+							issue: { 'issueId': vm.objectId },
+							solution: { 'solutionId': vm.objectId },
+							proposal: { 'proposalId': vm.objectId },
+						}
 
-				vm.sort = function (sortData, $event) {
-					if ($event) $event.stopPropagation();
-					SortService.setSort('endorsement', sortData.type, sortData.order);
-				};
+						console.log(query[vm.objectType])
 
-				vm.share = function (endorsement, provider) {
-					SocialshareService.share({
-						provider: provider,
-						rel_url: '/endorsement/' + endorsement._id,
-						title: endorsement.title,
-						hashtags: endorsement.tags.join()
-					});
-				};
+						EndorsementService.list(query[vm.objectType])
+							.then(endorsements => {
+								vm.endorsements = endorsements;
+							});
+					}
 
-				vm.delete = function (endorsement) {
-					if (!endorsement._id) return;
-					var confirm = $mdDialog.confirm()
-						.title('Are you sure you want to delete this endorsement?')
-						.textContent('This cannot be undone. Please confirm your decision')
-						.ok('Yes, I\'m sure')
-						.cancel('No');
+					vm.delete = function (endorsement) {
+						if(!endorsement._id) return;
+						var confirm = $mdDialog.confirm()
+							.title('Are you sure you want to delete this endorsement?')
+							.textContent('This cannot be undone. Please confirm your decision')
+							.ok('Yes, I\'m sure')
+							.cancel('No');
 
-					$mdDialog.show(confirm).then(function () {
-						EndorsementService.delete(endorsement._id).then(function () {
-							if ($state.is('issues.view')) {
-								$state.go('issues.view', {
-									issueId: vm.objectId
-								}, {
-									reload: true
-								});
-							} else if ($state.is('solutions.view')) {
-								$state.go('issues.view', {
-									solutionId: vm.objectId
-								});
-							} else if ($state.is('proposals.view')) {
-								$state.go('proposals.view', {
-									proposalId: vm.objectId
-								});
-							}
+						$mdDialog.show(confirm)
+							.then(function () {
+								EndorsementService.delete(endorsement._id)
+									.then(function () {
+										if($state.is('issues.view')) {
+											$state.go('issues.view', {
+												issueId: vm.objectId
+											}, {
+												reload: true
+											});
+										} else if($state.is('solutions.view')) {
+											$state.go('issues.view', {
+												solutionId: vm.objectId
+											});
+										} else if($state.is('proposals.view')) {
+											$state.go('proposals.view', {
+												proposalId: vm.objectId
+											});
+										}
 
-						});
-					});
-				};
+									});
+							});
+					};
 			}
 		]
-	};
+		};
 }]);

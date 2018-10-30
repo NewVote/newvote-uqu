@@ -1,9 +1,16 @@
 <md-content layout="column">
-	<div layout-gt-sm="row" layout-align-gt-sm="start center" layout-padding>
+	<div layout="row"
+	    layout-align-gt-sm="start center"
+	    layout-padding>
+		<span class="md-headline">Vote on Proposals</span>
+		<div flex></div>
 		<span>Sort</span>
 		<div>
-			<md-select class="sort-select" ng-model="vm.sortSelectState" md-on-close='vm.sort(vm.sortSelectState)'>
-				<md-option ng-value="{type: 'top', order: 'desc'}" ng-selected=true>Top</md-option>
+			<md-select class="sort-select"
+			    ng-model="vm.sortSelectState"
+			    md-on-close='vm.sort(vm.sortSelectState)'>
+				<md-option ng-value="{type: 'top', order: 'desc'}"
+				    ng-selected=true>Top</md-option>
 				<md-option ng-value="{type: 'controversial', order: 'desc'}">Controversial</md-option>
 				<md-option ng-value="{type: 'trending', order: 'desc'}">Trending</md-option>
 				<md-option ng-value="{type: 'newest', order: 'desc'}">Newest</md-option>
@@ -14,103 +21,64 @@
 			<md-tooltip ng-if="vm.sortSelectState.type === 'trending'">Recently popular</md-tooltip>
 			<md-tooltip ng-if="vm.sortSelectState.type === 'newest'">Most recently updated or created</md-tooltip>
 		</div>
-		<div flex>
-
-		</div>
-		<!-- <span>Filter</span>
-		<div layout-align="start center">
-			<md-chips ng-model="vm.regions" md-require-match="true" md-on-add="vm.updateVotes(vm.regions)" md-on-remove="vm.updateVotes(vm.regions)" md-delay="400" placeholder="All electorates" secondary-placeholder="Add another electorate">
-				<md-chip-template>
-					<span>{{ $chip.name }}</span>
-				</md-chip-template>
-				<md-autocomplete md-no-cache="true" md-items="region in vm.searchRegions(regionName)" md-dropdown-items="5" md-search-text="regionName" placeholder="Add electorates" md-item-text="region.name">
-					<md-item-template>
-						<span md-highlight-text="regionName" md-highlight-flags="i">
-					  		{{ region.name }} ({{region.type}})
-				  		</span>
-					</md-item-template>
-					<md-not-found>
-						No regions found.
-					</md-not-found>
-				</md-autocomplete>
-			</md-chips>
-		</div> -->
-
 	</div>
 	<div>
-		<md-card class="proposal-card" ng-if="vm.proposals.length==0">
+		<md-card class="proposal-card"
+		    ng-if="vm.proposals.length==0">
 			<md-card-header>
-				<md-card-header-text>
-					<span class="md-headline">Looks like there are no proposed proposals yet, why not suggest one?</span>
+				<md-card-header-text ui-sref="suggestions">
+					<span class="md-headline">Looks like there are no proposals yet, why not suggest one?</span>
 				</md-card-header-text>
 			</md-card-header>
 		</md-card>
-		<md-card class="proposal-card" ng-repeat="proposal in vm.proposals | orderBy: vm.sortSvc.expression: vm.sortSvc.reverse" ui-sref="proposals.view({proposalId:proposal._id})">
-			<!-- <md-card-header>
-				<md-card-avatar>
-					<img ng-src="{{::proposal.imageUrl}}" alt="Proposal Image" />
-				</md-card-avatar>
-				<md-card-header-text>
-					<span class="md-headline">{{::proposal.title}}</span>
-				</md-card-header-text>
-			</md-card-header> -->
+		<md-card class="proposal-card"
+		    ng-repeat="proposal in vm.proposals | orderBy: vm.sortSvc.expression: vm.sortSvc.reverse"
+		    ui-sref="proposals.view({proposalId:proposal._id})">
 			<md-card-title>
 				<md-card-title-text>
-					<span class="md-headline" ng-bind="proposal.title"></span>
-					<p class="md-body-2" ng-if="$state.current.name == 'proposals.list' || $state.current.name == 'issues.view'">This is a proposal for:
-						<a layout-margin ng-repeat="solution in proposal.solutions" ui-sref="solutions.view({solutionId: solution._id})">{{solution.title}}</a>
+					<div layout="row"
+					    layout-align="start center">
+						<div layout="column" flex>
+							<span flex
+							    class="md-headline"
+							    ng-bind="proposal.title"></span>
+
+							<endorsement-list object-id="proposal._id"
+							    object-type="'proposal'"></endorsement-list>
+						</div>
+						<!-- <span flex></span> -->
+						<share-buttons object="proposal"
+						    req-object="vm.solution"
+						    object-type="'proposal'"
+						    direction="'up'"></share-buttons>
+					</div>
+					<p class="md-body-2"
+					    ng-if="$state.current.name == 'proposals.list' || $state.current.name == 'issues.view'">This is a proposal for:
+						<a layout-margin
+						    ng-repeat="solution in proposal.solutions"
+						    ui-sref="solutions.view({solutionId: solution._id})">{{solution.title}}</a>
 					</p>
+
 					<!-- <span class="md-body-1" ng-bind="proposal.description | htmlToPlaintext"></span> -->
 				</md-card-title-text>
 				<md-card-title-media layout-padding>
-					<div class="md-media-sm card-media"><img ng-src="{{::proposal.imageUrl}}" alt="proposal Image" /></div>
+					<div class="md-media-sm card-media"><img ng-src="{{::proposal.imageUrl}}"
+						    alt="proposal Image" /></div>
 				</md-card-title-media>
 			</md-card-title>
 			<md-card-content>
-				<p class="md-subhead" ng-bind="proposal.description | htmlToPlaintext"></p>
+				<p class="md-subhead"
+				    ng-bind="proposal.description | htmlToPlaintext"></p>
 			</md-card-content>
-			<md-card-actions layout="column" layout-gt-sm="row" layout-align="start start">
-				<binary-vote ng-if="!proposal.likert" object="proposal" object-type="'proposal'"></binary-vote>
-				<likert-vote ng-if="proposal.likert" object="proposal" object-type="'proposal'"></likert-vote>
-
-        <div ng-if="authentication.user.roles != null && (authentication.user.roles.indexOf('admin') !== -1 || authentication.user._id===proposal.user._id)">
-					<md-button class="md-icon-button" ng-click="vm.deleteProposal(proposal)">
-						<md-tooltip>Delete</md-tooltip>
-						<md-icon>delete</md-icon>
-					</md-button>
-					<md-button class="md-icon-button" ui-sref="proposals.edit({proposalId: proposal._id, solutionId: vm.solutionId})">
-						<md-tooltip>Edit Proposal</md-tooltip>
-						<md-icon>edit</md-icon>
-					</md-button>
-				</div>
-
-				<share-buttons object="proposal" req-object="vm.solution" object-type="'proposal'" vertical-resize="true"></share-buttons>
-				<!-- <div layout>
-					<md-button class="md-raised vote-btn" ng-class="{ selected: proposal.votes.currentUser.voteValue===1 }" ng-click="vm.vote(proposal, 'str_agree', $event)">
-						<md-tooltip>
-							<span ng-if="proposal.votes.currentUser.voteValue===1">Undo</span>
-							<span ng-if="proposal.votes.currentUser.voteValue!==1">Vote Up</span>
-						</md-tooltip>
-						<md-icon>arrow_upward</md-icon> <span hide show-gt-xs>Vote Up</span>
-					</md-button>
-					<div class="card-chart-container">
-						<div class="card-chart-score">
-							<span>{{proposal.votes.up / (proposal.votes.up + proposal.votes.down) * 100 || 0 | number: 0}} %</span>
-						</div>
-						<canvas class="chart chart-pie" chart-data="[proposal.votes.down, proposal.votes.up]" chart-labels="vm.chartLabels" chart-options="vm.chartOptions" chart-colors="vm.chartColors" height="100%" width="100%">
-						</canvas>
-						<md-tooltip>
-							<span>For: {{proposal.votes.up}}, Against: {{proposal.votes.down}}</span>
-						</md-tooltip>
-					</div>
-					<md-button class="md-raised vote-btn" ng-class="{ selected: proposal.votes.currentUser.voteValue===-1 }" ng-click="vm.vote(proposal, 'str_disagree', $event)">
-						<md-tooltip>
-							<span ng-if="proposal.votes.currentUser.voteValue===-1">Undo</span>
-							<span ng-if="proposal.votes.currentUser.voteValue!==-1">Vote Down</span>
-						</md-tooltip>
-						<md-icon>arrow_downward</md-icon> <span hide show-gt-xs>Vote Down</span>
-					</md-button>
-				</div> -->
+			<md-card-actions layout="column"
+			    layout-gt-sm="row"
+			    layout-align="start start">
+				<binary-vote ng-if="!proposal.likert"
+				    object="proposal"
+				    object-type="'proposal'"></binary-vote>
+				<likert-vote ng-if="proposal.likert"
+				    object="proposal"
+				    object-type="'proposal'"></likert-vote>
 			</md-card-actions>
 		</md-card>
 	</div>

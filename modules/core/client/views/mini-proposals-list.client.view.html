@@ -21,17 +21,27 @@
 	<div layout-padding>
 		<!-- <md-divider></md-divider> -->
 		<span class="md-headline">Vote on Proposals</span>
-		<div layout-padding class='mini-proposal'
+		<div layout-padding
+		    class='mini-proposal'
 		    ng-repeat="proposal in vm.proposals | orderBy: vm.sortSvc.expression: vm.sortSvc.reverse"
 		    ui-sref="proposals.view({proposalId:proposal._id})">
-			<span class="md-subhead"><strong
-			    ng-bind="proposal.title"> </strong></span>
-			<binary-vote ng-if="!proposal.likert"
-			    object="proposal"
-			    object-type="'proposal'"></binary-vote>
-			<likert-vote ng-if="proposal.likert"
-			    object="proposal"
-			    object-type="'proposal'"></likert-vote>
+			<div layout="column" class="point-area">
+				<div layout="row"
+				    layout-padding
+				    layout-align="start center">
+					<div class="mini-proposal-image"
+					    style="background-image: url({{proposal.imageUrl}})">
+					</div>
+					<span class="md-title"
+					    ng-bind="proposal.title"></span>
+				</div>
+				<binary-vote ng-if="!proposal.likert"
+				    object="proposal"
+				    object-type="'proposal'"></binary-vote>
+				<likert-vote ng-if="proposal.likert"
+				    object="proposal"
+				    object-type="'proposal'"></likert-vote>
+			</div>
 			<md-divider></md-divider>
 		</div>
 

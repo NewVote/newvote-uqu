@@ -28,14 +28,13 @@
 	<div ng-if="vm.issue.imageUrl"
 	    class="header-image-container"
 	    ng-style="{'background-image':'url({{::vm.issue.imageUrl}})'}">
-		<!-- <img ng-src="{{::vm.issue.imageUrl}}" alt="Issue Image"> -->
 
 		<div layout="row"
 		    layout-align="end end">
 			<span class="admin-controls">
 				<md-button ng-if="authentication.user.roles.indexOf('endorser')>-1 || authentication.user.roles.indexOf('admin')>-1"
 					class="md-icon-button"
-					ui-sref="endorsement.create({ objectId: vm.objectId, objectType: vm.objectType })">
+					ui-sref="endorsement.create({ objectId: vm.issue._id, objectType: 'issue' })">
 					<md-tooltip>Endorse</md-tooltip>
 					<md-icon>thumb_up</md-icon>
 				</md-button>
@@ -58,7 +57,6 @@
 					<md-icon>delete</md-icon>
 				</md-button>
 			</span>
-
 		</div>
 	</div>
 	<div flex-offset-lg="15"
@@ -70,7 +68,7 @@
 		<div layout="row"
 		    layout-align="start center">
 
-			<span class="md-display-1"
+			<span class="md-display-2"
 			    flex="65"
 			    flex-gt-sm="65">{{vm.issue.name}}</span>
 
@@ -99,7 +97,7 @@
 
 			<span flex></span>
 
-			<endorsement-list endorsement="vm.endorsement"
+			<endorsement-list
 			    object-id="vm.issue._id"
 			    object-type="'issue'"></endorsement-list>
 		</div>

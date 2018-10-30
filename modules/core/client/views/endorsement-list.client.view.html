@@ -1,28 +1,15 @@
 <div layout="column"
-    ng-if="vm.endorsement && vm.endorsement.length > 0">
-
-	<!-- <div layout="row"
-	    layout-align="start center">
-		<div>
-			<h2 class="md-headline">Endorsed by:</h2>
-		</div>
-		<div>
-			<md-button ng-if="authentication.user.roles.indexOf('endorser')>-1 || authentication.user.roles.indexOf('admin')>-1"
-			    class="md-primary md-raised"
-			    ui-sref="endorsement.create({ objectId: vm.objectId, objectType: vm.objectType })">
-				<md-icon>add</md-icon><span>new</span>
-			</md-button>
-		</div>
-	</div> -->
+    ng-if="vm.endorsements && vm.endorsements.length > 0">
 
 	<div layout="row">
-		<div ng-repeat="endorsement in vm.endorsement"
+		<div ng-repeat="endorsement in vm.endorsements"
 		    class="endorser-badge">
 			<div class="endorser-image-wrapper">
 				<md-tooltip>{{endorsement.description}}</md-tooltip>
-				<img class='endorser-image'
+				<div class="endorser-image" style="background-image: url({{endorsement.imageUrl}})"></div>
+				<!-- <img class='endorser-image'
 				    ng-src="{{::endorsement.imageUrl}}"
-				    alt="Endorsement Image" />
+				    alt="Endorsement Image" /> -->
 			</div>
 
 			<div ng-if=" (authentication.user) && (authentication.user.roles.indexOf('admin')>-1 || authentication.user._id === endorsement.user._id)"
@@ -40,54 +27,4 @@
 			</div>
 		</div>
 	</div>
-	<!-- <ui-carousel
-		slides="vm.endorsement"
-		slides-to-scroll="1"
-		infinite="true"
-		autoplay="false"
-		dots="false"
-		arrows="true">
-
-		<carousel-item>
-			<md-card class="endorsement-card">
-				<md-card-title>
-					<md-card-title-text>
-						<span class="md-headline">{{item.title}}</span>
-					</md-card-title-text>
-					<md-card-title-media layout-padding>
-						<div class="md-media-sm card-media"><img ng-src="{{::item.imageUrl}}"
-							    alt="Endorsement Image" /></div>
-					</md-card-title-media>
-				</md-card-title>
-
-				<md-card-content layout="row">
-					<div layout="column"
-					    flex>
-						auth: {{vm}}
-						<span ng-bind-html="item.description"></span>
-						<span>
-							{{item.user.displayName}}<br>
-							{{item.organisationName}}
-						</span>
-					</div>
-				</md-card-content>
-				<md-card-actions layout="row"
-				    layout-align="start center">
-					<div ng-if="authentication.user.roles.indexOf('admin')>-1 || authentication.user._id === endorsement.user._id"
-					    layout-align="end center">
-						<md-button class="md-icon-button"
-						    ng-click="vm.delete(endorsement)">
-							<md-tooltip>Delete Endorsement</md-tooltip>
-							<md-icon>delete</md-icon>
-						</md-button>
-						<md-button class="md-icon-button"
-						    ui-sref="endorsement.edit({endorsementId: endorsement._id, previousObjectId: vm.objectId, objectType: vm.objectType})">
-							<md-tooltip>Edit Endorsement</md-tooltip>
-							<md-icon>edit</md-icon>
-						</md-button>
-					</div>
-				</md-card-actions>
-			</md-card>
-		</carousel-item>
-	</ui-carousel> -->
 </div>

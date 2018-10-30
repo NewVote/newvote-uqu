@@ -236,13 +236,7 @@ angular.module('core')
 						solutions: function () {
 							return {};
 						},
-						proposals: function () {
-							return [];
-						},
 						media: function () {
-							return [];
-						},
-						endorsement: function () {
 							return [];
 						}
 					}
@@ -266,13 +260,7 @@ angular.module('core')
 						solutions: function () {
 							return {};
 						},
-						proposals: function () {
-							return [];
-						},
 						media: function () {
-							return [];
-						},
-						endorsement: function () {
 							return [];
 						}
 					}
@@ -294,18 +282,8 @@ angular.module('core')
 								issueId: $stateParams.issueId
 							});
 						}],
-						proposals: ['ProposalService', '$stateParams', function (ProposalService, $stateParams) {
-							return ProposalService.list({
-								issueId: $stateParams.issueId
-							});
-						}],
 						media: ['MediaService', '$stateParams', function (MediaService, $stateParams) {
 							return MediaService.list({
-								issueId: $stateParams.issueId
-							});
-						}],
-						endorsement: ['EndorsementService', '$stateParams', function (EndorsementService, $stateParams) {
-							return EndorsementService.list({
 								issueId: $stateParams.issueId
 							});
 						}]
@@ -631,7 +609,8 @@ angular.module('core')
 						media: function () {
 							return {
 								issues: [],
-								solutions: []
+								solutions: [],
+								proposals: []
 							};
 						}
 					}
@@ -677,7 +656,8 @@ angular.module('core')
 						endorsement: function () {
 							return {
 								issues: [],
-								solutions: []
+								solutions: [],
+								proposals: []
 							};
 						}
 					}
