@@ -10,9 +10,8 @@ module.exports = {
         'public/lib/quill/quill.snow.css',
         'public/lib/angular-ui-carousel/dist/ui-carousel.min.css',
 		'public/lib/ang-accordion/css/ang-accordion.css',
-        'public/lib/angular-carousel/dist/angular-carousel.min.css',
-		'public/lib/slick-carousel/slick/slick-theme.min.css',
-		'public/lib/slick-carousel/slick/slick.min.css',
+		'public/lib/slick-carousel/slick/slick-theme.css',
+		'public/lib/slick-carousel/slick/slick.css',
 
         'https://fonts.googleapis.com/icon?family=Material+Icons',
         'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic',
