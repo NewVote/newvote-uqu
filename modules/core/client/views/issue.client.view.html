@@ -25,13 +25,18 @@
     content="{{ vm.image }}"></update-meta>
 
 <md-toolbar class="md-primary">
-	<div ng-if="vm.issue.imageUrl"
-	    class="header-image-container"
+	<div class="header-image-container"
 	    ng-style="{'background-image':'url({{::vm.issue.imageUrl}})'}">
 
 		<div layout="row"
 		    layout-align="end end">
 			<span class="admin-controls">
+				<md-button ng-if="authentication.user.roles.indexOf('admin')>-1"
+					class="md-icon-button"
+					ui-sref="media.create({ objectId: vm.proposal._id, objectType: 'proposal' })">
+					<md-tooltip>Add Media</md-tooltip>
+					<md-icon>art_track</md-icon>
+				</md-button>
 				<md-button ng-if="authentication.user.roles.indexOf('endorser')>-1 || authentication.user.roles.indexOf('admin')>-1"
 					class="md-icon-button"
 					ui-sref="endorsement.create({ objectId: vm.issue._id, objectType: 'issue' })">
@@ -138,7 +143,7 @@
 		</div>
 	</div>
 
-	<!-- <media-list media="vm.media"
+	<media-list media="vm.media"
 	object-id="vm.issue._id"
-	object-type="'issue'"></media-list> -->
+	object-type="'issue'"></media-list>
 </div>

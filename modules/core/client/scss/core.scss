@@ -390,6 +390,7 @@ md-tooltip {
 
 md-card {
 	.header-image-wrapper {
+		min-height: 25px;
 		height: 200px;
 		width: 100%;
 
@@ -401,6 +402,24 @@ md-card {
 			background-position: center;
 			background-repeat: no-repeat;
 			background-size: cover;
+		}
+	}
+}
+
+
+.media-carousel {
+	.slick-prev::before, .slick-next::before {
+		color: black !important;
+	}
+	.image-only {
+		min-height: 400px;
+	}
+	md-card-title-text {
+		.title {
+			min-height:31px;
+		}
+		.description {
+			min-height: 96px;
 		}
 	}
 }

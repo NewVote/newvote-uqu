@@ -14,6 +14,7 @@ angular.module('core')
 			$rootScope.pageTitle = 'Create Media';
 			vm.previewData = {};
 			vm.manualImage = '';
+			vm.authentication = Authentication;
 
 			if ($stateParams.objectId && $stateParams.objectType) {
 				if ($stateParams.objectType === 'issue') {
@@ -73,7 +74,6 @@ angular.module('core')
 				console.log('scraping meta for url: ', vm.media.url);
 				MediaService.getMeta(vm.media.url)
 					.$promise.then(function (meta) {
-						console.log('meta is: ', meta);
 						//check if there is already manually entered data
 						//set it from the scrape if not
 						if(!vm.media.title) vm.media.title = meta.title;
@@ -84,7 +84,6 @@ angular.module('core')
 					}, function (err) {
 						console.log('was an error scraping');
 						if (/\.(jpe?g|png|gif|bmp)$/i.test(vm.media.url)) {
-							console.log('user linking directly to image');
 							if(!vm.media.image) vm.media.image = vm.media.url;
 							vm.media.imageOnly = true;
 						}
@@ -94,16 +93,13 @@ angular.module('core')
 			vm.resetData = function() {
 				MediaService.getMeta(vm.media.url)
 					.$promise.then(function (meta) {
-						console.log('meta is: ', meta);
 						vm.media.title = meta.title;
 						vm.media.description = meta.description;
 						vm.media.image = meta.image;
 						vm.media.imageOnly = false;
-						console.log('finished scrape');
 					}, function (err) {
 						console.log('was an error scraping');
 						if (/\.(jpe?g|png|gif|bmp)$/i.test(vm.media.url)) {
-							console.log('user linking directly to image');
 							vm.media.image = vm.media.url;
 							vm.media.imageOnly = true;
 						}
