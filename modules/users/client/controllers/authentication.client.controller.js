@@ -6,6 +6,7 @@ angular.module('users')
 			// debugger;
 			$scope.vm = this;
 			var vm = $scope.vm;
+			$scope.state = 'signin';
 			$scope.authentication = Authentication;
 			$scope.popoverMsg = PasswordValidator.getPopoverMsg();
 			if($scope.authentication.user && $scope.authentication.user.data) {
@@ -107,6 +108,10 @@ angular.module('users')
 				$scope.credentials.recaptchaResponse = null;
 			};
 
+			$scope.setState = function(state) {
+				$scope.state = state;
+			}
+
 			// $scope.sendEmail = function () {
 			// 	console.log('attempting to send verification Email');
 			// 	$scope.verificationStatus.status = 'sending';
@@ -126,6 +131,14 @@ angular.module('users')
 			// 			$scope.verificationStatus.message = 'Error: ' + err.data.message;
 			// 		});
 			// };
+
+			$scope.submitForm = function(form) {
+				if($scope.state == 'signin') {
+					$scope.signin(form.$valid);
+				}else if($scope.state == 'signup') {
+					$scope.signup(form.$valid);
+				}
+			}
 
 			$scope.signup = function (isValid) {
 				$scope.error = null;
@@ -150,16 +163,10 @@ angular.module('users')
 							$scope.authentication.user = response.data;
 							$window.user = response.data;
 
-							// console.log('signup success, post data: ', response);
+							console.log('signup success, post data: ', response);
 
 							// And redirect to the previous or home page
-							if($scope.authentication.user.terms) {
-								$state.go($state.previous.state.name || 'home', $state.previous.params);
-							} else {
-								console.log('trying to go to setup state');
-								$state.go('setup', { previous: $state.previous.state.name });
-								console.log('$scope: ', $scope);
-							}
+							$state.go($state.previous.state.name || 'home', $state.previous.params);
 
 						},
 						function (response) {
@@ -198,6 +205,7 @@ angular.module('users')
 						function (response) {
 							console.log('error in sign in: ', response);
 							$scope.error = response.data.message;
+							$scope.errorCode = response.data.status;
 						});
 			};
 

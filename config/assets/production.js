@@ -10,6 +10,8 @@ module.exports = {
         'public/lib/quill/quill.snow.css',
         'public/lib/angular-ui-carousel/dist/ui-carousel.min.css',
 		'public/lib/ang-accordion/css/ang-accordion.css',
+		'public/lib/slick-carousel/slick/slick-theme.css',
+		'public/lib/slick-carousel/slick/slick.css',
 
         'https://fonts.googleapis.com/icon?family=Material+Icons',
         'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic',
@@ -17,12 +19,14 @@ module.exports = {
       ],
       js: 'public/dist/lib.min.js',
       individualJs: [
+		'public/lib/jquery/dist/jquery.min.js',
         'public/lib/lodash/dist/lodash.min.js',
         'public/lib/angular/angular.min.js',
         'public/lib/angular-resource/angular-resource.min.js',
         'public/lib/angular-animate/angular-animate.min.js',
         'public/lib/angular-messages/angular-messages.min.js',
         'public/lib/angular-sanitize/angular-sanitize.min.js',
+		'public/lib/angular-touch/angular-touch.min.js',
         'public/lib/cfp-angular-hotkeys/build/hotkeys.min.js',
 		'public/lib/angular-scroll/angular-scroll.min.js',
 		'public/lib/angular-bind-html-compile/angular-bind-html-compile.min.js',
@@ -46,10 +50,13 @@ module.exports = {
         'public/lib/angular-material-icons/angular-material-icons.min.js',
         'public/lib/ngstorage/ngStorage.min.js',
         'public/lib/angular-ui-carousel/dist/ui-carousel.min.js',
+        'public/lib/angular-carousel/dist/angular-carousel.min.js',
         'public/lib/angular-recaptcha/release/angular-recaptcha.js',
 		'public/lib/ang-accordion/js/ang-accordion.js',
 		'public/lib/clipboard/dist/clipboard.min.js',
-		'public/lib/ngclipboard/dist/ngclipboard.min.js'
+		'public/lib/ngclipboard/dist/ngclipboard.min.js'	,
+		'public/lib/slick-carousel/slick/slick.min.js',
+		'public/lib/angular-slick-carousel/dist/angular-slick.min.js'
       ]
     },
     css: 'public/dist/application.min.css',

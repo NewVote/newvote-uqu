@@ -25,10 +25,44 @@
     content="{{ vm.image }}"></update-meta>
 
 <md-toolbar class="md-primary">
-	<div ng-if="vm.issue.imageUrl"
-	    class="header-image-container"
+	<div class="header-image-container"
 	    ng-style="{'background-image':'url({{::vm.issue.imageUrl}})'}">
-		<!-- <img ng-src="{{::vm.issue.imageUrl}}" alt="Issue Image"> -->
+
+		<div layout="row"
+		    layout-align="end end">
+			<span class="admin-controls">
+				<md-button ng-if="authentication.user.roles.indexOf('admin')>-1"
+					class="md-icon-button"
+					ui-sref="media.create({ objectId: vm.proposal._id, objectType: 'proposal' })">
+					<md-tooltip>Add Media</md-tooltip>
+					<md-icon>art_track</md-icon>
+				</md-button>
+				<md-button ng-if="authentication.user.roles.indexOf('endorser')>-1 || authentication.user.roles.indexOf('admin')>-1"
+					class="md-icon-button"
+					ui-sref="endorsement.create({ objectId: vm.issue._id, objectType: 'issue' })">
+					<md-tooltip>Endorse</md-tooltip>
+					<md-icon>thumb_up</md-icon>
+				</md-button>
+				<md-button ng-if="authentication.user.roles.indexOf('admin')>-1"
+					class="md-icon-button"
+					ui-sref="solutions.create({ issueId: vm.issue._id })">
+					<md-icon>add</md-icon>
+					<md-tooltip>New Solution for this Issue</md-tooltip>
+				</md-button>
+				<md-button ng-if="authentication.user.roles.indexOf('admin')>-1"
+					class="md-icon-button"
+					ui-sref="issues.edit({issueId: vm.issue._id})">
+					<md-tooltip>Edit Issue</md-tooltip>
+					<md-icon>edit</md-icon>
+				</md-button>
+				<md-button class="md-icon-button"
+					ng-click="vm.delete()"
+					ng-if="authentication.user.roles.indexOf('admin')>-1">
+					<md-tooltip>Delete Issue</md-tooltip>
+					<md-icon>delete</md-icon>
+				</md-button>
+			</span>
+		</div>
 	</div>
 	<div flex-offset-lg="15"
 	    flex-lg="70"
@@ -36,52 +70,41 @@
 	    flex-xl="50"
 	    layout-padding
 	    layout="column">
-		<div layout-gt-sm="row"
-		    layout="column"
-		    layout-align="start start"
-		    layout-align-gt-sm="center center">
+		<div layout="row"
+		    layout-align="start center">
 
-			<h1 class="md-display-1"
-			    flex-gt-sm="65">{{vm.issue.name}}</h1>
+			<span class="md-display-2"
+			    flex="65"
+			    flex-gt-sm="65">{{vm.issue.name}}</span>
 
 			<div flex></div>
 
-			<div layout="row"
-			    layout-align="center center">
-				<md-button class="md-icon-button"
-				    ng-click="vm.delete()"
-				    ng-if="authentication.user.roles.indexOf('admin')>-1 || (authentication.user.roles != null && authentication.user._id===vm.issue.user._id)">
-					<md-tooltip>Delete Issue</md-tooltip>
-					<md-icon>delete</md-icon>
-				</md-button>
-				<md-button ng-if="authentication.user.roles.indexOf('admin')>-1"
-				    class="md-icon-button"
-				    ui-sref="issues.edit({issueId: vm.issue._id})">
-					<md-tooltip>Edit Issue</md-tooltip>
-					<md-icon>edit</md-icon>
-				</md-button>
-				<md-button ng-if="authentication.user.roles.indexOf('admin')==-1"
-				    class="md-icon-button"
-				    ui-sref="suggestions({objectId: vm.issue._id, objectType: 'issue', suggestionType: 'edit'})">
-					<md-tooltip>Suggest an edit</md-tooltip>
-					<md-icon>edit</md-icon>
-				</md-button>
+			<share-buttons object="vm.issue"
+			    object-type="'issue'"
+			    direction="'up'"
+			    side="'left'"></share-buttons>
+		</div>
 
-				<md-button ng-if="authentication.user.roles.indexOf('admin')>-1"
-				    class="md-accent md-hue-1 md-raised create-btn"
-				    ui-sref="solutions.create({ issueId: vm.issue._id })">
-					<md-icon>add</md-icon><span hide
-					    show-gt-sm>New</span>
-					<md-tooltip>Create a new solution</md-tooltip>
-				</md-button>
-				<md-button ng-if="authentication.user.roles.indexOf('admin')==-1"
-				    class="md-accent md-hue-1 md-raised create-btn"
-				    ui-sref="suggestions({objectId: vm.issue._id, objectType: 'issue', suggestionType: 'new'})">
-					<md-icon>add</md-icon><span hide
-					    show-gt-sm>New</span>
-					<md-tooltip>Suggest a new solution</md-tooltip>
-				</md-button>
+		<div layout="column"
+		    layout-gt-sm="row"
+		    layout-align-gt-sm="start center"
+		    layout-align="start start">
+			<div ng-if="vm.issue.topics.length > 0">
+				<md-chips class="descriptionChips"
+				    ng-model="vm.issue.topics"
+				    readonly="true"
+				    md-removable="false">
+					<md-chip-template ui-sref="topics.view({ topicId: $chip._id })">
+						<span class="md-caption">{{$chip.name}}</span>
+					</md-chip-template>
+				</md-chips>
 			</div>
+
+			<span flex></span>
+
+			<endorsement-list
+			    object-id="vm.issue._id"
+			    object-type="'issue'"></endorsement-list>
 		</div>
 
 		<div class="header-description"
@@ -89,30 +112,12 @@
 		    ng-bind-html="vm.issue.description"></div>
 
 		<div layout="row"
-		    layout-align="start start">
-			<div layout="column"
-			    ng-if="vm.issue.topics.length > 0">
-				<md-chips class="descriptionChips"
-				    ng-model="vm.issue.topics"
-				    readonly="true"
-				    md-removable="false">
-					<md-chip-template ui-sref="topics.view({ topicId: $chip._id })">
-						<strong>{{$chip.name}}</strong>
-					</md-chip-template>
-				</md-chips>
-			</div>
-
-			<div flex></div>
-
+		    layout-align="end start">
 			<md-button ng-click="vm.showFullDesc=!vm.showFullDesc">
 				<span ng-if="vm.showFullDesc">Show Less</span>
 				<span ng-if="!vm.showFullDesc">...Show More</span>
 			</md-button>
 		</div>
-
-		<share-buttons object="vm.issue"
-		    object-type="'issue'"
-		    vertical-resize="false"></share-buttons>
 	</div>
 </md-toolbar>
 
@@ -120,40 +125,25 @@
     flex-lg="70"
     flex-offset-xl="25"
     flex-xl="50"
-    layout-padding
     layout="column">
 
-	<ang-accordion>
-		<collapsible-item item-title="Media">
-			<media-list media="vm.media"
-			object-id="vm.issue._id"
-			object-type="'issue'"></media-list>
-		</collapsible-item>
-		<collapsible-item item-title="What are the majority opinions?">
-			<span class="md-subhead">In order to use this section of the App you may need to login again with Pol.is.<br>
-				Please be aware that your image (showing where you stand) may be visible to other users</span>
-				<div class="polis"
-				data-topic="What do you think?"
-				data-page_id="{{vm.issue._id}}"
-				data-site_id="polis_site_id_7YYdpN4NRpUvCKC7ZU">
-			</div>
-		</collapsible-item>
-		<!-- <collapsible-item item-title="Meetups">
-			<span class="md-headline">In the future this section will contain details of real world events related to this Solution.</span>
-		</collapsible-item> -->
-		<collapsible-item item-title="Endorsements">
-			<endorsement-list endorsement="vm.endorsement"
-			object-id="vm.issue._id"
-			object-type="'issue'"></endorsement-list>
-		</collapsible-item>
-		<collapsible-item item-title="Vote on Solutions">
-			<solution-list solutions="vm.solutions"
-			    issue-id="vm.issueId"></solution-list>
-		</collapsible-item>
-		<collapsible-item item-title="Vote on Proposals">
-			<proposal-list proposals="vm.proposals"
-			    issue-id="vm.issueId"></proposal-list>
-		</collapsible-item>
-	</ang-accordion>
+	<solution-list solutions="vm.solutions"
+	    issue-id="vm.issueId"></solution-list>
 
+	<div layout-padding>
+		<div>
+		<span class="md-headline">What are the majority opinions?</span>
+		</div>
+		<p class="md-caption">In order to use this section of the App you may need to login again with Pol.is.<br />
+			Please be aware that your image (showing where you stand) may be visible to other users</p>
+		<div class="polis"
+		    data-topic="What do you think?"
+		    data-page_id="{{vm.issue._id}}"
+		    data-site_id="polis_site_id_7YYdpN4NRpUvCKC7ZU">
+		</div>
+	</div>
+
+	<media-list media="vm.media"
+	object-id="vm.issue._id"
+	object-type="'issue'"></media-list>
 </div>

@@ -32,7 +32,7 @@
 					alt="UQ Votes"/>
 	    	</h1>
 			<h2 ng-if="!authentication.user" class="title-text">Sign up and be heard</h2>
-			<h3 ng-if="authentication.user" class="title-text">Welcome Back</h2>
+			<h3 ng-if="authentication.user" class="title-text">Welcome Back</h3>
 			<div>
 				<a layout-padding
 				    class=""
@@ -70,7 +70,7 @@
 						    class="md-card-image"
 						    alt="{{item.title}}">
 						<md-card-title>
-							<md-card-title-text ng-init="limit = 25"
+							<md-card-title-text ng-init="limit = 23"
 							    layout="row">
 								<span class="md-headline"
 								    ng-bind-html="item.name | limitTo : limit"></span>
@@ -78,7 +78,7 @@
 								    ng-show="item.name.length > limit">...</span>
 							</md-card-title-text>
 						</md-card-title>
-						<md-card-content ng-bind-html="item.description | limitTo: 200"></md-card-content>
+						<md-card-content ng-bind-html="item.description | limitTo: 150"></md-card-content>
 						<md-card-actions layout="row"
 						    layout-align="start center">
 							<button class="md-raised md-primary md-button md-ink-ripple"
@@ -142,7 +142,7 @@
 						    class="md-card-image"
 						    alt="{{item.title}}">
 						<md-card-title>
-							<md-card-title-text ng-init="limit = 25"
+							<md-card-title-text ng-init="limit = 23"
 							    layout="row">
 								<span class="md-headline"
 								    ng-bind-html="item.name | limitTo : limit"></span>
@@ -150,7 +150,7 @@
 								    ng-show="item.name.length > limit">...</span>
 							</md-card-title-text>
 						</md-card-title>
-						<md-card-content ng-bind-html="item.description | limitTo: 200"></md-card-content>
+						<md-card-content ng-bind-html="item.description | limitTo: 150"></md-card-content>
 						<md-card-actions layout="row"
 						    layout-align="start center">
 							<button class="md-raised md-primary md-button md-ink-ripple"

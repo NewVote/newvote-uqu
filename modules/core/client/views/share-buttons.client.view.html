@@ -1,4 +1,4 @@
-<md-fab-speed-dial md-direction="{{ vm.windowWidth <= 580 && vm.verticalResize ? 'down' : 'right' }}"
+<md-fab-speed-dial md-direction="{{ vm.direction }}"
     class="md-scale left-align"
     ng-click="$event.stopPropagation()">
 	<md-fab-trigger>
@@ -9,13 +9,13 @@
 		</md-button>
 	</md-fab-trigger>
 
-	<md-fab-actions ng-class="vm.verticalResize ? 'share-button-config' : ''">
+	<md-fab-actions ng-class="vm.direction == 'up' || vm.direction == 'down' ? 'share-button-config' : ''">
 		<md-button ngclipboard
 		    data-clipboard-text="{{vm.url}}"
 		    ng-repeat="shareItem in vm.shareItems"
 		    aria-label="Share to {{shareItem.name}}"
 		    class="md-icon-button"
-		    ng-class="vm.verticalResize ? 'share-button' : 'share-button-horizontal'"
+		    ng-class="vm.direction == 'up' || vm.direction == 'down' ? 'share-button' : 'share-button-horizontal'"
 		    ng-click="vm.share(shareItem.id)">
 			<md-icon md-svg-src="/modules/core/client/img/{{shareItem.imageName}}"></md-icon>
 			<md-tooltip>{{shareItem.name}}</md-tooltip>

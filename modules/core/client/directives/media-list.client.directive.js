@@ -16,14 +16,46 @@ angular.module('core').directive('mediaList', ['$timeout', function ($timeout) {
 				var vm = this;
 				vm.sortSvc = SortService;
 				$scope.authentication = Authentication;
+				vm.authentication = Authentication;
+
+				$scope.slickConfig = {
+				  method: {},
+				  infinite: true,
+				  speed: 300,
+				  slidesToShow: 2,
+				  slidesToScroll: 1,
+				  responsive: [
+					{
+					  breakpoint: 1024,
+					  settings: {
+						slidesToShow: 2,
+						slidesToScroll: 1,
+					  }
+					},
+					{
+					  breakpoint: 600,
+					  settings: {
+						slidesToShow: 1,
+						slidesToScroll: 1
+					  }
+					},
+					{
+					  breakpoint: 480,
+					  settings: {
+						slidesToShow: 1,
+						slidesToScroll: 1
+					  }
+					}
+				  ]
+				};
 
 				vm.$onInit = function () {
-					console.log(vm.objectType);
 					vm.media.map(function (media) {
 						//attaching the meta to all media in list
 						media.meta = MediaService.getMeta(media.url);
 						return media;
 					});
+					$scope.mediaLoaded = true;
 				};
 
 				vm.vote = function (media, voteType, $event) {

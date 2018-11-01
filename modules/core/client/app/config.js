@@ -4,8 +4,8 @@
 var ApplicationConfiguration = (function () {
 	// Init module configuration options
 	var applicationModuleName = 'newvote.uqu';
-	var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ngSanitize', 'ngMessages', 'ui.router', 'ui.utils',
-  	'ui.carousel', 'angularFileUpload', 'ngMaterial', 'ngQuill', 'ngFileUpload', 'updateMeta', 'chart.js', 'ngMdIcons',
+	var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ngSanitize', 'ngTouch', 'ngMessages', 'ui.router', 'ui.utils',
+  	'ui.carousel', 'angular-carousel', 'slickCarousel', 'angularFileUpload', 'ngMaterial', 'ngQuill', 'ngFileUpload', 'updateMeta', 'chart.js', 'ngMdIcons',
 	'ngStorage', 'vcRecaptcha', 'angAccordion', 'cfp.hotkeys', 'bm.uiTour', 'ngclipboard'];
 
 	// Add a new vertical module

@@ -18,6 +18,10 @@ angular.module('core').directive('solutionList', ['$timeout', function ($timeout
 				$scope.authentication = Authentication;
 				$scope.$state = $state;
 
+				vm.$onInit = function () {
+					console.log(vm.solutions);
+				};
+
 				vm.vote = function (solution, voteType, $event) {
 					$event.stopPropagation();
 					VoteService.vote(solution, 'Solution', voteType).then(function (data) {

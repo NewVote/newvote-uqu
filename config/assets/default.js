@@ -10,18 +10,22 @@ module.exports = {
         'public/lib/quill/quill.snow.css',
         'public/lib/angular-ui-carousel/dist/ui-carousel.min.css',
         'public/lib/ang-accordion/css/ang-accordion.css',
+		'public/lib/slick-carousel/slick/slick-theme.css',
+		'public/lib/slick-carousel/slick/slick.css',
 
         'https://fonts.googleapis.com/icon?family=Material+Icons',
         'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic',
         'https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600,700'
       ],
       js: [
+		'public/lib/jquery/dist/jquery.js',
         'public/lib/lodash/dist/lodash.js',
         'public/lib/angular/angular.js',
         'public/lib/angular-resource/angular-resource.js',
         'public/lib/angular-animate/angular-animate.js',
         'public/lib/angular-messages/angular-messages.js',
         'public/lib/angular-sanitize/angular-sanitize.js',
+		'public/lib/angular-touch/angular-touch.js',
         'public/lib/cfp-angular-hotkeys/build/hotkeys.js',
 		'public/lib/angular-scroll/angular-scroll.js',
 		'public/lib/angular-bind-html-compile/angular-bind-html-compile.js',
@@ -43,10 +47,13 @@ module.exports = {
         'public/lib/angular-material-icons/angular-material-icons.js',
         'public/lib/ngstorage/ngStorage.js',
         'public/lib/angular-ui-carousel/dist/ui-carousel.min.js',
+        'public/lib/angular-carousel/dist/angular-carousel.js',
         'public/lib/angular-recaptcha/release/angular-recaptcha.js',
         'public/lib/ang-accordion/js/ang-accordion.js',
 		'public/lib/clipboard/dist/clipboard.js',
-		'public/lib/ngclipboard/dist/ngclipboard.js'
+		'public/lib/ngclipboard/dist/ngclipboard.js',
+		'public/lib/slick-carousel/slick/slick.js',
+		'public/lib/angular-slick-carousel/dist/angular-slick.js'
 
       ],
       tests: ['public/lib/angular-mocks/angular-mocks.js']

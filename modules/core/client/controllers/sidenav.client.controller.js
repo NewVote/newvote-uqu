@@ -25,9 +25,9 @@ angular.module('core')
 				'solutions.view': 'solutions.list',
 				'solutions.create': 'solutions.list',
 				'solutions.edit': 'solutions.list',
-				'proposals.view': 'proposals.list',
-				'proposals.create': 'proposals.list',
-				'proposals.edit': 'proposals.list',
+				'proposals.view': 'solutions.list',
+				'proposals.create': 'solutions.list',
+				'proposals.edit': 'solutions.list',
 				'endorsements.create': 'home',
 				'endorsements.edit': 'home',
 				'media.create': 'home',
@@ -198,5 +198,10 @@ angular.module('core')
 			vm.openMenu = function ($mdMenu, ev) {
 				$mdMenu.open(ev);
 			};
+
+			vm.shouldShowSuggestionsButton = function() {
+				console.log('testing state: ', vm.$state.current)
+				return $state.is('signin')
+			}
 	}
 ]);

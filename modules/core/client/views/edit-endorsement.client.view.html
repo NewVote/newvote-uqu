@@ -58,8 +58,14 @@
 		<input ng-model="vm.endorsement.organisationWebsite">
 	</md-input-container>
 
-	<label>Endorsement Description</label>
-	<ng-quill-editor ng-model="vm.endorsement.description"></ng-quill-editor>
+	<md-input-container>
+		<label>Endorsement Message</label>
+		<textarea
+			ng-model="vm.endorsement.description"
+			md-maxlength="250"
+			rows="3"
+			md-select-on-focus></textarea>
+	</md-input-container>
 
 	<md-contact-chips ng-model="vm.endorsement.issues"
 	    md-contacts="vm.searchIssues($query)"
@@ -79,6 +85,16 @@
 	    md-delay="400"
 	    placeholder="Linked Solutions"
 	    secondary-placeholder="Add another solution">
+	</md-contact-chips>
+
+	<md-contact-chips ng-model="vm.endorsement.proposals"
+		md-contacts="vm.searchProposals($query)"
+		md-contact-name="title"
+		md-require-match="true"
+		md-highlight-flags="i"
+		md-delay="400"
+		placeholder="Linked Proposals"
+		secondary-placeholder="Add another proposal">
 	</md-contact-chips>
 
 	<div layout="row">

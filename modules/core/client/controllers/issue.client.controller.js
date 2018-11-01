@@ -1,16 +1,14 @@
 'use strict';
 
 angular.module('core')
-	.controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', '$location', '$anchorScroll', 'IssueService', 'TopicService', '$mdDialog', 'issue', 'VoteService', 'solutions', 'proposals', 'endorsement', 'media', 'UploadService', '$q', 'SortService', '$mdConstant',
-	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, $location, $anchorScroll, IssueService, TopicService, $mdDialog, issue, VoteService, solutions, proposals, endorsement, media, UploadService, $q, SortService, $mdConstant) {
+	.controller('IssueController', ['$scope', 'Authentication', '$mdSidenav', '$rootScope', '$mdMenu', '$state', '$stateParams', '$location', '$anchorScroll', 'IssueService', 'TopicService', '$mdDialog', 'issue', 'VoteService', 'solutions', 'media', 'UploadService', '$q', 'SortService', '$mdConstant',
+	function ($scope, Authentication, $mdSidenav, $rootScope, $mdMenu, $state, $stateParams, $location, $anchorScroll, IssueService, TopicService, $mdDialog, issue, VoteService, solutions, media, UploadService, $q, SortService, $mdConstant) {
 			// This provides Authentication context.
 			var vm = this;
 			vm.issue = issue;
 			vm.media = media;
 			vm.issueId = issue._id;
 			vm.solutions = solutions;
-			vm.proposals = proposals;
-			vm.endorsement = endorsement;
 			$scope.$state = $state;
 			$scope.toggle = function () {
 				$scope.interactions = !$scope.interactions;

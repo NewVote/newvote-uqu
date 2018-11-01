@@ -1,0 +1,78 @@
+<div layout="column">
+	<!-- <div layout-gt-sm="row" layout="row" layout-align-gt-sm="start center" layout-padding>
+		<span>Sort</span>
+		<div>
+			<md-select class="sort-select" ng-model="vm.sortSelectState" md-on-close='vm.sort(vm.sortSelectState)'>
+				<md-option ng-value="{type: 'top', order: 'desc'}" ng-selected=true>Top</md-option>
+				<md-option ng-value="{type: 'controversial', order: 'desc'}">Controversial</md-option>
+				<md-option ng-value="{type: 'trending', order: 'desc'}">Trending</md-option>
+				<md-option ng-value="{type: 'newest', order: 'desc'}">Newest</md-option>
+			</md-select>
+
+			<md-tooltip ng-if="vm.sortSelectState.type === 'top'">Total score of votes</md-tooltip>
+			<md-tooltip ng-if="vm.sortSelectState.type === 'controversial'">Greatest difference in opinion</md-tooltip>
+			<md-tooltip ng-if="vm.sortSelectState.type === 'trending'">Recently popular</md-tooltip>
+			<md-tooltip ng-if="vm.sortSelectState.type === 'newest'">Most recently updated or created</md-tooltip>
+		</div>
+		<div flex>
+
+		</div>
+	</div> -->
+	<div layout-padding ng-if="vm.proposals.length > 0">
+		<!-- <md-divider></md-divider> -->
+		<span class="md-headline">Vote on Proposals</span>
+		<div layout-padding
+		    class='mini-proposal'
+		    ng-repeat="proposal in vm.proposals | orderBy: vm.sortSvc.expression: vm.sortSvc.reverse"
+		    ui-sref="proposals.view({proposalId:proposal._id})">
+			<div layout="column" class="point-area">
+				<div layout="row"
+				    layout-padding
+				    layout-align="start center">
+					<div class="mini-proposal-image" ng-if="proposal.imageUrl"
+					    style="background-image: url({{proposal.imageUrl}})">
+					</div>
+					<span class="md-title"
+					    ng-bind="proposal.title"></span>
+				</div>
+				<binary-vote ng-if="!proposal.likert"
+				    object="proposal"
+				    object-type="'proposal'"></binary-vote>
+				<likert-vote ng-if="proposal.likert"
+				    object="proposal"
+				    object-type="'proposal'"></likert-vote>
+			</div>
+			<md-divider></md-divider>
+		</div>
+
+		<!-- <md-card class="proposal-card"
+		    ng-if="vm.proposals.length==0"
+			ui-sref="suggestion.create()">
+			<md-card-header>
+				<md-card-header-text>
+					<span class="md-headline">Looks like there are no proposals yet, why not suggest one?</span>
+				</md-card-header-text>
+			</md-card-header>
+		</md-card>
+		<md-card class="proposal-card"
+		    ng-repeat="proposal in vm.proposals | orderBy: vm.sortSvc.expression: vm.sortSvc.reverse"
+		    ui-sref="proposals.view({proposalId:proposal._id})">
+			<md-card-title>
+				<md-card-title-text layout="row" layout-align="start center">
+					<span class="md-headline"
+					    ng-bind="proposal.title"></span>
+				</md-card-title-text>
+			</md-card-title>
+			<md-card-actions layout="column"
+			    layout-gt-sm="row"
+			    layout-align="start start">
+				<binary-vote ng-if="!proposal.likert"
+				    object="proposal"
+				    object-type="'proposal'"></binary-vote>
+				<likert-vote ng-if="proposal.likert"
+				    object="proposal"
+				    object-type="'proposal'"></likert-vote>
+			</md-card-actions>
+		</md-card> -->
+	</div>
+</div>

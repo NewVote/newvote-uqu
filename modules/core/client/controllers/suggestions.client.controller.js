@@ -1,77 +1,48 @@
 'use strict';
 
-angular.module('core').controller('SuggestionsController', ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'Authentication', '$q', 'SuggestionsService', 'IssueService', 'SolutionService', 'ProposalService', 'suggestion',
-	function ($scope, $rootScope, $state, $stateParams, $location, Authentication, $q, SuggestionsService, IssueService, SolutionService, ProposalService, suggestion) {
+angular.module('core').controller('SuggestionsController', ['$scope', '$rootScope', '$state', '$stateParams', '$location', 'Authentication', '$q', 'SuggestionsService', 'SearchService', 'suggestion',
+	function ($scope, $rootScope, $state, $stateParams, $location, Authentication, $q, SuggestionsService, SearchService, suggestion) {
 		var vm = this;
 		vm.suggestion = suggestion;
-		vm.parentObject = {};
-		vm.type = $stateParams.suggestionType;
+		vm.suggestion.type = $stateParams.suggestionType;
 		vm.objectType = $stateParams.objectType;
 		vm.objectId = $stateParams.objectId;
-		console.log($stateParams);
+		vm.results = [];
 
-		// Title
-		switch (vm.type) {
-			case 'edit':
-				vm.title = $rootScope.titlePrefix + 'Suugest an edit' + $rootScope.titleSuffix;
-				vm.desc = 'Suggest an edit to the content of an article';
-				$rootScope.headerTitle = 'Suggest an Edit';
-				break;
-			default:
-				vm.title = $rootScope.titlePrefix + 'Create a Suggestion' + $rootScope.titleSuffix;
-				vm.desc = 'Create and submit a suggestion';
-				$rootScope.headerTitle = 'Create a Suggestion';
-				break;
+		vm.newItem = {
+			model: 'New',
+			title: 'Create a new suggestion'
 		}
 
-		switch (vm.objectType) {
-			case 'issue':
-				IssueService.get(vm.objectId).then(function (issue) {
-					console.log('got issue as parentObject: ', issue);
-					vm.parentObject = issue;
-					if(vm.type == 'edit'){
-						vm.suggestion.title = 'Edit for issue: ' + issue.name;
-					}else {
-						vm.suggestion.title = 'New solution for issue: ' + issue.name;
-					}
-					vm.suggestion.issues.push(issue);
-				});
-				break;
-			case 'solution':
-				SolutionService.get(vm.objectId).then(function (solution) {
-					console.log('got solution as parentObject: ', solution);
-					vm.parentObject = solution;
-					if(vm.type == 'edit'){
-						vm.suggestion.title = 'Edit for solution: ' + solution.title;
-					}else {
-						vm.suggestion.title = 'New proposal for solution: ' + solution.title;
-					}
-					vm.suggestion.solutions.push(solution);
-				});
-				break;
-			case 'proposal':
-				ProposalService.get(vm.objectId).then(function (proposal) {
-					console.log('got proposal as parentObject: ', proposal);
-					vm.parentObject = proposal;
-					vm.suggestion.title = 'Edit for proposal: ' + proposal.title;
-				});
-				break;
+		vm.searchAll = function (text) {
+			vm.results = SearchService.searchAll(text);
+			vm.results.then(items => {
+				items.unshift(vm.newItem);
+			})
+		};
+
+		vm.getItemTitle = function (item) {
+			return SearchService.getItemTitle(item);
+		};
+
+		vm.setSelectedItem = function(item) {
+			console.log('setting new selected item: ', item)
+			if(item.model === 'New') {
+				vm.suggestion.type = 'new';
+				vm.suggestion.title = '';
+				vm.suggestion.description = '';
+			}else {
+				vm.suggestion.type = 'edit';
+				vm.suggestion.parent = item;
+				vm.suggestion.parentType = item.model;
+				vm.suggestion.title = item.title ? item.title : item.name;
+				vm.suggestion.description = item.description;
+			}
 		}
-
-
-		vm.searchIssues = function (query) {
-			return IssueService.list({
-				search: query
-			});
-		};
-
-		vm.searchSolutions = function (query) {
-			return SolutionService.list({
-				search: query
-			});
-		};
 
 		vm.create = function () {
+			debugger;
+			console.log(vm.suggestion);
 			var promise = $q.resolve();
 
 			return promise.then(function () {

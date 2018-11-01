@@ -170,8 +170,6 @@ exports.getMeta = function (req, res) {
 	var url = req.params.uri;
 	// console.log(url);
 	return scrape(url).then(function (meta) {
-		console.log(meta);
-
 		var media = {};
 		var title, description, image;
 		if(meta.dublinCore && meta.dublinCore.title){

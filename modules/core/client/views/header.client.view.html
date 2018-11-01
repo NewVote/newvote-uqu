@@ -173,3 +173,15 @@
 		</md-button>
 	</div>
 </md-content>
+
+<!-- //FAB Speed dial for adding suggestions -->
+<div class="lock-size fab-float"
+	ng-if="vm.state.current.name !== 'authentication.signin' "
+    layout="row"
+    layout-align="center center">
+	<md-button aria-label="Suggest"
+	    ui-sref="suggestions"
+	    class="md-fab md-primary">
+		<md-icon>add</md-icon>
+	</md-button>
+</div>

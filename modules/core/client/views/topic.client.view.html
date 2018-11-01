@@ -69,18 +69,18 @@
 
 				<md-button ng-if="authentication.user.roles.indexOf('admin')>-1"
 				    class="md-accent md-hue-1 md-raised create-btn"
-				    ui-sref="solutions.create({ topicId: vm.topic._id })">
+				    ui-sref="issues.create({ topicId: vm.topic._id })">
 					<md-icon>add</md-icon><span hide
 					    show-gt-sm>New</span>
-					<md-tooltip>Create a new solution</md-tooltip>
+					<md-tooltip>Create a new Issue</md-tooltip>
 				</md-button>
-				<md-button ng-if="authentication.user.roles.indexOf('admin')==-1"
+				<!-- <md-button ng-if="authentication.user.roles.indexOf('admin')==-1"
 				    class="md-accent md-hue-1 md-raised create-btn"
 				    ui-sref="suggestions({objectId: vm.topic._id, objectType: 'topic', suggestionType: 'new'})">
 					<md-icon>add</md-icon><span hide
 					    show-gt-sm>New</span>
 					<md-tooltip>Suggest a new solution</md-tooltip>
-				</md-button>
+				</md-button> -->
 			</div>
 		</div>
 
@@ -112,15 +112,27 @@
     layout-padding
     layout="column">
 
-	<md-grid-list class="issues" md-cols-xs="3" md-cols-sm="9" md-cols-md="9" md-cols-gt-md="12" md-row-height="2:2" md-gutter="16px">
+	<md-grid-list class="issues"
+	    md-cols-xs="3"
+	    md-cols-sm="9"
+	    md-cols-md="9"
+	    md-cols-gt-md="12"
+	    md-row-height="2:2"
+	    md-gutter="16px">
 
-		<md-grid-tile ng-repeat="issue in vm.issues | orderBy: vm.sortSvc.expression : vm.sortSvc.reverse" ui-sref="issues.view({ issueId: issue._id })" md-rowspan-gt-xs="3" md-colspan="3" md-rowspan="2" class="issue" md-whiteframe="3">
-			<img ng-src="{{issue.imageUrl}}" alt="Issue Image">
+		<md-grid-tile ng-repeat="issue in vm.issues | orderBy: vm.sortSvc.expression : vm.sortSvc.reverse"
+		    ui-sref="issues.view({ issueId: issue._id })"
+		    md-rowspan-gt-xs="3"
+		    md-colspan="3"
+		    md-rowspan="2"
+		    class="issue"
+		    md-whiteframe="3">
+			<img ng-src="{{issue.imageUrl}}"
+			    alt="Issue Image">
 			<md-grid-tile-footer>
 				<h3 ng-bind="issue.name"></h3>
 			</md-grid-tile-footer>
 		</md-grid-tile>
 
 	</md-grid-list>
-
 </div>
