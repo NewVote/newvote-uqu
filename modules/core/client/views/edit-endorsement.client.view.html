@@ -87,6 +87,16 @@
 	    secondary-placeholder="Add another solution">
 	</md-contact-chips>
 
+	<md-contact-chips ng-model="vm.endorsement.proposals"
+		md-contacts="vm.searchProposals($query)"
+		md-contact-name="title"
+		md-require-match="true"
+		md-highlight-flags="i"
+		md-delay="400"
+		placeholder="Linked Proposals"
+		secondary-placeholder="Add another proposal">
+	</md-contact-chips>
+
 	<div layout="row">
 		<md-button class="md-raised md-primary"
 		    ng-click="vm.createOrUpdate()">

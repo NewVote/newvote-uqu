@@ -198,5 +198,10 @@ angular.module('core')
 			vm.openMenu = function ($mdMenu, ev) {
 				$mdMenu.open(ev);
 			};
+
+			vm.shouldShowSuggestionsButton = function() {
+				console.log('testing state: ', vm.$state.current)
+				return $state.is('signin')
+			}
 	}
 ]);
