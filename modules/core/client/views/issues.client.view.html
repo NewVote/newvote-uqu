@@ -31,20 +31,25 @@
 	    flex-lg="70"
 	    flex-offset-xl="25"
 	    flex-xl="50"
-		layout-gt-xs="row"
-		layout-align-gt-xs="start center"
-		layout="column"
-		layout-align="start start">
-		<p flex-gt-md="75"
-		    tour-step="home.step.issues"
-		    tour-step-belongs-to="homeTour"
-		    tour-step-title="Issues"
-		    tour-step-content="Issues are the problems we aim to solve."
-		    tour-step-order="30"
-		    tour-step-placement="bottom"
-		    tour-step-scroll-into-view="true">
-			An issue is any problem in UQ that relates to students or staff and that needs to be addressed. Select an issue below to learn more about it
-		</p>
+	    layout-gt-xs="row"
+	    layout-align-gt-xs="start center"
+	    layout="column"
+	    layout-align="start start">
+		<div layout="column">
+			<span class="md-display-1">
+				Browse by Issues
+			</span>
+			<p flex-gt-md="75"
+			    tour-step="home.step.issues"
+			    tour-step-belongs-to="homeTour"
+			    tour-step-title="Issues"
+			    tour-step-content="Issues are the problems we aim to solve."
+			    tour-step-order="30"
+			    tour-step-placement="bottom"
+			    tour-step-scroll-into-view="true">
+				An issue is any problem in UQ that relates to students or staff and that needs to be addressed. Select an issue below to learn more about it
+			</p>
+		</div>
 		<div flex></div>
 		<div>
 			<md-button tour-step="home.step.new"

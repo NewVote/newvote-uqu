@@ -71,7 +71,6 @@ angular.module('core')
 
 			// http://www.abc.net.au/news/2015-05-07/e-health-programs-should-be-used-to-tackle-mental-health-issues/6450972
 			vm.getMeta = function () {
-				console.log('scraping meta for url: ', vm.media.url);
 				MediaService.getMeta(vm.media.url)
 					.$promise.then(function (meta) {
 						//check if there is already manually entered data
@@ -80,9 +79,7 @@ angular.module('core')
 						if(!vm.media.description) vm.media.description = meta.description;
 						if(!vm.media.image) vm.media.image = meta.image;
 						vm.media.imageOnly = false;
-						console.log('finished scrape');
 					}, function (err) {
-						console.log('was an error scraping');
 						if (/\.(jpe?g|png|gif|bmp)$/i.test(vm.media.url)) {
 							if(!vm.media.image) vm.media.image = vm.media.url;
 							vm.media.imageOnly = true;

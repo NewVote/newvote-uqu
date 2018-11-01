@@ -50,7 +50,6 @@ angular.module('core').directive('mediaList', ['$timeout', function ($timeout) {
 				};
 
 				vm.$onInit = function () {
-					console.log(vm.objectType);
 					vm.media.map(function (media) {
 						//attaching the meta to all media in list
 						media.meta = MediaService.getMeta(media.url);

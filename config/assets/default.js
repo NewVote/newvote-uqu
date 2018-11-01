@@ -10,7 +10,6 @@ module.exports = {
         'public/lib/quill/quill.snow.css',
         'public/lib/angular-ui-carousel/dist/ui-carousel.min.css',
         'public/lib/ang-accordion/css/ang-accordion.css',
-        'public/lib/angular-carousel/dist/angular-carousel.css',
 		'public/lib/slick-carousel/slick/slick-theme.css',
 		'public/lib/slick-carousel/slick/slick.css',
 

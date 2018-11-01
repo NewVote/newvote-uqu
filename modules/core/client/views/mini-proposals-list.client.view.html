@@ -18,7 +18,7 @@
 
 		</div>
 	</div> -->
-	<div layout-padding ng-if="vm.proposals.length !== 0">
+	<div layout-padding ng-if="vm.proposals.length > 0">
 		<!-- <md-divider></md-divider> -->
 		<span class="md-headline">Vote on Proposals</span>
 		<div layout-padding
@@ -29,7 +29,7 @@
 				<div layout="row"
 				    layout-padding
 				    layout-align="start center">
-					<div class="mini-proposal-image"
+					<div class="mini-proposal-image" ng-if="proposal.imageUrl"
 					    style="background-image: url({{proposal.imageUrl}})">
 					</div>
 					<span class="md-title"
