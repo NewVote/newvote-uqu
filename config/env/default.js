@@ -2,9 +2,9 @@
 
 module.exports = {
   app: {
-    title: 'UQ Votes',
+    title: 'UQ NewVote',
     description: 'A democracy app: Building a bridge between you and your student representatives. We are not radical, and we are not undermining representative democracy at UQ. In fact, the opposite is true - we want to make representative democracy more representative.',
-    keywords: 'uqvotes uqu uqunion',
+    keywords: 'uqnewvote uqu uqunion newvote',
     googleAnalyticsTrackingID: process.env.GOOGLE_ANALYTICS_TRACKING_ID || 'GOOGLE_ANALYTICS_TRACKING_ID'
   },
   port: process.env.PORT || 3000,
@@ -27,8 +27,8 @@ module.exports = {
   // for obsecurity reasons
   sessionKey: 'sessionId',
   sessionCollection: 'sessions',
-  logo: 'modules/core/client/img/brand/logo.png',
-  social: 'modules/core/client/img/brand/social.png',
+  logo: 'modules/core/client/img/brand/logo-gif.gif',
+  social: 'modules/core/client/img/brand/logo-gif.gif',
   favicon: 'modules/core/client/img/brand/favicon.png',
   uploads: {
     profileUpload: {

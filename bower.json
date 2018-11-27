@@ -1,6 +1,6 @@
 {
-  "name": "uqvotes",
-  "description": "UQ Votes",
+  "name": "uqnewvote",
+  "description": "UQ NewVote",
   "homepage": "http://meanjs.org/",
   "license": "MIT",
   "dependencies": {

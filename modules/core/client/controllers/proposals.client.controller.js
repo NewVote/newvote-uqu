@@ -11,7 +11,7 @@ angular.module('core').controller('ProposalsController', ['$scope', '$rootScope'
     $rootScope.headerTitle = 'Proposals';
 
 	// Meta tags
-	vm.desc = vm.desc = 'A collection of the current proposals being discussed on the UQ Votes platform.';
+	vm.desc = vm.desc = 'A collection of the current proposals being discussed on the UQ NewVote platform.';
 	vm.image = vm.proposals[0] ? vm.proposals[0].imageUrl : null;
 	}
 ]);
