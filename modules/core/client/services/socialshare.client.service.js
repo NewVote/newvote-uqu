@@ -9,7 +9,7 @@ angular.module('core').service('SocialshareService', ['$window', '$resource', '$
     svc.windowWidth = 600;
 
     // Social media settings
-    var prefix = 'UQ Votes | ';
+    var prefix = 'UQ NewVote | ';
     var suffix = ' | VOTE NOW';
 
     // Social media URLs

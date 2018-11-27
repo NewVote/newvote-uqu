@@ -276,7 +276,6 @@ md-sidenav {
 .create-btn {
 	font-size: 18px;
 }
-
 @mixin md-icon-size($size) {
 	height: $size;
 	width: $size;
@@ -297,7 +296,6 @@ md-sidenav {
 	md-icon {
 		@include md-icon-size(30px);
 	}
-
 	line-height: 30px;
 
 	&.selected {
@@ -369,7 +367,6 @@ md-tooltip {
 }
 
 .mini-proposal {
-
 	.point-area {
 		cursor: pointer;
 	}
@@ -406,18 +403,21 @@ md-card {
 	}
 }
 
-
 .media-carousel {
-	.slick-prev::before, .slick-next::before {
+	.slick-next::before,
+	.slick-prev::before {
 		color: black !important;
 	}
+
 	.image-only {
 		min-height: 400px;
 	}
+
 	md-card-title-text {
 		.title {
-			min-height:31px;
+			min-height: 31px;
 		}
+
 		.description {
 			min-height: 96px;
 		}
@@ -520,6 +520,18 @@ md-input-container {
 
 	.title-text {
 		color: black !important;
+	}
+
+	.org-name {
+		margin-bottom: -25px;
+
+		font-weight: 900;
+		.dark {
+			color: #074e75 !important;
+		}
+		.light {
+			color: #348dad !important;
+		}
 	}
 }
 
